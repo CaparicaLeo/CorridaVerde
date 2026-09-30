@@ -1,0 +1,24 @@
+<!--
+  Ícone da aplicação (favicon). É o único arquivo do projeto que escreve hex de
+  marca direto, e a razão é técnica: SVG estático não lê custom property, então
+  ele não pode passar por `theme.css` como o resto da paleta.
+
+  PROVISÓRIO: enquanto a organização não enviar a marca oficial, o ícone é a
+  própria letra da prova em caixa alta sobre o verde do tema — a tipografia é
+  parte da identidade, e uma inicial não é uma marca inventada. Quando o logo
+  chegar, este arquivo é substituído pela arte oficial e o hex provisório sai
+  com ele.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" fill="#63BE3F" />
+  <text
+    x="32"
+    y="45"
+    text-anchor="middle"
+    font-family="'Arial Narrow', 'Helvetica Neue', Arial, sans-serif"
+    font-size="42"
+    font-weight="700"
+    letter-spacing="-1"
+    fill="#08140D"
+  >V</text>
+</svg>

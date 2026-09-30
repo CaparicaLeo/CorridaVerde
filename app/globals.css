@@ -1,0 +1,189 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+ * Tokens do Tailwind.
+ *
+ * Nenhum hex de marca mora aqui: cada token aponta para a custom property
+ * `--cv-*` emitida por app/theme.ts no <head>. O fallback é palavra-chave do
+ * CSS (black/white), nunca uma cor de marca — se a injeção do tema falhar, a
+ * página fica legível em preto e branco em vez de perder a cor por completo.
+ *
+ * Regra de uso da paleta (vinda da identidade):
+ *   - o verde quase preto domina a página;
+ *   - o verde vivo é títulos-chave, ícones, eyebrows, números e ação — nunca
+ *     texto corrido. Use <Highlight> e <Eyebrow> para aplicá-lo pontualmente;
+ *   - o slide de impacto inverte tudo: chapa verde, texto quase preto;
+ *   - a seção clara inverte o tom sem virar a marca: fundo branco, texto
+ *     quase preto, verde vivo no lugar do destaque. Uma chapa clara por
+ *     página, no máximo — a identidade é atmosfera escura com luz, não verde
+ *     por toda parte.
+ * ------------------------------------------------------------------------- */
+@theme {
+  --color-surface: var(--cv-background, black);
+  --color-surface-alt: var(--cv-background-alt, black);
+  --color-accent: var(--cv-accent, yellowgreen);
+  --color-ink: var(--cv-text, white);
+  --color-ink-muted: var(--cv-text-muted, gray);
+
+  /* Chapa clara. `text-surface` é a cor de texto padrão sobre elas: a regra do
+     projeto é que "texto na cor da superfície" continua significando a cor do
+     fundo da página, seja ele escuro ou claro. */
+  --color-light: var(--cv-light, white);
+  --color-light-alt: var(--cv-light-alt, whitesmoke);
+  /* Régua e vão de grade sobre a chapa clara. Sobre o fundo escuro o papel é de
+     `white/10` (utilitário do Tailwind); aqui o equivalente é um preto de 12%,
+     porque branco sobre branco não desenha nada. Usar `border-line-on-light`
+     em vez de `border-black/10` solto: é o mesmo valor, mas ligado ao tema. */
+  --color-line-on-light: var(--cv-line-on-light, rgb(0 0 0 / 0.12));
+
+  /* Famílias carregadas via next/font em app/fonts.ts */
+  --font-display: var(--ff-display), "Arial Narrow", Impact, sans-serif;
+  --font-sans: var(--ff-body), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-condensed: var(--ff-condensed), "Arial Narrow", ui-sans-serif,
+    sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      scroll-behavior: auto;
+    }
+  }
+
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-surface);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+ * Utilitários compartilhados
+ * ------------------------------------------------------------------------ */
+
+/** Container padrão de página. */
+@utility container-page {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 82rem;
+  padding-inline: 1.25rem;
+
+  @media (width >= 48rem) {
+    padding-inline: 2.5rem;
+  }
+}
+
+/**
+ * Headline em estilo cartaz: condensada, caixa alta, entrelinha fechada.
+ *
+ * A entrelinha e as folgas de máscara NÃO são estética: são restrição de
+ * acento, medidas no arquivo da fonte de display. A conta e os números estão
+ * documentados em `theme.metrics` (app/theme.ts) — é lá que se mexe, e só
+ * depois de remedir se a família mudar.
+ */
+@utility headline {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: var(--cv-headline-tracking, -0.01em);
+  text-wrap: balance;
+}
+
+/**
+ * A entrelinha mora aqui, e não dentro do `@utility headline`, por causa da
+ * especificidade: as utilities de tamanho do Tailwind (`text-4xl`, `text-6xl`…)
+ * trazem `line-height` embutido e, empatadas em especificidade, venceriam pela
+ * ordem da folha — só os tamanhos arbitrários (`text-[clamp(...)]`) escapariam.
+ * Repetir a classe dobra a especificidade e garante a folga de acento com
+ * qualquer `text-*`.
+ */
+@layer utilities {
+  .headline.headline {
+    line-height: var(--cv-headline-leading, 1.04);
+  }
+}
+
+/**
+ * Máscara de uma linha de headline animada: o reveal desliza a linha de baixo
+ * para cima e esta caixa esconde o resto do percurso.
+ *
+ * Os paddings são espaço para a tinta que escapa da caixa de linha — acento em
+ * cima (Á/É/Í/Ã/Ô), cedilha embaixo (Ç). As margens negativas de mesmo valor
+ * devolvem o espaço ao fluxo, então o ritmo vertical das seções não muda.
+ */
+@utility headline-mask {
+  display: block;
+  overflow: hidden;
+  padding-top: var(--cv-headline-mask-pad-top, 0.1em);
+  margin-top: calc(-1 * var(--cv-headline-mask-pad-top, 0.1em));
+  padding-bottom: var(--cv-headline-mask-pad-bottom, 0.08em);
+  margin-bottom: calc(-1 * var(--cv-headline-mask-pad-bottom, 0.08em));
+}
+
+/** Rótulo pequeno: eyebrows, labels de card, rodapé. */
+@utility label-condensed {
+  font-family: var(--font-condensed);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--cv-label-tracking, 0.16em);
+}
+
+/** Número grande de cartaz (big-number block, cards de prova). */
+@utility poster-number {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 0.85;
+  letter-spacing: var(--cv-headline-tracking, -0.01em);
+  font-variant-numeric: tabular-nums;
+}
+
+/** Ruído sutil: textura de cartaz impresso sobre a chapa preta. */
+@utility grain {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+/**
+ * Estado inicial de elementos animados por GSAP.
+ * O GSAP roda em useLayoutEffect (antes do paint), então reescreve esse estado
+ * sem flash. Se o JS falhar ou o usuário pedir menos movimento, o conteúdo
+ * permanece visível — nunca escondemos conteúdo só por CSS.
+ */
+@utility will-animate {
+  will-change: transform, opacity;
+}
