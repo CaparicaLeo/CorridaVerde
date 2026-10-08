@@ -1,4 +1,4 @@
-import { Archivo, Archivo_Narrow, Saira_Condensed } from "next/font/google";
+import { Archivo, Archivo_Narrow, Bodoni_Moda } from "next/font/google";
 
 /**
  * Tipografia da Corrida Verde, auto-hospedada por next/font (sem request para
@@ -14,12 +14,16 @@ import { Archivo, Archivo_Narrow, Saira_Condensed } from "next/font/google";
  */
 
 /**
- * Headlines em estilo cartaz. A Saira Condensed é estática no peso 800 (não é
- * variável), então o que o build baixa é exatamente o arquivo medido em
- * app/theme.ts — sem eixo `opsz` ou `wght` capaz de mudar a altura do acento
- * por baixo dos panos.
+ * Headlines em estilo cartaz: Bodoni Moda, a didone oficial da identidade,
+ * no peso 800 — mesma ancoragem de peso da Saira Condensed anterior, para o
+ * utilitário `.headline` (que declara font-weight 800) continuar no peso
+ * certo sem mexer em CSS.
+ *
+ * Peso único, sem eixo declarado: o que o build baixa é um arquivo só,
+ * medido em app/theme.ts — sem eixo `opsz` ou `wght` capaz de mudar a
+ * altura do acento por baixo dos panos.
  */
-export const displayFont = Saira_Condensed({
+export const displayFont = Bodoni_Moda({
   subsets: ["latin"],
   weight: "800",
   variable: "--ff-display",

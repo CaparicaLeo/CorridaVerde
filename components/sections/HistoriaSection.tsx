@@ -38,8 +38,8 @@ export function HistoriaSection() {
             className="border-0"
           />
 
-          {/* Sem foto, o slot não some: ele ocupa a mesma altura da coluna, com
-              a atmosfera da marca no lugar (PENDÊNCIA 5). */}
+          {/* O slot ocupa a mesma altura da coluna do bloco de número, para a
+              grade fechar sem sobra. Sem foto, o Media desenha a atmosfera. */}
           <Media
             media={event.photo}
             sizes="(min-width: 1024px) 34vw, 100vw"

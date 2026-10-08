@@ -10,11 +10,11 @@ import type { Media as MediaType } from "@/data/types";
  * componente: trocar a arte por outra de proporção diferente é editar
  * data/event.ts, sem layout shift e sem mexer aqui.
  *
- * `media` aceita null porque a arte ainda não chegou (PENDÊNCIA 5 de
- * data/event.ts). Nesse caso o slot não some e não volta no layout: ele
- * ocupa a mesma área, com a atmosfera da identidade no lugar da foto, e
- * `next/image` nem é montado. Enquanto o dado for null, a página já sai com a
- * altura certa — e trocar por foto não é reflow, é preenchimento.
+ * `media` aceita null para o estado honesto de dado não confirmado. Nesse
+ * caso o slot não some e não volta no layout: ele ocupa a mesma área, com a
+ * atmosfera da identidade no lugar da foto, e `next/image` nem é montado.
+ * Enquanto o dado for null, a página sai com a altura certa — e trocar por
+ * foto não é reflow, é preenchimento.
  */
 export function Media({
   media,

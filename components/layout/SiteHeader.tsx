@@ -46,16 +46,15 @@ export function SiteHeader() {
           aria-label={event.name}
         >
           {/*
-            A arte da marca ainda não chegou (PENDÊNCIA 5 de data/event.ts), e
-            o caminho do logo já está pronto no dado. Enquanto for null, o
-            lockup é tipográfico: a palavra-marca em caixa alta, que é a própria
-            identidade da prova — a tipografia é parte dela, não um placeholder
-            disfarçado. Substituir por <Image> quando `event.logo` for preenchido.
+            A arte oficial da marca (badge circular) mora em `event.logo`.
+            O `alt` vem vazio do dado de propósito: este link já declara
+            `aria-label={event.name}`, e a imagem dentro dele é decorativa —
+            o nome não precisa ser anunciado duas vezes.
           */}
           {event.logo ? (
             <Image
               src={event.logo.src}
-              alt=""
+              alt={event.logo.alt}
               width={event.logo.width}
               height={event.logo.height}
               sizes="88px"

@@ -56,11 +56,13 @@ import type {
  *    desenha botão para o nada. Chegando o mapa por prova, vira um link em
  *    cada card.
  *
- * 5. IDENTIDADE VISUAL — em aberto. Não chegou o logo nem imagem social: `logo`
- *    e `ogImage` estão `null`, e o site tem um estado honesto para os dois (o
- *    header vira lockup tipográfico e o link é compartilhado sem miniatura).
- *    A paleta em app/theme.ts é PROVISÓRIA: foi convertida da descrição em
- *    palavras da apresentação, não dos valores oficiais.
+ * 5. IDENTIDADE VISUAL — resolvida. A arte oficial chegou e está em uso:
+ *    `logo` (badge circular) no header, `wordmark` (palavra-marca branca)
+ *    no rodapé e `ogImage` composta sobre a chapa do tema. Os três vieram
+ *    dos PNGs enviados pela Thomé & Santos, cortados na margem transparente
+ *    (derivados em `public/images/`, originais em `midias-originais/`). A
+ *    paleta de app/theme.ts foi sincronizada com os verdes medidos do logo.
+ *    PENDÊNCIA restante: confirmar se esta arte é a versão final.
  *
  * 5b. FOTOGRAFIA — quatro fotos da prova chegaram e DUAS estão no ar
  *    (`hero` e `photo`). Os originais (74 MB) ficam em `midias-originais/`,
@@ -155,14 +157,40 @@ export const event = {
   registrationUrl: "https://www.thomeesantos.com.br/event/corrida-verde",
 
   /**
-   * Marca da prova. PENDÊNCIA 5: a arte não chegou.
+   * Marca da prova — o badge circular (verde escuro sobre lima), arte
+   * oficial enviada pela Thomé & Santos. PENDÊNCIA 5 resolvida: o header
+   * deixou de usar o lockup tipográfico e renderiza este PNG.
    *
-   * Enquanto for null, o header desenha um lockup tipográfico com a
-   * palavra-marca (o que a identidade faz de qualquer jeito, já que a
-   * tipografia é parte dela). Quando o PNG/SVG oficial entrar, é preencher
-   * `src`, `width` e `height` — o componente já tem o caminho pronto.
+   * O arquivo é o derivado de web: o original chegou num canvas 1920×1080
+   * e foi cortado na margem transparente, para os 1080×1035 do desenho —
+   * em `public/images/` só entra o que a página serve. O original fica em
+   * `midias-originais/`, fora do git.
+   *
+   * O `alt` é vazio de propósito: a imagem mora dentro do link do header,
+   * que já declara `aria-label={event.name}` — a imagem é decorativa ali,
+   * e anunciar o nome duas vezes piora a leitura em tela de leitor.
    */
-  logo: null as Media | null,
+  logo: {
+    src: "/images/corrida-verde-logo.png",
+    alt: "",
+    width: 1080,
+    height: 1035,
+  } as Media,
+
+  /**
+   * Palavra-marca escrita (logotipo branco). Mesmo derivado: cortado na
+   * altura real do texto, 1920×233, do canvas 1920×1080 original.
+   *
+   * Enquanto for null, o rodapé escreve `event.name` em texto (o estado
+   * vazio do header, agora invertido de lugar). Como o branco da arte não
+   * sobrevive a chapa clara, ela só entra em fundo escuro.
+   */
+  wordmark: {
+    src: "/images/corrida-verde-escrita.png",
+    alt: "Corrida Verde",
+    width: 1920,
+    height: 233,
+  } as Media,
 
   /**
    * Foto de abertura do hero.
@@ -203,12 +231,21 @@ export const event = {
   } as Media,
 
   /**
-   * Imagem de compartilhamento (Open Graph). PENDÊNCIA 5.
+   * Imagem de compartilhamento (Open Graph). PENDÊNCIA 5 resolvida.
    *
-   * Sem ela, `openGraph.images` fica vazio e o link é compartilhado sem
-   * miniatura — melhor que uma imagem de outra edição fingindo ser esta.
+   * Composta a partir da identidade oficial: a palavra-marca branca
+   * centralizada sobre a chapa `theme.colors.background`, 1200×630 (a
+   * proporção do card grande). A arte original tem fundo transparente e
+   * PNG transparente não serve de miniatura — o feed pinta de branco ou
+   * de preto por baixo, sem pedido nosso. Se a paleta mudar em theme.ts,
+   * recompor o PNG: o hex da chapa mora no arquivo, não no código.
    */
-  ogImage: null as Media | null,
+  ogImage: {
+    src: "/images/corrida-verde-og.png",
+    alt: "Logotipo da Corrida Verde",
+    width: 1200,
+    height: 630,
+  } as Media | null,
 } as const;
 
 /* ---------------------------------------------------------------------------

@@ -44,11 +44,12 @@ Barigui, e a cidade no meio. "De parque a parque".
    confirmou fica `null` e o componente cai no estado vazio. Nada de estimativa,
    placeholder que pareça real ou valor emprestado de outra edição — em especial
    de 2026. As pendências abertas estão listadas no topo de `data/event.ts`.
-   A paleta em `app/theme.ts` também é provisória: está marcada como tal.
+   A paleta em `app/theme.ts` veio do logo oficial; trocas em bloco e a conta
+   de contraste são ali.
 2. **Nenhum hex de marca fora de `app/theme.ts`.** O tema é emitido como
    custom properties `--cv-*` e o `@theme` do Tailwind aponta para elas.
-   Exceção documentada: `app/icon.svg`, que é arquivo estático e não lê
-   custom property.
+   Exceção documentada: `app/icon.png` (e os PNGs de `public/images/`), que
+   são arquivos estáticos e não leem custom property.
 3. **Copy não mora no JSX.** Headline é `HeadlineLine[]` em `data/event.ts`;
    a quebra de linha é decisão de cartaz, não do navegador.
 4. **Métrica de cartaz é medida, não gosto.** Entrelinha e padding de máscara

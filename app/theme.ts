@@ -12,38 +12,41 @@
  * como LUZ Clara — a navegação da prova alterna seções escuras e claras.
  *
  * ─────────────────────────────────────────────────────────────────────────
- * PENDÊNCIA 1 — PALETA PROVISÓRIA (setembro/2026)
+ * PALETA SINCRONIZADA COM A IDENTIDADE (outubro/2026)
  *
- * Os hexes abaixo NÃO vieram da apresentação oficial: a direção foi descrita
- * em palavras ("verde muito escuro / quase preto", "verde vivo", "branco",
- * "cinza claro", "preto") e foi convertido em valores de trabalho. Estão
- * marcados como PROVISÓRIO para troca em bloco quando a Thomé & Santos enviar
- * a identidade final.
+ * Os dois verdes vêm do logo oficial, medidos no próprio PNG enviado pela
+ * Thomé & Santos (histograma de corrida-verde-logo.png):
+ *   verde quase preto .... #0F2D26 (376.010 px) → `background`
+ *   verde lima ............ #91C43E (485.680 px) → `accent`
+ * `backgroundAlt` não está no logo: é o degrau abaixo do fundo, derivado
+ * com a MESMA razão por canal do par anterior (#050B07 sobre #08140D:
+ * 0.625 / 0.55 / 0.538) → #091914. Continua sendo derivado, não medido.
  *
- * O verde vivo foi escolhido com dois requisitos medidos, porque ele trabalha
- * em dois papéis opostos ao mesmo tempo:
- *   1. texto de apoio (eyebrow, número, legenda) sobre o fundo quase preto —
- *      exige contraste alto;
- *   2. chapa cheia de fundo com texto no quase preto por cima (o slide de
- *      impacto e as faixas de marquee) — exige o MESMO número, ao contrário.
- * `#63BE3F` dá 8.1:1 contra `#08140D` nos dois usos. Um verde mais vivo e
- * mais claro (#B6FF3C, por exemplo) reprova por completo no segundo uso: o
- * quase preto vira ilegível sobre ele. Se o verde da identidade for mais
- * claro que isto, ele NÃO pode virar chapa — tem que ser acento sobre fundo
- * escuro, e a inversão da seção precisa de um tom próprio.
+ * O verde lima trabalha em dois papéis opostos, e o par é o mesmo nos dois
+ * sentidos — contraste WCAG de 7.14:1, medido com a fórmula padrão:
+ *   1. texto de apoio (eyebrow, número, legenda) sobre o fundo quase preto;
+ *   2. chapa cheia de lima com texto quase preto por cima (slide de
+ *      impacto, marquee, botão) — o `text-surface` de sempre.
+ * 7.14 passa AA e AAA para texto grande; para texto pequeno é AA.
+ *
+ * REGISTRO HONESTO: sobre a chapa branca (seção de propósito) o eyebrow
+ * verde dá 2.07:1 — já dava 2.34:1 com o verde anterior, ou seja, a
+ * decisão de manter o eyebrow verde sobre o branco é anterior a esta
+ * troca e continua fora da faixa de contraste de texto. Se um dia isso
+ * virar correção, o lugar é este bloco, não um hex solto no componente.
  * ─────────────────────────────────────────────────────────────────────────
  */
 export const theme = {
   colors: {
-    /** Fundo dominante da página: verde quase preto. */
-    background: "#08140D",
+    /** Fundo dominante da página: verde quase preto (medido no logo). */
+    background: "#0F2D26",
     /** Um degrau abaixo, para separar blocos sem desenhar borda. */
-    backgroundAlt: "#050B07",
+    backgroundAlt: "#091914",
     /**
-     * Verde vivo — cor de destaque e de ação. Ver a medição de contraste no
-     * cabeçalho deste arquivo antes de trocar o valor.
+     * Verde lima — cor de destaque e de ação, medida no logo oficial.
+     * Ver a medição de contraste (7.14:1 nos dois usos) no cabeçalho.
      */
-    accent: "#63BE3F",
+    accent: "#91C43E",
     text: "#FFFFFF",
     textMuted: "rgba(255,255,255,0.7)",
 
@@ -52,8 +55,8 @@ export const theme = {
      * dois valores acima invertidos — ficam explícitos porque na identidade a
      * inversão é um padrão de layout, não um acaso.
      */
-    inverseBackground: "#63BE3F",
-    inverseText: "#08140D",
+    inverseBackground: "#91C43E",
+    inverseText: "#0F2D26",
 
     /**
      * Chapa clara. É a única parte da página que não é verde escuro: existe
@@ -97,11 +100,11 @@ export const theme = {
 
   typography: {
     /**
-     * Display condensada, pesada, caixa alta — o "cartaz" da prova.
-     * A família é escolhida em app/fonts.ts (Saira Condensed 800); as métricas
+     * Display didone, pesada, caixa alta — o "cartaz" da prova.
+     * A família é escolhida em app/fonts.ts (Bodoni Moda 800); as métricas
      * abaixo foram medidas NESSE arquivo de fonte e só valem para ele.
      */
-    display: "condensed-bold-uppercase",
+    display: "didone-bold-uppercase",
     eyebrow: {
       case: "uppercase",
       tracking: "wide",
@@ -112,35 +115,51 @@ export const theme = {
   /**
    * Métricas de cartaz — calibradas por fonte. NÃO copie de outro projeto.
    *
-   * Medidas na Saira Condensed 800 (unitsPerEm 1000, lidas do próprio TTF):
-   *   caixa alta ....... 0.696em acima da baseline
-   *   Á/É/Í/Ó/Ú/Ã ...... 0.898em (é o acento que estoura a caixa de linha)
-   *   Ç/Q .............. até 0.189em abaixo da baseline
-   *   hhea asc/desc .... +1.135 / -0.439 (iguais a typo e win: o cálculo
+   * Medidas na Bodoni Moda 800 (unitsPerEm 2000, lidas do próprio WOFF2 que o
+   * next/font serve — instância estática, sem eixo `fvar`, baixada no build):
+   *   caixa alta ....... 0.750em acima da baseline (OS/2 sCapHeight; o A tem
+   *                      overshoot de tinta até 0.7645em)
+   *   Á/É/Í/Ó/Ú/Ã ...... 1.0195em (yMax do glifo — é o acento que estoura a
+   *                      caixa de linha; Â 1.0045, Ã 1.0065)
+   *   Ç/Q .............. 0.2555em / 0.2500em abaixo da baseline
+   *   hhea asc/desc .... +1.125 / -0.400 (iguais a typo e win: o cálculo
    *                      abaixo vale igual em Chrome, Firefox e Safari)
+   *   dígitos .......... tnum disponível (o `tabular-nums` do poster-number
+   *                      é ativo de verdade, não um no-op)
    *
-   * `headlineLeading` 1.04: a distância entre baselines precisa ser maior que
-   * o acento da linha de baixo (0.898) para ele não encostar na base da linha
-   * de cima. Sobra 0.142em — o suficiente para "DE PARQUE" sobre "A PARQUE"
-   * ler como duas linhas. Abaixo de 1.0 o acento encosta; acima de 1.1 a pilha
-   * perde o aspecto de cartaz (a caixa alta é baixa, 0.696em, e o vão vira
-   * buraco).
+   * `headlineLeading` 1.08: a distância entre baselines precisa ser maior que
+   * o acento da linha de baixo (1.0195) para ele não cruzar a base da linha
+   * de cima. Sobra 0.06em. Abaixo de 1.02 o acento encosta; acima de ~1.1 a
+   * pilha perde o aspecto de cartaz (a caixa alta é baixa, 0.75em, e o vão
+   * vira buraco).
    *
-   * `headlineMaskPadTop` 0.10em: dentro da máscara de reveal (overflow hidden)
-   * a tinta do acento fica 0.03em acima do topo da caixa de linha e seria
-   * decepada — "JOSÉ" viraria "JOSE". 0.10em é ~3x o necessário, para
-   * absorver arredondamento de subpixel. A margem negativa de mesmo valor
-   * devolve o espaço ao fluxo.
+   * Com entrelinha 1.08 e conteúdo de linha 1.525em (asc + desc), o meio-
+   * entrelinha é negativo (−0.2225em) e a caixa de linha sobra:
+   *   acima da baseline ... 0.9025em → o acento (1.0195) estoura 0.117em
+   *   abaixo da baseline .. 0.1775em → o Ç/Q (0.2555) estoura 0.078em
    *
-   * `headlineMaskPadBottom` 0.08em: a cauda do Ç desce 0.189em e a caixa de
-   * linha termina 0.172em abaixo da baseline — sem essa folga, "COMEÇA" perde
-   * a cedilha na máscara.
+   * `headlineMaskPadTop` 0.20em: dentro da máscara de reveal (overflow hidden
+   * corta na padding box) a tinta do acento precisa de 0.117em para não ser
+   * decepada — "JOSÉ" viraria "JOSE". 0.20em dá 0.083em de folga. A margem
+   * negativa de mesmo valor devolve o espaço ao fluxo.
+   *
+   * `headlineMaskPadBottom` 0.10em: a cedilha do Ç desce 0.2555em e a caixa
+   * de linha só dá 0.1775em — 0.078em de estouro, cobertos com folga. TETO
+   * documentado: o reveal esconde a linha transladando-a em 115% da própria
+   * altura (`revealLines` em lib/animations/presets.ts), então a janela vaza
+   * (um pedaço do topo da linha aparece antes do tempo) quando
+   * padBottom > 0.15 × entrelinha = 0.162em. 0.10em fecha a conta dos dois
+   * lados.
    */
   metrics: {
-    headlineLeading: "1.04",
-    headlineMaskPadTop: "0.10em",
-    headlineMaskPadBottom: "0.08em",
-    /** A Saira Condensed já é estreita; tracking negativo forte fecha demais. */
+    headlineLeading: "1.08",
+    headlineMaskPadTop: "0.20em",
+    headlineMaskPadBottom: "0.10em",
+    /**
+     * Bodoni Moda não é condensada (H avança 0.83em), mas o −0.01em é um
+     * recuo leve, bom para caixa alta de cartaz — mantido da calibração
+     * anterior e conferido no visual.
+     */
     headlineTracking: "-0.01em",
     /** Eyebrow/label: caixa alta pede tracking positivo para respirar. */
     labelTracking: "0.16em",

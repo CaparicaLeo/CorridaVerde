@@ -54,9 +54,9 @@ export function HeroSection() {
         camada tem 116% da altura e o cover amplia a imagem além da largura do
         viewport.
 
-        Sem foto (PENDÊNCIA 5), o próprio Media entra no estado vazio e desenha
-        a atmosfera da identidade — verde quase preto com dois focos de verde
-        vivo diluídos, mais o grão da página. Fica mais escuro à esquerda, que
+        Sem foto, o próprio Media entra no estado vazio e desenha a atmosfera
+        da identidade — verde quase preto com dois focos de verde vivo
+        diluídos, mais o grão da página. Fica mais escuro à esquerda, que
         é onde a headline se apoia. Nada de retângulo cinza nem blur genérico.
       */}
       <div aria-hidden className="absolute inset-0 -z-20">

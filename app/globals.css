@@ -37,7 +37,7 @@
   --color-line-on-light: var(--cv-line-on-light, rgb(0 0 0 / 0.12));
 
   /* Famílias carregadas via next/font em app/fonts.ts */
-  --font-display: var(--ff-display), "Arial Narrow", Impact, sans-serif;
+  --font-display: var(--ff-display), Didot, "Bodoni MT", Georgia, serif;
   --font-sans: var(--ff-body), ui-sans-serif, system-ui, -apple-system,
     "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-condensed: var(--ff-condensed), "Arial Narrow", ui-sans-serif,
@@ -100,7 +100,7 @@
 }
 
 /**
- * Headline em estilo cartaz: condensada, caixa alta, entrelinha fechada.
+ * Headline em estilo cartaz: didone, caixa alta, entrelinha fechada.
  *
  * A entrelinha e as folgas de máscara NÃO são estética: são restrição de
  * acento, medidas no arquivo da fonte de display. A conta e os números estão

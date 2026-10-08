@@ -44,9 +44,14 @@ export function PropositoSection() {
           {/* O fecho fica na coluna de texto, colado no cabeçalho: é a frase
               que resume a seção, e ela não deve ler como seção nova. */}
           <div className="mt-14 border-t border-line-on-light pt-12">
+            {/* Clamp recalibrado para a Bodoni Moda: "A MARCA NÃO OCUPA"
+                avança 11.79em (medido no WOFF2, com o tracking do tema) — o
+                antigo teto de 3.5rem dava 651px, e a coluna 0.9fr do grid tem
+                ~382px no lg (1024) e ~511px no máximo. Abaixo do lg o limite
+                é o viewport: 320px − padding = 280px, e 1.5rem dá 279px. */}
             <Headline
               lines={proposito.closing.lines}
-              className="max-w-xl text-[clamp(2rem,4.4vw,3.5rem)]"
+              className="max-w-2xl text-[clamp(1.5rem,7vw,3.5rem)] lg:text-[clamp(2rem,3.1vw,2.75rem)]"
             />
 
             <p

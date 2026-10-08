@@ -28,9 +28,10 @@ npx tsc --noEmit && npm run lint && npm run build
 ```
 app/
   theme.ts          # ÚNICA fonte dos hexes de marca + métricas de cartaz
-  fonts.ts          # Saira Condensed (display), Archivo, Archivo Narrow
+  fonts.ts          # Bodoni Moda (display), Archivo, Archivo Narrow
   globals.css       # tokens do Tailwind apontando para o tema; utilities
-  icon.svg          # ícone provisório (exceção de hex: SVG estático)
+  icon.png          # ícone: a arte oficial da marca (exceção: arquivo
+                    #   estático, não lê custom property)
   (site)/page.tsx   # a home é a composição das seções, nesta ordem:
                     #   hero → trajeto → percursos → ativações → conceito →
                     #   propósito → história → FAQ → inscrição
@@ -72,9 +73,9 @@ Estão documentadas no topo de `data/event.ts`. Resumo:
 | --- | --- | --- |
 | 1 | **Data** | Só fevereiro de 2027. `event.date` é `null`; a LP diz "data a definir" e o JSON-LD omite `startDate`. |
 | 2 | **Link de inscrição** | Aponta para a ficha pública do evento no site da Thomé & Santos. Não é checkout. |
-| 3 | **Hexes da marca** | Paleta provisória em `app/theme.ts`, fácil de trocar. |
+| 3 | **Hexes da marca** | Sincronizados com o logo oficial (`#0F2D26` / `#91C43E`); conta de contraste comentada em `app/theme.ts`. |
 | 4 | **Mapa do percurso** | `races.route` é `null`: sem botão de mapa. Um mapa que não é o percurso é pior que nenhum. |
-| 5 | **Logo e imagem social** | `event.logo` e `event.ogImage` são `null`; o header vira lockup tipográfico e o link é compartilhado sem miniatura. |
+| 5 | **Logo e imagem social** | Resolvida: `event.logo` (badge) no header, `event.wordmark` no rodapé e `event.ogImage` (1200×630) para compartilhamento. |
 | 6 | **Regulamento** | `regulamentoSource.docId` é `null`; `/regulamento` entra em estado vazio. |
 | 7 | **Preço** | Nenhum valor publicado. Sem bloco `offers` no JSON-LD. |
 | 8 | **`alt` das fotos** | Não conferidos: as imagens não puderam ser inspecionadas na integração. As fotos são de 08/02/2026. |
@@ -92,6 +93,14 @@ porque `public/` é servido publicamente e sobe inteiro no deploy. Em
 | --- | --- | --- | --- |
 | Hero | `public/images/hero-corrida-verde.jpg` | `DSC09167.jpg` (4672×7008) | 2200×3300, q72, 388 KB |
 | História | `public/images/corrida-verde-pelotao.jpg` | `DSC08905.jpg` (3981×5711) | 1200×1722, q78, 492 KB |
+| Badge (header) | `public/images/corrida-verde-logo.png` | `corrida-verde-logo-1920x1080.png` | 1080×1035, corte do canvas, 101 KB |
+| Palavra-marca (rodapé) | `public/images/corrida-verde-escrita.png` | `corrida-verde-escrita-1920x1080.png` | 1920×233, corte do canvas, 33 KB |
+| Imagem social | `public/images/corrida-verde-og.png` | composta da palavra-marca | 1200×630 sobre `theme.colors.background`, 42 KB |
+
+O favicon (`app/icon.png`) é o badge reduzido a 512 px — mesma regra: o
+arquivo estático não lê custom property, e por isso a arte oficial entrou no
+lugar do SVG provisório. A ogImage foi composta com o hex do tema no momento
+da composição: trocou a paleta em `app/theme.ts`, recompor o PNG.
 
 A escolha do hero é técnica: a camada é 116% da tela e o `cover` corta a
 largura, então só uma faixa central da foto aparece. `DSC09167` tem a ação na

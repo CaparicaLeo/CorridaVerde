@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { event, eventDate, mainNav } from "@/data/event";
@@ -18,7 +19,24 @@ export function SiteFooter() {
     <footer className="border-t border-white/10 bg-surface-alt">
       <div className="container-page grid gap-10 py-14 lg:grid-cols-3 lg:py-16">
         <div>
-          <p className="headline text-2xl text-ink">{event.name}</p>
+          {/*
+            A palavra-marca branca só vale em chapa escura — é o caso aqui
+            (surface-alt). Enquanto o dado estiver null, o nome volta em
+            texto: o estado vazio do header, invertido de lugar. O alt traz
+            o nome do evento porque a arte é o nome.
+          */}
+          {event.wordmark ? (
+            <Image
+              src={event.wordmark.src}
+              alt={event.wordmark.alt}
+              width={event.wordmark.width}
+              height={event.wordmark.height}
+              sizes="(min-width: 1024px) 20rem, 100vw"
+              className="h-auto w-full max-w-[20rem]"
+            />
+          ) : (
+            <p className="headline text-2xl text-ink">{event.name}</p>
+          )}
           <p className="label-condensed mt-4 text-[0.7rem] text-accent">
             {eventDate.label}
           </p>

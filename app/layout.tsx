@@ -41,10 +41,10 @@ export const metadata: Metadata = {
     title,
     description: seoDescription,
     /*
-      Condicional: a imagem de compartilhamento não chegou ainda
-      (PENDÊNCIA 5 de data/event.ts). Sem `images`, o link é compartilhado sem
+      Condicional porque `ogImage` pode voltar a null (dado não confirmado) e
+      o site já sabe viver sem: sem `images`, o link é compartilhado sem
       miniatura — melhor que uma arte de outra edição fingindo ser esta. O
-      objeto já está montado; o `event.ogImage` que o faz sair sozinho.
+      objeto já está montado; é o `event.ogImage` que o faz sair sozinho.
     */
     ...(event.ogImage
       ? {
