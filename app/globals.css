@@ -36,12 +36,14 @@
      em vez de `border-black/10` solto: é o mesmo valor, mas ligado ao tema. */
   --color-line-on-light: var(--cv-line-on-light, rgb(0 0 0 / 0.12));
 
-  /* Famílias carregadas via next/font em app/fonts.ts */
+  /* Família carregada via next/font em app/fonts.ts. Bodoni Moda é a única
+     família da página: corpo, labels e display apontam para a mesma variável,
+     e os três tokens existem só para as utilities de sempre continuarem
+     funcionando (`body` usa `--font-sans`, `.label-condensed` usa
+     `--font-condensed`). A pilha de fallback é serifada nos três. */
   --font-display: var(--ff-display), Didot, "Bodoni MT", Georgia, serif;
-  --font-sans: var(--ff-body), ui-sans-serif, system-ui, -apple-system,
-    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --font-condensed: var(--ff-condensed), "Arial Narrow", ui-sans-serif,
-    sans-serif;
+  --font-sans: var(--ff-display), Didot, "Bodoni MT", Georgia, serif;
+  --font-condensed: var(--ff-display), Didot, "Bodoni MT", Georgia, serif;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }

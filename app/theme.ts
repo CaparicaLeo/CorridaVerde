@@ -100,9 +100,10 @@ export const theme = {
 
   typography: {
     /**
-     * Display didone, pesada, caixa alta — o "cartaz" da prova.
-     * A família é escolhida em app/fonts.ts (Bodoni Moda 800); as métricas
-     * abaixo foram medidas NESSE arquivo de fonte e só valem para ele.
+     * Display didone, pesada, caixa alta — o "cartaz" da prova. É a mesma
+     * Bodoni Moda que serve o corpo (400) e os labels (600): desde a troca,
+     * a família é única na página. As métricas abaixo foram medidas NESSE
+     * arquivo de fonte (peso 800) e só valem para ele.
      */
     display: "didone-bold-uppercase",
     eyebrow: {
@@ -115,8 +116,9 @@ export const theme = {
   /**
    * Métricas de cartaz — calibradas por fonte. NÃO copie de outro projeto.
    *
-   * Medidas na Bodoni Moda 800 (unitsPerEm 2000, lidas do próprio WOFF2 que o
-   * next/font serve — instância estática, sem eixo `fvar`, baixada no build):
+   * Medidas na Bodoni Moda 800 (unitsPerEm 2000). A fonte é variável: os
+   * números saem do eixo wght=800 do WOFF2 que o next/font serve, que é a
+   * instância que o navegador renderiza para `.headline` e `.poster-number`:
    *   caixa alta ....... 0.750em acima da baseline (OS/2 sCapHeight; o A tem
    *                      overshoot de tinta até 0.7645em)
    *   Á/É/Í/Ó/Ú/Ã ...... 1.0195em (yMax do glifo — é o acento que estoura a

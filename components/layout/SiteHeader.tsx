@@ -67,9 +67,28 @@ export function SiteHeader() {
             </span>
           )}
 
-          <span className="label-condensed hidden text-[0.6rem] text-ink-muted sm:block">
-            {event.series.season} · {event.location.city}
-          </span>
+          {/*
+            Palavra-marca escrita no lugar do antigo "41ª edição · Curitiba".
+            A arte é branca e só vale sobre o fundo escuro (o vidro do header
+            e a atmosfera do hero): o PNG é GrayAlpha de tinta branca, medido
+            no arquivo. `alt` vazio pelo mesmo motivo do badge — o link já
+            anuncia `event.name`. No mobile o lockup fica só com o badge.
+          */}
+          {event.wordmark ? (
+            <Image
+              src={event.wordmark.src}
+              alt=""
+              width={event.wordmark.width}
+              height={event.wordmark.height}
+              loading="eager"
+              sizes="160px"
+              className="hidden h-[0.95rem] w-auto sm:block lg:h-[1.1rem]"
+            />
+          ) : (
+            <span className="label-condensed hidden text-[0.6rem] text-ink-muted sm:block">
+              {event.series.season} · {event.location.city}
+            </span>
+          )}
         </Link>
 
         <nav aria-label="Navegação principal" className="hidden lg:block">

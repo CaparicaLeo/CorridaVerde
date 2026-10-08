@@ -28,7 +28,7 @@ npx tsc --noEmit && npm run lint && npm run build
 ```
 app/
   theme.ts          # ÚNICA fonte dos hexes de marca + métricas de cartaz
-  fonts.ts          # Bodoni Moda (display), Archivo, Archivo Narrow
+  fonts.ts          # Bodoni Moda (corpo, labels e display) — família única
   globals.css       # tokens do Tailwind apontando para o tema; utilities
   icon.png          # ícone: a arte oficial da marca (exceção: arquivo
                     #   estático, não lê custom property)
