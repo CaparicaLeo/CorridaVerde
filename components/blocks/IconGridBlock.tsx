@@ -1,7 +1,7 @@
 "use client";
 
 import { Icon } from "@/components/ui/Icon";
-import { staggerIn } from "@/lib/animations/presets";
+import { fadeUp } from "@/lib/animations/presets";
 import { useGsapScroll } from "@/lib/hooks/useGsapScroll";
 import { cn } from "@/lib/cn";
 import type { IconItem } from "@/data/types";
@@ -28,12 +28,9 @@ export function IconGridBlock({
   className?: string;
 }) {
   const root = useGsapScroll<HTMLUListElement>(({ scope, prefersReducedMotion }) => {
-    staggerIn(scope.querySelectorAll("[data-icon-item]"), {
+    fadeUp(scope.querySelectorAll("[data-icon-item]"), {
       prefersReducedMotion,
       trigger: scope,
-      start: "top 85%",
-      y: 24,
-      each: 0.07,
     });
   });
 
@@ -41,7 +38,7 @@ export function IconGridBlock({
     <ul
       ref={root}
       className={cn(
-        "grid gap-px border border-white/10 bg-white/10 sm:grid-cols-3",
+        "grid gap-px border border-line bg-line sm:grid-cols-3",
         className,
       )}
     >
@@ -51,7 +48,7 @@ export function IconGridBlock({
           data-icon-item
           className="group flex flex-col gap-5 bg-surface p-7 transition-colors duration-300 hover:bg-surface-alt"
         >
-          <Icon name={item.icon} className="size-8 text-accent" />
+          <Icon name={item.icon} className="size-8 text-accent-ink" />
           <span className="label-condensed text-[0.75rem] leading-snug text-ink">
             {item.label}
           </span>

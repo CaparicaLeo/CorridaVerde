@@ -2,7 +2,7 @@
 
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Icon } from "@/components/ui/Icon";
-import { staggerIn } from "@/lib/animations/presets";
+import { fadeUp } from "@/lib/animations/presets";
 import { useGsapScroll } from "@/lib/hooks/useGsapScroll";
 import { cn } from "@/lib/cn";
 import type { CardItem } from "@/data/types";
@@ -30,12 +30,9 @@ export function CardListBlock({
   columns?: 2 | 3;
 }) {
   const root = useGsapScroll<HTMLDivElement>(({ scope, prefersReducedMotion }) => {
-    staggerIn(scope.querySelectorAll("[data-card]"), {
+    fadeUp(scope.querySelectorAll("[data-card]"), {
       prefersReducedMotion,
       trigger: scope,
-      start: "top 82%",
-      y: 32,
-      each: 0.12,
     });
   });
 
@@ -43,7 +40,7 @@ export function CardListBlock({
     <div
       ref={root}
       className={cn(
-        "grid gap-px border border-white/10 bg-white/10",
+        "grid gap-px border border-line bg-line",
         columns === 3 ? "lg:grid-cols-3" : "lg:grid-cols-2",
         className,
       )}
@@ -59,18 +56,27 @@ export function CardListBlock({
             item.featured ? "bg-surface-alt" : "bg-surface",
           )}
         >
-          <div className="flex items-start justify-between gap-6">
+          {/* Número empilhado sob o eyebrow, e não ao lado: lado a lado, "6,7 MI"
+              estourava a coluna em 320px e no lg de 1024px (terço de 943px). */}
+          <div className="flex flex-col gap-4">
             <Eyebrow>{item.eyebrow}</Eyebrow>
             {item.badge ? (
-              <p className="poster-number shrink-0 text-4xl text-accent sm:text-5xl">
-                {item.badge}
-              </p>
+              <div>
+                <p className="poster-number text-5xl text-accent-ink sm:text-6xl">
+                  {item.badge}
+                </p>
+                {item.badgeNote ? (
+                  <p className="label-condensed mt-2 text-xs text-ink-muted">
+                    {item.badgeNote}
+                  </p>
+                ) : null}
+              </div>
             ) : null}
           </div>
 
           <div className="flex items-start gap-3">
-            <Icon name={item.icon} className="mt-1 size-5 shrink-0 text-accent" />
-            <h3 className="headline text-2xl text-ink sm:text-3xl">{item.title}</h3>
+            <Icon name={item.icon} className="mt-1 size-5 shrink-0 text-accent-ink" />
+            <h3 className="title-sans text-xl text-ink sm:text-2xl">{item.title}</h3>
           </div>
 
           {/* Trajeto. `whitespace-nowrap` no nome do lugar porque "Parque Tanguá"
@@ -79,7 +85,7 @@ export function CardListBlock({
           {item.from || item.to ? (
             <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-ink">
               <span className="label-condensed text-ink">{item.from}</span>
-              <span aria-hidden className="text-accent">
+              <span aria-hidden className="text-accent-ink">
                 →
               </span>
               <span className="label-condensed text-ink">{item.to}</span>
@@ -93,7 +99,7 @@ export function CardListBlock({
           ) : null}
 
           {item.meta && item.meta.length > 0 ? (
-            <ul className="mt-auto flex flex-col gap-3 border-t border-white/10 pt-6">
+            <ul className="mt-auto flex flex-col gap-3 border-t border-line pt-6">
               {item.meta.map((line) => (
                 <li key={line} className="flex items-start gap-3 text-sm text-ink/85">
                   <span aria-hidden className="mt-2 size-1.5 shrink-0 bg-accent" />

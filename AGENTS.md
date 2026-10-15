@@ -61,9 +61,14 @@ Barigui, e a cidade no meio. "De parque a parque".
 6. **Um `data-*` de reveal por dono.** Bloco que anima os próprios elementos usa
    marcador próprio (ex.: `data-number-reveal`); `data-reveal` é da seção. Dois
    `gsap.from` sobre o mesmo alvo deixam o conteúdo invisível.
-7. **Uma chapa clara por página.** A seção de propósito (`tone="light"`) é a
-   única. A identidade é verde escuro com luz; repetir a chapa clara transforma
-   o destaque em fundo.
+7. **Cor vem do tom da seção.** Cada `<Section>` declara `tone` (`mist`,
+   `sprout`, `accent`; `dark` é do hero, do header e do rodapé) e os componentes usam só tokens de tom
+   (`bg-surface`, `text-ink`, `border-line`, `text-accent-ink`) — nunca
+   `white/10` ou um verde fixo pensando no fundo de hoje. O lima é
+   preenchimento; como texto, `text-accent-ink`, que no claro vira a tinta
+   derivada (o lima puro dá 1.86:1 sobre a névoa). A névoa é o fundo e entre
+   duas seções de névoa entra um intervalo de broto ou de lima; duas vizinhas
+   no mesmo tom leem como uma seção só. O mata fica no hero, no header e no rodapé.
 8. **Grade que não deixa célula pendurada.** Antes de mudar a quantidade de itens
    de um `IconGridBlock` ou `CardListBlock`, refaça a conta de divisão por 3 — o
    gap de 1px sobre a chapa do container faz célula vazia virar bloco cinza

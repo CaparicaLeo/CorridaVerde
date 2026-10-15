@@ -1,7 +1,7 @@
 "use client";
 
 import { Icon } from "@/components/ui/Icon";
-import { drawLine, fadeUp } from "@/lib/animations/presets";
+import { drawLine } from "@/lib/animations/presets";
 import { cn } from "@/lib/cn";
 import { useGsapScroll } from "@/lib/hooks/useGsapScroll";
 import type { RouteStop } from "@/data/types";
@@ -15,9 +15,9 @@ import type { RouteStop } from "@/data/types";
  * seria pior que nenhum. Aqui a afirmação é apenas a que é verdade: começa
  * num parque, atravessa a cidade, termina em outro parque.
  *
- * Por que SVG e não mapa de imagem: a linha é desenhada no scroll com o preset
- * `drawLine` (scaleX + scrub), o que mantém tudo em transform e não dispara
- * layout a cada quadro. E como o percurso vem de `data/event.ts`, mudar a
+ * A linha é desenhada no scroll com o preset `drawLine` (scale + scrub), o
+ * que mantém tudo em transform e não dispara layout a cada quadro, e cada
+ * parada acende quando o preenchimento passa por ela. E como o percurso vem de `data/event.ts`, mudar a
  * ordem ou o nome das paradas não é redesenhar nada — o esquema acompanha.
  *
  * O desenho é `aria-hidden`: a informação já está na lista semântica ao lado,
@@ -33,54 +33,55 @@ export function RouteDiagram({
   label: string;
   className?: string;
 }) {
-  const root = useGsapScroll<HTMLDivElement>(({ scope, prefersReducedMotion }) => {
-    // A linha do percurso cresce com o scroll: é o trajeto sendo percorrido.
-    drawLine(scope.querySelector("[data-route-line]"), {
-      prefersReducedMotion,
-      trigger: scope,
-      start: "top 72%",
-      end: "bottom 70%",
-      axis: "x",
-    });
+  const root = useGsapScroll<HTMLDivElement>(({ scope, prefersReducedMotion, gsap }) => {
+    // A linha do percurso cresce com o scroll e acende cada parada quando
+    // chega nela: é o trajeto sendo percorrido. No celular as paradas
+    // empilham e a linha desce; a partir do `sm` elas ficam lado a lado e a
+    // linha corre na horizontal. O matchMedia refaz a medição na troca.
+    const media = gsap.matchMedia();
+    const run = (axis: "x" | "y") => () => {
+      drawLine(scope.querySelector("[data-route-line]"), {
+        prefersReducedMotion,
+        trigger: scope,
+        end: "bottom 70%",
+        axis,
+        rail: scope.querySelector<HTMLElement>("[data-route-rail]"),
+        points: scope.querySelectorAll("[data-route-stop]"),
+      });
+    };
+    media.add("(min-width: 40rem)", run("x"));
+    media.add("(max-width: 39.99rem)", run("y"));
 
-    // As paradas entram depois que a linha passou por elas, na ordem.
-    fadeUp(scope.querySelectorAll("[data-route-stop]"), {
-      prefersReducedMotion,
-      trigger: scope,
-      start: "top 78%",
-      y: 18,
-      stagger: 0.16,
-    });
+    return () => media.revert();
   });
 
   return (
     <div ref={root} className={cn("relative", className)}>
-      {/* Rail da linha: a linha desenhada corre por cima dele e some nas
-          pontas, para o percurso não ter começo nem fim visível — ele sai da
-          prova e entra na prova. */}
-      <div
-        aria-hidden
-        className="absolute top-[0.55rem] right-[8%] bottom-[0.55rem] left-[8%] border-t border-white/10 sm:right-[6%] sm:left-[6%] lg:right-[4%] lg:left-[4%]"
-      />
-      <div
-        data-route-line
-        aria-hidden
-        className="absolute top-[0.55rem] right-[8%] bottom-[0.55rem] left-[8%] border-t border-accent sm:right-[6%] sm:left-[6%] lg:right-[4%] lg:left-[4%]"
-      />
+      {/* Trilho e linha vão do centro da largada ao centro da chegada — a
+          geometria é medida em `drawLine`, porque é onde os marcadores caem
+          depois da quebra de texto. Antes da medição, os dois ficam com zero
+          de tamanho: nada de linha solta onde não há ponto. */}
+      <div data-route-rail aria-hidden className="absolute size-0 bg-line" />
+      <div data-route-line aria-hidden className="absolute size-0 bg-accent" />
 
       <ol className="relative grid gap-10 sm:grid-cols-3 sm:gap-6">
         {stops.map((stop) => (
           <li
             key={stop.id}
             data-route-stop
-            className="flex flex-col items-start gap-4 sm:items-center sm:text-center lg:items-start lg:text-left"
+            data-point
+            /* No celular a linha desce pela coluna do marcador, então o texto
+               vai na coluna ao lado (grid de 2) — senão a linha cortaria o
+               rótulo e o nome. A partir do `sm` volta a empilhar sob o ponto. */
+            className="grid grid-cols-[1.25rem_minmax(0,1fr)] items-start gap-x-4 gap-y-3 sm:flex sm:flex-col sm:items-center sm:gap-4 sm:text-center lg:items-start lg:text-left"
           >
             {/* O marcador é o que dá o papel da parada: ponto cheio na largada,
                 anel na chegada, traço no que se atravessa. */}
             <span
               aria-hidden
+              data-point-dot
               className={cn(
-                "mt-0.5 size-5 shrink-0 rounded-full border-2 bg-surface",
+                "relative mt-0.5 size-5 shrink-0 rounded-full border-2 bg-surface",
                 stop.role === "start" && "border-accent bg-accent",
                 stop.role === "through" && "border-accent bg-surface",
                 stop.role === "finish" && "border-accent",
@@ -89,19 +90,19 @@ export function RouteDiagram({
 
             <span
               className={cn(
-                "label-condensed text-[0.6rem]",
+                "label-condensed col-start-2 self-center text-[0.6rem]",
                 stop.role === "start" || stop.role === "finish"
-                  ? "text-accent"
+                  ? "text-accent-ink"
                   : "text-ink-muted",
               )}
             >
               {roleLabel[stop.role]}
             </span>
 
-            <span className="flex flex-col gap-2.5">
-              <Icon name={stop.icon} className="size-7 text-accent" />
+            <span className="col-start-2 flex flex-col gap-2.5 sm:items-center lg:items-start">
+              <Icon name={stop.icon} className="size-7 text-accent-ink" />
 
-              <span className="headline text-2xl text-ink sm:text-3xl lg:text-4xl">
+              <span className="title-sans text-xl text-ink sm:text-2xl lg:text-3xl">
                 {stop.name}
               </span>
 

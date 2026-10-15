@@ -25,30 +25,27 @@ export function PropositoSection() {
     revealLines(scope.querySelectorAll("[data-headline-line]"), {
       prefersReducedMotion,
       trigger: scope,
-      start: "top 84%",
     });
 
     fadeUp(scope.querySelectorAll("[data-reveal]"), {
       prefersReducedMotion,
       trigger: scope,
-      stagger: 0.12,
     });
   });
 
   return (
-    <Section id="proposito" tone="light">
+    <Section id="proposito" tone="mist">
       <div ref={root} className="grid gap-16 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
         <div>
           <SectionHeader intro={proposito.intro} onLight />
 
           {/* O fecho fica na coluna de texto, colado no cabeçalho: é a frase
               que resume a seção, e ela não deve ler como seção nova. */}
-          <div className="mt-14 border-t border-line-on-light pt-12">
-            {/* Clamp recalibrado para a Bodoni Moda: "A MARCA NÃO OCUPA"
-                avança 11.79em (medido no WOFF2, com o tracking do tema) — o
-                antigo teto de 3.5rem dava 651px, e a coluna 0.9fr do grid tem
-                ~382px no lg (1024) e ~511px no máximo. Abaixo do lg o limite
-                é o viewport: 320px − padding = 280px, e 1.5rem dá 279px. */}
+          <div className="mt-14 border-t border-line pt-12">
+            {/* A coluna 0.9fr do grid tem ~382px no lg (1024) e ~511px no
+                máximo; abaixo do lg o limite é o viewport (320px − padding =
+                280px). Com a Ranima, "A MARCA OCUPA" cabe nos dois tetos —
+                conferido no navegador em 320, 390, 768, 1024 e 1440px. */}
             <Headline
               lines={proposito.closing.lines}
               className="max-w-2xl text-[clamp(1.5rem,7vw,3.5rem)] lg:text-[clamp(2rem,3.1vw,2.75rem)]"
@@ -56,7 +53,7 @@ export function PropositoSection() {
 
             <p
               data-reveal
-              className="mt-6 max-w-md text-base leading-relaxed text-surface/70"
+              className="mt-6 max-w-md text-base leading-relaxed text-forest/70"
             >
               {proposito.closing.support}
             </p>

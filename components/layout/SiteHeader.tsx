@@ -17,7 +17,8 @@ import { cn } from "@/lib/cn";
 const navHref = (href: string) => (href.startsWith("/") ? href : `/${href}`);
 
 /**
- * Header do site. Fica transparente sobre o hero e ganha chapa ao sair dele.
+ * Header do site: a faixa de mata da página, sempre com chapa — o hero é
+ * claro e o menu e o lockup são brancos. Ao rolar, a chapa vira vidro.
  */
 export function SiteHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -33,10 +34,9 @@ export function SiteHeader() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
-        isScrolled || isMenuOpen
-          ? "border-b border-white/10 bg-surface/90 backdrop-blur-md"
-          : "border-b border-transparent",
+        "tone-dark fixed inset-x-0 top-0 z-50 text-ink transition-colors duration-300",
+        "border-b border-line",
+        isScrolled && !isMenuOpen ? "bg-surface/90 backdrop-blur-md" : "bg-surface",
       )}
     >
       <div className="container-page flex h-16 items-center justify-between gap-6 lg:h-20">
@@ -46,10 +46,11 @@ export function SiteHeader() {
           aria-label={event.name}
         >
           {/*
-            A arte oficial da marca (badge circular) mora em `event.logo`.
-            O `alt` vem vazio do dado de propósito: este link já declara
-            `aria-label={event.name}`, e a imagem dentro dele é decorativa —
-            o nome não precisa ser anunciado duas vezes.
+            O lockup horizontal (símbolo + palavra-marca) mora em
+            `event.logo`, numa peça só: cabe na altura da barra sem estourar
+            o topo. O `alt` vem vazio do dado de propósito: este link já
+            declara `aria-label={event.name}`, e a imagem dentro dele é
+            decorativa — o nome não precisa ser anunciado duas vezes.
           */}
           {event.logo ? (
             <Image
@@ -57,36 +58,12 @@ export function SiteHeader() {
               alt={event.logo.alt}
               width={event.logo.width}
               height={event.logo.height}
-              sizes="88px"
               loading="eager"
-              className="h-auto w-[72px] sm:w-[88px]"
+              className="h-10 w-auto lg:h-12"
             />
           ) : (
             <span className="headline text-xl text-ink sm:text-2xl">
               {event.series.name}
-            </span>
-          )}
-
-          {/*
-            Palavra-marca escrita no lugar do antigo "41ª edição · Curitiba".
-            A arte é branca e só vale sobre o fundo escuro (o vidro do header
-            e a atmosfera do hero): o PNG é GrayAlpha de tinta branca, medido
-            no arquivo. `alt` vazio pelo mesmo motivo do badge — o link já
-            anuncia `event.name`. No mobile o lockup fica só com o badge.
-          */}
-          {event.wordmark ? (
-            <Image
-              src={event.wordmark.src}
-              alt=""
-              width={event.wordmark.width}
-              height={event.wordmark.height}
-              loading="eager"
-              sizes="160px"
-              className="hidden h-[0.95rem] w-auto sm:block lg:h-[1.1rem]"
-            />
-          ) : (
-            <span className="label-condensed hidden text-[0.6rem] text-ink-muted sm:block">
-              {event.series.season} · {event.location.city}
             </span>
           )}
         </Link>
@@ -97,7 +74,7 @@ export function SiteHeader() {
               <li key={item.href}>
                 <Link
                   href={navHref(item.href)}
-                  className="label-condensed text-[0.7rem] text-ink-muted transition-colors hover:text-accent"
+                  className="label-condensed text-[0.7rem] text-ink-muted transition-colors hover:text-accent-ink"
                 >
                   {item.label}
                 </Link>
@@ -121,7 +98,7 @@ export function SiteHeader() {
             onClick={() => setIsMenuOpen((open) => !open)}
             aria-expanded={isMenuOpen}
             aria-controls="menu-mobile"
-            className="label-condensed cursor-pointer border border-white/20 px-4 py-2.5 text-[0.7rem] lg:hidden"
+            className="label-condensed cursor-pointer border border-line-strong px-4 py-2.5 text-[0.7rem] lg:hidden"
           >
             {isMenuOpen ? "Fechar" : "Menu"}
           </button>
@@ -131,7 +108,7 @@ export function SiteHeader() {
       <div
         id="menu-mobile"
         hidden={!isMenuOpen}
-        className="border-t border-white/10 bg-surface lg:hidden"
+        className="border-t border-line bg-surface lg:hidden"
       >
         <nav aria-label="Navegação principal (mobile)" className="container-page py-6">
           <ul className="flex flex-col gap-1">
@@ -140,7 +117,7 @@ export function SiteHeader() {
                 <Link
                   href={navHref(item.href)}
                   onClick={() => setIsMenuOpen(false)}
-                  className="headline block py-3 text-2xl text-ink"
+                  className="title-sans block py-3 text-xl text-ink"
                 >
                   {item.label}
                 </Link>

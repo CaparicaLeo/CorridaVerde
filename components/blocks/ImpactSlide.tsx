@@ -39,14 +39,11 @@ export function ImpactSlide({
     revealLines(scope.querySelectorAll("[data-headline-line]"), {
       prefersReducedMotion,
       trigger: scope,
-      start: "top 78%",
     });
 
     fadeUp(scope.querySelectorAll("[data-reveal]"), {
       prefersReducedMotion,
       trigger: scope,
-      stagger: 0.12,
-      delay: 0.2,
     });
   });
 
@@ -59,12 +56,14 @@ export function ImpactSlide({
             "grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)] lg:gap-16",
         )}
       >
-        <div>
+        {/* Sem `aside`, a frase vai no centro da chapa: é um cartaz, não um
+            parágrafo — e as três linhas da repetição se alinham pelo eixo. */}
+        <div className={cn(!aside && "flex flex-col items-center text-center")}>
           <Headline
             lines={lines}
             tone="dark"
             className={cn(
-              "max-w-4xl text-[clamp(2.5rem,9vw,6.5rem)]",
+              "max-w-5xl text-[clamp(2.25rem,8vw,6.5rem)]",
               /* Dividindo a linha com o objeto da coluna direita, o 9vw estouraria
                  a coluna entre 1024 e ~1300px. */
               aside && "lg:text-[clamp(3rem,6.2vw,6.5rem)]",
@@ -74,7 +73,7 @@ export function ImpactSlide({
           {support ? (
             <p
               data-reveal
-              className="mt-8 max-w-xl text-base leading-relaxed text-surface/80 sm:text-lg"
+              className="mt-10 max-w-xl text-base leading-relaxed text-forest/80 sm:text-lg"
             >
               {support}
             </p>

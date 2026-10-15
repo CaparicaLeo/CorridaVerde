@@ -28,7 +28,8 @@ npx tsc --noEmit && npm run lint && npm run build
 ```
 app/
   theme.ts          # ÚNICA fonte dos hexes de marca + métricas de cartaz
-  fonts.ts          # Bodoni Moda (corpo, labels e display) — família única
+  fonts.ts          # chamada: Ranima (demo, sem acentos — ver fonts.ts)
+                    #   · corpo, labels e títulos menores: Satoshi
   globals.css       # tokens do Tailwind apontando para o tema; utilities
   icon.png          # ícone: a arte oficial da marca (exceção: arquivo
                     #   estático, não lê custom property)
@@ -61,9 +62,17 @@ docs/medalha-3d.md  # como ligar a medalha 3D quando a arte chegar
 | 8 | FAQ | As dez dúvidas que antecedem a inscrição |
 | 9 | Inscrição | CTA final e link para a página oficial |
 
-A seção 6 é a **única** chapa clara da página. A identidade é "verde escuro com
-luz": uma chapa clara quebra a sequência e dá ao verde o maior contraste do
-site. Uma segunda transformaria o destaque em fundo.
+A página é clara: a **névoa** (`#F6F5F0`) é o fundo dominante, e entre duas
+seções de névoa entra um **intervalo** de cor — o **broto** (`#DAEFBE`) ou a
+chapa de **lima** (`#84C927`). O verde **mata** (`#192822`) fica só no header
+e no rodapé — e no hero, onde a foto pede fundo escuro.
+
+| Tom | Seções |
+| --- | --- |
+| névoa | Trajeto, Ativações, Propósito, FAQ, `/regulamento` |
+| broto (intervalo) | Percursos, História, Inscrição |
+| lima (intervalo) | Conceito |
+| mata | Hero, header e rodapé |
 
 ## Pendências de conteúdo
 
@@ -73,7 +82,7 @@ Estão documentadas no topo de `data/event.ts`. Resumo:
 | --- | --- | --- |
 | 1 | **Data** | Só fevereiro de 2027. `event.date` é `null`; a LP diz "data a definir" e o JSON-LD omite `startDate`. |
 | 2 | **Link de inscrição** | Aponta para a ficha pública do evento no site da Thomé & Santos. Não é checkout. |
-| 3 | **Hexes da marca** | Sincronizados com o logo oficial (`#0F2D26` / `#91C43E`); conta de contraste comentada em `app/theme.ts`. |
+| 3 | **Hexes da marca** | Paleta de quatro cores enviada pela organização (`#84C927` / `#192822` / `#F6F5F0` / `#DAEFBE`); conta de contraste e as duas derivadas comentadas em `app/theme.ts`. |
 | 4 | **Mapa do percurso** | `races.route` é `null`: sem botão de mapa. Um mapa que não é o percurso é pior que nenhum. |
 | 5 | **Logo e imagem social** | Resolvida: `event.logo` (badge) no header, `event.wordmark` no rodapé e `event.ogImage` (1200×630) para compartilhamento. |
 | 6 | **Regulamento** | `regulamentoSource.docId` é `null`; `/regulamento` entra em estado vazio. |
@@ -95,7 +104,7 @@ porque `public/` é servido publicamente e sobe inteiro no deploy. Em
 | História | `public/images/corrida-verde-pelotao.jpg` | `DSC08905.jpg` (3981×5711) | 1200×1722, q78, 492 KB |
 | Badge (header) | `public/images/corrida-verde-logo.png` | `corrida-verde-logo-1920x1080.png` | 1080×1035, corte do canvas, 101 KB |
 | Palavra-marca (rodapé) | `public/images/corrida-verde-escrita.png` | `corrida-verde-escrita-1920x1080.png` | 1920×233, corte do canvas, 33 KB |
-| Imagem social | `public/images/corrida-verde-og.png` | composta da palavra-marca | 1200×630 sobre `theme.colors.background`, 42 KB |
+| Imagem social | `public/images/corrida-verde-og.png` | composta da palavra-marca | 1200×630 sobre `theme.colors.forest`, 39 KB |
 
 O favicon (`app/icon.png`) é o badge reduzido a 512 px — mesma regra: o
 arquivo estático não lê custom property, e por isso a arte oficial entrou no

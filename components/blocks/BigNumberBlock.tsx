@@ -43,7 +43,6 @@ export function BigNumberBlock({
     fadeUp(scope.querySelectorAll("[data-number-reveal]"), {
       prefersReducedMotion,
       trigger: scope,
-      stagger: 0.1,
     });
 
     const element = scope.querySelector<HTMLElement>("[data-count]");
@@ -70,13 +69,13 @@ export function BigNumberBlock({
           {number.prefix ? (
             /* O respiro entre prefixo e número é margem, não caractere: o span
                é flex item e o espaço no fim da string seria colapsado. */
-            <span className="mr-3 text-[0.35em] text-accent">{number.prefix}</span>
+            <span className="mr-3 text-[0.35em] text-accent-ink">{number.prefix}</span>
           ) : null}
           <span data-count={number.value} suppressHydrationWarning>
             {formatNumber(number.value ?? 0)}
           </span>
           {number.suffix ? (
-            <span className="text-accent">{number.suffix}</span>
+            <span className="text-accent-ink">{number.suffix}</span>
           ) : null}
         </p>
       ) : null}
@@ -85,7 +84,7 @@ export function BigNumberBlock({
         data-number-reveal
         className={cn(
           "label-condensed text-sm",
-          hasValue ? "mt-5 text-ink" : "text-accent",
+          hasValue ? "mt-5 text-ink" : "text-accent-ink",
         )}
       >
         {number.caption}
@@ -115,11 +114,11 @@ export function BigNumberBlock({
       {kpis && kpis.length > 0 ? (
         <ul
           data-number-reveal
-          className="mt-10 grid gap-x-8 gap-y-5 border-t border-white/10 pt-8 sm:grid-cols-2"
+          className="mt-10 grid gap-x-8 gap-y-5 border-t border-line pt-8 sm:grid-cols-2"
         >
           {kpis.map((kpi) => (
             <li key={kpi.id} className="flex items-start gap-3">
-              <Icon name={kpi.icon} className="mt-px size-5 shrink-0 text-accent" />
+              <Icon name={kpi.icon} className="mt-px size-5 shrink-0 text-accent-ink" />
               <span className="label-condensed text-[0.7rem] leading-snug text-ink">
                 {kpi.label}
               </span>

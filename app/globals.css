@@ -5,52 +5,55 @@
  *
  * Nenhum hex de marca mora aqui: cada token aponta para a custom property
  * `--cv-*` emitida por app/theme.ts no <head>. O fallback é palavra-chave do
- * CSS (black/white), nunca uma cor de marca — se a injeção do tema falhar, a
- * página fica legível em preto e branco em vez de perder a cor por completo.
+ * CSS, nunca uma cor de marca — se a injeção do tema falhar, a página fica
+ * legível em vez de perder a cor por completo.
  *
- * Regra de uso da paleta (vinda da identidade):
- *   - o verde quase preto domina a página;
- *   - o verde vivo é títulos-chave, ícones, eyebrows, números e ação — nunca
- *     texto corrido. Use <Highlight> e <Eyebrow> para aplicá-lo pontualmente;
- *   - o slide de impacto inverte tudo: chapa verde, texto quase preto;
- *   - a seção clara inverte o tom sem virar a marca: fundo branco, texto
- *     quase preto, verde vivo no lugar do destaque. Uma chapa clara por
- *     página, no máximo — a identidade é atmosfera escura com luz, não verde
- *     por toda parte.
+ * Duas famílias de token:
+ *   - FIXOS: `accent` (lima), `forest`, `mist` (névoa), `sprout` (broto). Mesma cor em
+ *     qualquer seção. `text-forest` é "texto escuro sobre chapa viva": botão,
+ *     marquee, chapa de impacto.
+ *   - DE TOM: `surface`, `surface-alt`, `ink`, `ink-muted`, `line`,
+ *     `line-strong`, `accent-ink`. Os valores abaixo são os da névoa (o tom
+ *     da página); as classes `tone-*` mais abaixo os redefinem por seção, e
+ *     todo `bg-surface`/`text-ink`/`border-line` dentro dela acompanha.
+ *     Funciona porque a utility lê `var(--color-*)` no próprio elemento: a
+ *     variável redefinida no ancestral é a que vale ali.
+ *
+ * Regra de uso da paleta:
+ *   - a névoa domina; entre duas seções de névoa entra um intervalo de
+ *     broto ou de lima; o mata fica no hero, no header e no rodapé;
+ *   - o lima é PREENCHIMENTO (botão, marquee, chapa de impacto, marcador).
+ *     Como texto, use `text-accent-ink`: é lima no escuro e a tinta derivada
+ *     (`--cv-lime-ink`) no claro, onde o lima puro não tem contraste.
  * ------------------------------------------------------------------------- */
 @theme {
-  --color-surface: var(--cv-background, black);
-  --color-surface-alt: var(--cv-background-alt, black);
-  --color-accent: var(--cv-accent, yellowgreen);
-  --color-ink: var(--cv-text, white);
-  --color-ink-muted: var(--cv-text-muted, gray);
+  --color-accent: var(--cv-lime, yellowgreen);
+  --color-forest: var(--cv-forest, black);
+  --color-mist: var(--cv-mist, white);
+  --color-sprout: var(--cv-sprout, honeydew);
 
-  /* Chapa clara. `text-surface` é a cor de texto padrão sobre elas: a regra do
-     projeto é que "texto na cor da superfície" continua significando a cor do
-     fundo da página, seja ele escuro ou claro. */
-  --color-light: var(--cv-light, white);
-  --color-light-alt: var(--cv-light-alt, whitesmoke);
-  /* Régua e vão de grade sobre a chapa clara. Sobre o fundo escuro o papel é de
-     `white/10` (utilitário do Tailwind); aqui o equivalente é um preto de 12%,
-     porque branco sobre branco não desenha nada. Usar `border-line-on-light`
-     em vez de `border-black/10` solto: é o mesmo valor, mas ligado ao tema. */
-  --color-line-on-light: var(--cv-line-on-light, rgb(0 0 0 / 0.12));
+  --color-surface: var(--cv-mist, white);
+  --color-surface-alt: var(--cv-sprout, honeydew);
+  --color-ink: var(--cv-forest, black);
+  --color-ink-muted: color-mix(in srgb, var(--cv-forest, black) 74%, transparent);
+  --color-line: color-mix(in srgb, var(--cv-forest, black) 14%, transparent);
+  --color-line-strong: color-mix(in srgb, var(--cv-forest, black) 28%, transparent);
+  --color-accent-ink: var(--cv-lime-ink, darkgreen);
 
-  /* Família carregada via next/font em app/fonts.ts. Bodoni Moda é a única
-     família da página: corpo, labels e display apontam para a mesma variável,
-     e os três tokens existem só para as utilities de sempre continuarem
-     funcionando (`body` usa `--font-sans`, `.label-condensed` usa
-     `--font-condensed`). A pilha de fallback é serifada nos três. */
+  /* Famílias carregadas via next/font em app/fonts.ts. Chamada (headline,
+     número de cartaz) em `--ff-display`; corpo e labels em `--ff-body`
+     (Satoshi). `--font-condensed` existe só para o `.label-condensed` de
+     sempre continuar funcionando: hoje aponta para a mesma Satoshi. */
   --font-display: var(--ff-display), Didot, "Bodoni MT", Georgia, serif;
-  --font-sans: var(--ff-display), Didot, "Bodoni MT", Georgia, serif;
-  --font-condensed: var(--ff-display), Didot, "Bodoni MT", Georgia, serif;
+  --font-sans: var(--ff-body), ui-sans-serif, system-ui, "Helvetica Neue", Arial, sans-serif;
+  --font-condensed: var(--ff-body), ui-sans-serif, system-ui, "Helvetica Neue", Arial, sans-serif;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @layer base {
   :root {
-    color-scheme: dark;
+    color-scheme: light;
     scroll-behavior: smooth;
   }
 
@@ -75,14 +78,71 @@
 
   ::selection {
     background-color: var(--color-accent);
-    color: var(--color-surface);
+    color: var(--color-forest);
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-accent);
+    outline: 2px solid var(--color-accent-ink);
     outline-offset: 3px;
     border-radius: 2px;
   }
+}
+
+/* --------------------------------------------------------------------------
+ * Tons de seção
+ *
+ * Cada classe redefine os tokens DE TOM para o que está dentro dela. Quem
+ * aplica é a <Section> (prop `tone`), o header e o rodapé — componente nenhum
+ * escolhe cor pela seção em que está.
+ * ------------------------------------------------------------------------ */
+
+/** Névoa: o tom da página. Repete o @theme para poder voltar a ele dentro de
+    um bloco escuro. O degrau (`surface-alt`) é o broto: destaque e hover. */
+@utility tone-mist {
+  color-scheme: light;
+  --color-surface: var(--cv-mist);
+  --color-surface-alt: var(--cv-sprout);
+  --color-ink: var(--cv-forest);
+  --color-ink-muted: color-mix(in srgb, var(--cv-forest) 74%, transparent);
+  --color-line: color-mix(in srgb, var(--cv-forest) 14%, transparent);
+  --color-line-strong: color-mix(in srgb, var(--cv-forest) 28%, transparent);
+  --color-accent-ink: var(--cv-lime-ink);
+}
+
+/** Broto: o intervalo entre seções de névoa. O degrau volta a ser a névoa. */
+@utility tone-sprout {
+  color-scheme: light;
+  --color-surface: var(--cv-sprout);
+  --color-surface-alt: var(--cv-mist);
+  --color-ink: var(--cv-forest);
+  --color-ink-muted: color-mix(in srgb, var(--cv-forest) 76%, transparent);
+  --color-line: color-mix(in srgb, var(--cv-forest) 16%, transparent);
+  --color-line-strong: color-mix(in srgb, var(--cv-forest) 30%, transparent);
+  --color-accent-ink: var(--cv-lime-ink);
+}
+
+/** Mata: hero, header e rodapé. Aqui o lima volta a ser texto. */
+@utility tone-dark {
+  color-scheme: dark;
+  --color-surface: var(--cv-forest);
+  --color-surface-alt: var(--cv-forest-deep);
+  --color-ink: var(--cv-mist);
+  --color-ink-muted: color-mix(in srgb, var(--cv-mist) 72%, transparent);
+  --color-line: color-mix(in srgb, var(--cv-mist) 12%, transparent);
+  --color-line-strong: color-mix(in srgb, var(--cv-mist) 24%, transparent);
+  --color-accent-ink: var(--cv-lime);
+}
+
+/** Lima: a chapa de impacto. Tudo vira mata sobre o verde vivo. */
+@utility tone-lime {
+  color-scheme: light;
+  --color-surface: var(--cv-lime);
+  --color-surface-alt: var(--cv-lime);
+  --color-ink: var(--cv-forest);
+  --color-ink-muted: color-mix(in srgb, var(--cv-forest) 78%, transparent);
+  --color-line: color-mix(in srgb, var(--cv-forest) 16%, transparent);
+  --color-line-strong: color-mix(in srgb, var(--cv-forest) 30%, transparent);
+  --color-accent-ink: var(--cv-forest);
 }
 
 /* --------------------------------------------------------------------------
@@ -111,7 +171,9 @@
  */
 @utility headline {
   font-family: var(--font-display);
-  font-weight: 800;
+  /* A Ranima tem um peso só: 400, e nada de negrito sintético. */
+  font-weight: 400;
+  font-synthesis: none;
   text-transform: uppercase;
   letter-spacing: var(--cv-headline-tracking, -0.01em);
   text-wrap: balance;
@@ -148,6 +210,21 @@
   margin-bottom: calc(-1 * var(--cv-headline-mask-pad-bottom, 0.08em));
 }
 
+/**
+ * Título menor em Satoshi: card de percurso, parada do trajeto, pilar, menu
+ * do celular, seção do regulamento. Mora fora da Ranima porque carrega nome
+ * próprio acentuado ("Parque Tanguá") ou texto que vem de fora (o documento
+ * do regulamento) — e a Ranima disponível não tem acento.
+ */
+@utility title-sans {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
 /** Rótulo pequeno: eyebrows, labels de card, rodapé. */
 @utility label-condensed {
   font-family: var(--font-condensed);
@@ -159,13 +236,14 @@
 /** Número grande de cartaz (big-number block, cards de prova). */
 @utility poster-number {
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
+  font-synthesis: none;
   line-height: 0.85;
   letter-spacing: var(--cv-headline-tracking, -0.01em);
   font-variant-numeric: tabular-nums;
 }
 
-/** Ruído sutil: textura de cartaz impresso sobre a chapa preta. */
+/** Ruído sutil: textura de cartaz impresso sobre a chapa escura. */
 @utility grain {
   position: relative;
 
@@ -177,6 +255,57 @@
     opacity: 0.05;
     mix-blend-mode: overlay;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+/**
+ * Pontos que acendem quando a linha passa (`drawLine` com `points`).
+ *
+ * Só vale com `data-line-armed`, que o GSAP põe no trigger quando a animação
+ * existe: sem JS ou com movimento reduzido, tudo fica aceso. Apagado, o item
+ * fica translúcido e o marcador perde a cor; aceso, o marcador enche de lima
+ * com um pulso curto — é o "chegou aqui" do percurso.
+ */
+[data-line-armed] [data-point] {
+  transition: opacity 0.5s var(--ease-out-expo);
+}
+
+[data-line-armed] [data-point]:not([data-lit]) {
+  opacity: 0.35;
+}
+
+[data-line-armed] [data-point-dot] {
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+[data-line-armed] [data-point]:not([data-lit]) [data-point-dot] {
+  border-color: var(--color-line-strong);
+  background-color: var(--color-surface);
+}
+
+[data-line-armed] [data-point][data-lit] [data-point-dot] {
+  animation: point-light 0.5s var(--ease-out-expo);
+}
+
+@keyframes point-light {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-accent) 60%, transparent);
+  }
+  40% {
+    transform: scale(1.35);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-line-armed] [data-point-dot] {
+    animation: none;
   }
 }
 

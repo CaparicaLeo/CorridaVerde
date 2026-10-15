@@ -76,7 +76,7 @@ export function MedalCanvas({
           far={4}
           opacity={0.55}
           resolution={256}
-          color={theme.colors.background}
+          color={theme.colors.forest}
         />
       </Canvas>
     </div>
@@ -99,7 +99,7 @@ function StudioLighting() {
       <directionalLight position={[3, 5, 4]} intensity={1.5} />
 
       <Environment resolution={256} frames={1}>
-        <color attach="background" args={[theme.colors.background]} />
+        <color attach="background" args={[theme.colors.forest]} />
         <Lightformer form="rect" intensity={3} position={[0, 5, 1]} scale={[10, 2, 1]} target={[0, 0, 0]} />
         <Lightformer form="rect" intensity={2.5} position={[-5, 1, 2]} scale={[2, 8, 1]} target={[0, 0, 0]} />
         <Lightformer form="rect" intensity={2.5} position={[5, 1, 2]} scale={[2, 8, 1]} target={[0, 0, 0]} />
@@ -110,7 +110,7 @@ function StudioLighting() {
         <Lightformer form="ring" intensity={2} position={[2, 2, 6]} scale={2} target={[0, 0, 0]} />
         <Lightformer
           form="rect"
-          color={theme.colors.accent}
+          color={theme.colors.lime}
           intensity={1.2}
           position={[0, -5, 0]}
           scale={[10, 10, 1]}

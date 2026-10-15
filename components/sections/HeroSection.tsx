@@ -45,7 +45,7 @@ export function HeroSection() {
     <section
       ref={root}
       id="hero"
-      className="grain relative flex min-h-[100svh] flex-col justify-end overflow-hidden pt-24 pb-0"
+      className="tone-dark grain relative isolate flex min-h-[100svh] flex-col bg-surface text-ink justify-end overflow-hidden pt-24 pb-0"
     >
       {/*
         A foto é quadrada e o hero é largo: o `object-cover` mostra só a faixa
@@ -105,7 +105,7 @@ export function HeroSection() {
 
         <h1
           data-hero-fade
-          className="label-condensed mt-7 text-sm text-accent"
+          className="label-condensed mt-7 text-sm text-accent-ink"
         >
           {hero.headline}
         </h1>
@@ -121,15 +121,15 @@ export function HeroSection() {
             Ficam lado a lado no desktop e empilham no mobile — a folga do hero
             comporta a segunda linha. */}
         <div data-hero-fade className="mt-7 flex flex-wrap items-center gap-3">
-          <p className="flex items-center gap-3 border border-white/20 px-5 py-3">
-            <Icon name="calendar" className="size-5 shrink-0 text-accent" />
+          <p className="flex items-center gap-3 border border-line-strong px-5 py-3">
+            <Icon name="calendar" className="size-5 shrink-0 text-accent-ink" />
             <span className="label-condensed text-sm text-ink">
               {eventDate.label}
             </span>
           </p>
 
-          <p className="flex items-center gap-3 border border-white/20 px-5 py-3">
-            <Icon name="clock" className="size-5 shrink-0 text-accent" />
+          <p className="flex items-center gap-3 border border-line-strong px-5 py-3">
+            <Icon name="clock" className="size-5 shrink-0 text-accent-ink" />
             <span className="label-condensed text-sm text-ink">
               {event.startTime
                 ? `Largada às ${event.startTime}`
@@ -137,8 +137,8 @@ export function HeroSection() {
             </span>
           </p>
 
-          <p className="flex items-center gap-3 border border-white/20 px-5 py-3">
-            <Icon name="route" className="size-5 shrink-0 text-accent" />
+          <p className="flex items-center gap-3 border border-line-strong px-5 py-3">
+            <Icon name="route" className="size-5 shrink-0 text-accent-ink" />
             <span className="label-condensed text-sm text-ink">
               {event.location.label}
             </span>
@@ -166,7 +166,7 @@ export function HeroSection() {
         </div>
       </div>
 
-      <Marquee items={hero.marquee} className="bg-accent text-surface" />
+      <Marquee items={hero.marquee} className="bg-accent text-forest" />
     </section>
   );
 }

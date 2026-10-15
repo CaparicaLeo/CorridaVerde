@@ -2,23 +2,26 @@ import type { ReactNode } from "react";
 
 import { cn } from "@/lib/cn";
 
-type SectionTone = "dark" | "darker" | "accent" | "light";
+type SectionTone = "mist" | "sprout" | "dark" | "accent";
 
+/**
+ * Cada tom liga a classe `tone-*` (app/globals.css), que redefine os tokens
+ * de cor para tudo o que está dentro, e pinta o fundo com o `surface` dela.
+ *
+ * A página é névoa com intervalos: entre duas seções de névoa entra uma de
+ * broto (`sprout`) ou a chapa de lima (`accent`). Duas vizinhas no mesmo tom
+ * leem como uma seção só — alterne. O mata (`dark`) fica para o header e o
+ * rodapé.
+ */
 const toneClasses: Record<SectionTone, string> = {
-  dark: "bg-surface text-ink",
-  /** Um degrau abaixo do fundo, para separar blocos sem desenhar borda. */
-  darker: "bg-surface-alt text-ink",
-  /** Slide de impacto: chapa de destaque, texto na cor do fundo da página. */
-  accent: "bg-accent text-surface",
-  /**
-   * Chapa clara. `text-surface` continua sendo a cor de texto padrão — a
-   * regra do projeto é "texto na cor da superfície", e sobre branco isso é o
-   * verde quase preto, que é o que a identidade pede.
-   *
-   * Uma chapa clara por página, no máximo: duas já trocam o balanço, e a
-   * página inteira clara deixa de ser uma prova noturna.
-   */
-  light: "bg-light text-surface",
+  /** Névoa: o tom da página. */
+  mist: "tone-mist bg-surface text-ink",
+  /** Broto: o intervalo entre seções de névoa. */
+  sprout: "tone-sprout bg-surface text-ink",
+  /** Mata: header e rodapé; fica disponível para bloco escuro pontual. */
+  dark: "tone-dark bg-surface text-ink",
+  /** Slide de impacto: chapa lima, texto mata. */
+  accent: "tone-lime bg-surface text-ink",
 };
 
 /**
@@ -27,7 +30,7 @@ const toneClasses: Record<SectionTone, string> = {
  */
 export function Section({
   id,
-  tone = "dark",
+  tone = "mist",
   children,
   className,
   containerClassName,

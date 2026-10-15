@@ -157,39 +157,39 @@ export const event = {
   registrationUrl: "https://www.thomeesantos.com.br/event/corrida-verde",
 
   /**
-   * Marca da prova — o badge circular (verde escuro sobre lima), arte
-   * oficial enviada pela Thomé & Santos. PENDÊNCIA 5 resolvida: o header
-   * deixou de usar o lockup tipográfico e renderiza este PNG.
+   * Marca da prova no header: o lockup HORIZONTAL para fundo escuro —
+   * símbolo (árvore em círculo, lima com contorno branco) e a palavra-marca
+   * empilhada "Corrida / VERDE" em branco. Vetor oficial do kit enviado pela
+   * Thomé & Santos em 15/10/2026 (`cv-horizontal-reverse.svg`), já na paleta
+   * de app/theme.ts. SVG vai como veio: o next/image serve .svg sem passar
+   * pelo otimizador, e o vetor fica nítido em qualquer densidade.
    *
-   * O arquivo é o derivado de web: o original chegou num canvas 1920×1080
-   * e foi cortado na margem transparente, para os 1080×1035 do desenho —
-   * em `public/images/` só entra o que a página serve. O original fica em
-   * `midias-originais/`, fora do git.
+   * Só vale em fundo escuro (o header é `tone-dark`). Para fundo claro o kit
+   * tem `cv-horizontal.svg`; os originais ficam em
+   * `midias-originais/logos-20261015/`, fora do git.
    *
    * O `alt` é vazio de propósito: a imagem mora dentro do link do header,
    * que já declara `aria-label={event.name}` — a imagem é decorativa ali,
    * e anunciar o nome duas vezes piora a leitura em tela de leitor.
    */
   logo: {
-    src: "/images/corrida-verde-logo.png",
+    src: "/images/cv-horizontal-reverse.svg",
     alt: "",
-    width: 1080,
-    height: 1035,
+    width: 817,
+    height: 271,
   } as Media,
 
   /**
-   * Palavra-marca escrita (logotipo branco). Mesmo derivado: cortado na
-   * altura real do texto, 1920×233, do canvas 1920×1080 original.
+   * Palavra-marca branca, empilhada, para o rodapé — `cv-wordmark-branco.svg`
+   * do mesmo kit. Branca: só entra em fundo escuro.
    *
-   * Enquanto for null, o rodapé escreve `event.name` em texto (o estado
-   * vazio do header, agora invertido de lugar). Como o branco da arte não
-   * sobrevive a chapa clara, ela só entra em fundo escuro.
+   * Enquanto for null, o rodapé escreve `event.name` em texto.
    */
   wordmark: {
-    src: "/images/corrida-verde-escrita.png",
+    src: "/images/cv-wordmark-branco.svg",
     alt: "Corrida Verde",
-    width: 1920,
-    height: 233,
+    width: 519,
+    height: 232,
   } as Media,
 
   /**
@@ -233,8 +233,9 @@ export const event = {
   /**
    * Imagem de compartilhamento (Open Graph). PENDÊNCIA 5 resolvida.
    *
-   * Composta a partir da identidade oficial: a palavra-marca branca
-   * centralizada sobre a chapa `theme.colors.background`, 1200×630 (a
+   * Composta a partir da identidade oficial: o lockup horizontal para fundo
+   * escuro (`cv-horizontal-reverse.svg`, 760 px de largura) centralizado
+   * sobre a chapa `theme.colors.forest`, 1200×630 (a
    * proporção do card grande). A arte original tem fundo transparente e
    * PNG transparente não serve de miniatura — o feed pinta de branco ou
    * de preto por baixo, sem pedido nosso. Se a paleta mudar em theme.ts,
@@ -372,7 +373,7 @@ export const regulamentoPage = {
     "Fonte: documento oficial no Google Docs, editável pela organização.",
   emptyState: {
     eyebrow: "Regulamento oficial",
-    title: "Documento ainda não publicado",
+    title: "Regulamento a publicar",
     description:
       "A organização ainda não publicou o regulamento da 41ª edição. Quando publicar, o documento aparece aqui na íntegra — sem cópia intermediária. Até lá, a página oficial do evento é a fonte que vale.",
   } satisfies SectionIntro,
@@ -405,9 +406,9 @@ export const hero = {
   scrollHint: "Role para ver o trajeto",
   marquee: [
     "DE PARQUE A PARQUE",
-    "16 KM",
-    "10,8 KM",
-    "5,8 KM",
+    "10 MI",
+    "6,7 MI",
+    "3,6 MI",
     "2.000 VAGAS",
     "CURITIBA",
   ],
@@ -471,7 +472,7 @@ export const trajeto = {
 export const races = {
   intro: {
     eyebrow: "Os percursos",
-    title: "Três distâncias, uma chegada",
+    title: "Todo percurso chega no Barigui",
     description:
       "Largada às 06h00 em todos os percursos. O percurso curto também aceita caminhada.",
   } satisfies SectionIntro,
@@ -479,6 +480,12 @@ export const races = {
    * `from`/`to` são a informação que diferencia esta prova das outras: os
    * 16 km e os 10,8 km saem de um parque e chegam em outro, e o 5,8 km sai e
    * termina no mesmo. A distância sozinha não conta a história do trajeto.
+   *
+   * A metragem principal é em MILHAS (é o "Desafio 10 Milhas"), com o km
+   * pequeno embaixo. Conversão por 1 mi = 1,609344 km, uma casa decimal:
+   * 10,8 km = 6,71 mi → "6,7 MI"; 5,8 km = 3,60 mi → "3,6 MI". O desafio é
+   * "10 MI" pelo nome da prova: 10 mi = 16,09 km, e 16 km é o arredondamento
+   * oficial — 9,9 mi seria contradizer o próprio nome do evento.
    */
   items: [
     {
@@ -486,7 +493,8 @@ export const races = {
       eyebrow: "Desafio 10 milhas",
       icon: "run",
       title: "Desafio 10 Milhas",
-      badge: "16 KM",
+      badge: "10 MI",
+      badgeNote: "16 km",
       description:
         "A prova que dá nome ao desafio: 16 km atravessando a cidade do Parque Tanguá ao Parque Barigui.",
       from: "Parque Tanguá",
@@ -499,7 +507,8 @@ export const races = {
       eyebrow: "Percurso intermediário",
       icon: "run",
       title: "Intermediário",
-      badge: "10,8 KM",
+      badge: "6,7 MI",
+      badgeNote: "10,8 km",
       description:
         "O mesmo trajeto em versão curta: da largada no Parque Tanguá à chegada no Parque Barigui.",
       from: "Parque Tanguá",
@@ -511,7 +520,8 @@ export const races = {
       eyebrow: "Percurso curto",
       icon: "run",
       title: "Curto",
-      badge: "5,8 KM",
+      badge: "3,6 MI",
+      badgeNote: "5,8 km",
       description:
         "Para correr ou para caminhar: sai do Parque Barigui e volta para a mesma arena de chegada.",
       from: "Parque Barigui",
@@ -588,8 +598,11 @@ export const ativacoes = {
 
 export const impact = {
   lines: [
-    [{ text: "Verde não" }, { text: " é a cor.", accent: true }],
-    [{ text: "É o discurso.", accent: true }],
+    /* Três linhas de mesmo peso: a frase é a repetição, e nenhuma das três
+       pode ler como nota de rodapé da outra. */
+    [{ text: "Verde no nome." }],
+    [{ text: "Verde no percurso." }],
+    [{ text: "Verde no discurso." }],
   ] satisfies HeadlineLine[],
   support:
     "O percurso atravessa dois parques e a cidade entre eles, cada inscrição vira uma muda plantada em Curitiba e a medalha é feita de material sustentável. Verde é o assunto da prova, não a decoração da página.",
@@ -602,7 +615,7 @@ export const impact = {
 export const proposito = {
   intro: {
     eyebrow: "Por que a prova",
-    title: "Verde não é só o nome",
+    title: "Mais que um nome",
     description:
       "Curitiba não é o palco da corrida: é a distância entre a largada e a chegada, e o que se atravessa no meio.",
   } satisfies SectionIntro,
@@ -648,11 +661,11 @@ export const proposito = {
   /** Fecho: a frase que resume o posicionamento, no lugar de um número. */
   closing: {
     lines: [
-      [{ text: "A marca não ocupa" }],
-      [{ text: "um ponto.", accent: true }],
+      [{ text: "A marca ocupa" }],
+      [{ text: "um trajeto.", accent: true }],
     ] satisfies HeadlineLine[],
     support:
-      "Ocupa um trajeto — do Parque Tanguá ao Parque Barigui, atravessando a cidade.",
+      "Do Parque Tanguá ao Parque Barigui, atravessando a cidade.",
   },
 };
 
@@ -662,8 +675,8 @@ export const proposito = {
 
 export const historia = {
   intro: {
-    eyebrow: "A tradição",
-    title: "41ª edição, sempre em fevereiro",
+    eyebrow: "A tradição · 41ª edição",
+    title: "Sempre em fevereiro",
     description:
       "Prova tradicionalmente realizada em fevereiro, com uma comunidade que comparece edição após edição.",
   } satisfies SectionIntro,

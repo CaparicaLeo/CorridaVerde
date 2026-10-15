@@ -132,7 +132,7 @@ export function MedalStage({
         aria-label={medalConfig.alt}
         tabIndex={0}
         {...handlers}
-        className="relative aspect-[4/5] w-full max-w-sm lg:max-w-none cursor-grab touch-pan-y select-none outline-none focus-visible:ring-2 focus-visible:ring-surface/50 active:cursor-grabbing"
+        className="relative aspect-[4/5] w-full max-w-sm lg:max-w-none cursor-grab touch-pan-y select-none outline-none focus-visible:ring-2 focus-visible:ring-forest/50 active:cursor-grabbing"
       >
         {near && !probingModel ? (
           <MedalErrorBoundary fallback={null} onError={handleFailure}>
@@ -157,7 +157,7 @@ export function MedalStage({
       <p
         aria-hidden
         className={cn(
-          "label-condensed mt-3 text-[0.65rem] text-surface/60 transition-opacity duration-700",
+          "label-condensed mt-3 text-[0.65rem] text-forest/60 transition-opacity duration-700",
           ready ? "opacity-100" : "opacity-0",
         )}
       >
@@ -177,8 +177,8 @@ export function MedalStage({
 function MedalSkeleton() {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0">
-      <div className="absolute left-1/2 top-[67%] grid aspect-square w-[57%] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border-2 border-surface/15 motion-safe:animate-pulse">
-        <div className="size-6 rounded-full border-2 border-surface/15 border-t-surface/60 motion-safe:animate-spin" />
+      <div className="absolute left-1/2 top-[67%] grid aspect-square w-[57%] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border-2 border-forest/15 motion-safe:animate-pulse">
+        <div className="size-6 rounded-full border-2 border-forest/15 border-t-forest/60 motion-safe:animate-spin" />
       </div>
     </div>
   );

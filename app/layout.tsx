@@ -69,8 +69,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   /* Vem do tema, como todo hex de marca do projeto. */
-  themeColor: theme.colors.background,
-  colorScheme: "dark",
+  themeColor: theme.colors.forest,
+  colorScheme: "light",
 };
 
 export default function RootLayout({

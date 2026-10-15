@@ -36,7 +36,7 @@ export default async function RegulamentoPage() {
   const intro = regulamento ? regulamentoPage.intro : regulamentoPage.emptyState;
 
   return (
-    <Section tone="darker" className="pt-28 sm:pt-32 lg:pt-40">
+    <Section tone="mist" className="pt-28 sm:pt-32 lg:pt-40">
       <div className="mx-auto max-w-3xl">
         <h1 className="sr-only">{intro.title}</h1>
 
@@ -78,8 +78,8 @@ function RegulamentoDocumento({ document }: { document: RegulamentoDocument }) {
           id={`capitulo-${chapter.number}`}
           className="scroll-mt-24"
         >
-          <h2 className="headline flex flex-wrap items-baseline gap-x-4 gap-y-1 text-3xl sm:text-4xl">
-            <span className="text-accent">{chapter.number}</span>
+          <h2 className="title-sans flex flex-wrap items-baseline gap-x-4 gap-y-1 text-2xl sm:text-3xl">
+            <span className="text-accent-ink">{chapter.number}</span>
             <span>{chapter.title}</span>
           </h2>
 
@@ -110,7 +110,7 @@ function RegulamentoItemView({ item }: { item: RegulamentoItem }) {
     <div className="flex flex-col gap-2.5">
       <p className="text-base leading-relaxed text-ink-muted sm:text-[1.05rem]">
         {item.number ? (
-          <span className="label-condensed mr-3 text-[0.7rem] text-accent">
+          <span className="label-condensed mr-3 text-[0.7rem] text-accent-ink">
             {item.number}
           </span>
         ) : null}
@@ -147,7 +147,7 @@ function RegulamentoIndisponivel() {
           href={regulamentoSource.viewUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="label-condensed text-[0.7rem] text-ink-muted underline decoration-white/20 underline-offset-4 transition-colors hover:text-accent"
+          className="label-condensed text-[0.7rem] text-ink-muted underline decoration-line-strong underline-offset-4 transition-colors hover:text-accent-ink"
         >
           Abrir o documento no Google Docs
         </Link>

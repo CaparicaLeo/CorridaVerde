@@ -3,6 +3,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
+import { fadeUp } from "@/lib/animations/presets";
 import { useGsapScroll } from "@/lib/hooks/useGsapScroll";
 import { cn } from "@/lib/cn";
 
@@ -11,8 +12,8 @@ type Size = "md" | "lg" | "xl";
 
 const variantClasses: Record<Variant, string> = {
   /** Único lugar em que o amarelo vira área sólida grande. */
-  primary: "bg-accent text-surface",
-  outline: "border border-white/25 text-ink",
+  primary: "bg-accent text-forest",
+  outline: "border border-line-strong text-ink",
 };
 
 const sizeClasses: Record<Size, string> = {
@@ -64,15 +65,8 @@ export function CTAButton({
       const glow = scope.querySelector("[data-cta-glow]");
       if (!target || prefersReducedMotion) return;
 
-      if (animateIn) {
-        g.from(scope, {
-          opacity: 0,
-          y: 18,
-          duration: 0.7,
-          ease: "power3.out",
-          scrollTrigger: { trigger: scope, start: "top 92%", once: true },
-        });
-      }
+      // Mesma entrada do resto da página (ver MOTION em presets.ts).
+      if (animateIn) fadeUp(scope, { prefersReducedMotion, trigger: scope });
 
       // Pulso de urgência: escala mínima e contínua, só no halo — nunca no
       // texto, para não causar reflow nem cansar a leitura.

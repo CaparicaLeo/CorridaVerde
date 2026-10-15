@@ -178,9 +178,9 @@ function createRibbonTexture() {
   const context = canvas.getContext("2d");
 
   if (context) {
-    context.fillStyle = theme.colors.accent;
+    context.fillStyle = theme.colors.lime;
     context.fillRect(0, 0, 256, 4);
-    context.fillStyle = theme.colors.inverseText;
+    context.fillStyle = theme.colors.forest;
     context.fillRect(0, 0, 30, 4);
     context.fillRect(226, 0, 30, 4);
     context.fillRect(44, 0, 8, 4);

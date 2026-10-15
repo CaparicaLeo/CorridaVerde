@@ -17,7 +17,7 @@ type EyebrowProps<T extends ElementType> = {
  * Eyebrow do deck: caixa alta, tracking largo, amarelo.
  *
  * Junto com <Highlight>, é um dos dois lugares autorizados a usar o amarelo em
- * texto. Se você está prestes a escrever `text-accent` num parágrafo, use um
+ * texto. Se você está prestes a escrever `text-accent-ink` num parágrafo, use um
  * destes dois — a regra da identidade é que o amarelo marque, não escreva.
  */
 export function Eyebrow<T extends ElementType = "p">({
@@ -35,7 +35,7 @@ export function Eyebrow<T extends ElementType = "p">({
     <Component
       className={cn(
         "label-condensed inline-flex items-center gap-2 text-[0.7rem] leading-none",
-        tone === "accent" ? "text-accent" : "text-surface/70",
+        tone === "accent" ? "text-accent-ink" : "text-forest/70",
         className,
       )}
       {...rest}

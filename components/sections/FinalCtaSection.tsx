@@ -14,13 +14,11 @@ export function FinalCtaSection() {
     revealLines(scope.querySelectorAll("[data-headline-line]"), {
       prefersReducedMotion,
       trigger: scope,
-      start: "top 80%",
     });
 
     fadeUp(scope.querySelectorAll("[data-reveal]"), {
       prefersReducedMotion,
       trigger: scope,
-      stagger: 0.12,
     });
   });
 
@@ -31,6 +29,7 @@ export function FinalCtaSection() {
        sobrava um vão de 144px entre a faixa amarela e o rodapé no desktop. */
     <Section
       id="inscricao"
+      tone="sprout"
       className="grain overflow-hidden pb-0 sm:pb-0 lg:pb-0"
     >
       <div ref={root} className="relative flex flex-col items-center text-center">
@@ -71,7 +70,7 @@ export function FinalCtaSection() {
         */}
         <Marquee
           items={hero.marquee}
-          className="bg-accent text-surface"
+          className="bg-accent text-forest"
           reverse
         />
       </div>

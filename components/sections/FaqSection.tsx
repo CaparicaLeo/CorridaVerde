@@ -12,12 +12,11 @@ export function FaqSection() {
     fadeUp(scope.querySelectorAll("[data-reveal]"), {
       prefersReducedMotion,
       trigger: scope,
-      stagger: 0.1,
     });
   });
 
   return (
-    <Section id="faq" tone="darker">
+    <Section id="faq" tone="mist">
       <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
         <div ref={root} className="lg:sticky lg:top-32 lg:self-start">
           <SectionHeader intro={faq.intro} />

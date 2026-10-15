@@ -59,7 +59,7 @@ export function SectionHeader({
         data-reveal
         className={cn(
           "headline text-4xl sm:text-5xl lg:text-6xl",
-          onPlate && "text-surface",
+          onPlate && "text-forest",
           titleClassName,
         )}
       >
@@ -71,7 +71,7 @@ export function SectionHeader({
           data-reveal
           className={cn(
             "max-w-2xl text-base leading-relaxed sm:text-lg",
-            onPlate ? "text-surface/75" : "text-ink-muted",
+            onPlate ? "text-forest/75" : "text-ink-muted",
           )}
         >
           {intro.description}

@@ -19,12 +19,11 @@ export function TrajetoSection() {
     fadeUp(scope.querySelectorAll("[data-reveal]"), {
       prefersReducedMotion,
       trigger: scope,
-      stagger: 0.12,
     });
   });
 
   return (
-    <Section id="trajeto" tone="darker">
+    <Section id="trajeto" tone="mist">
       <div ref={root}>
         <SectionHeader intro={trajeto.intro} className="max-w-4xl" />
 

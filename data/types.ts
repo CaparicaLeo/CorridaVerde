@@ -61,8 +61,10 @@ export type CardItem = {
   eyebrow: string;
   icon: string;
   title: string;
-  /** Linha de destaque à direita do título (ex.: "10,8 KM"). */
+  /** Número de cartaz do card (ex.: "6,7 MI"). */
   badge?: string;
+  /** Linha pequena sob o número — a mesma medida em outra unidade ("10,8 km"). */
+  badgeNote?: string;
   description?: string;
   /** Par Largada → Chegada. Vazio esconde a linha. */
   from?: string;

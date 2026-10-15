@@ -1,38 +1,55 @@
-import { Bodoni_Moda } from "next/font/google";
+import localFont from "next/font/local";
 
 /**
  * Tipografia da Corrida Verde, auto-hospedada por next/font (sem request para
- * o Google em runtime e sem layout shift).
+ * fora em runtime e sem layout shift).
  *
- * Bodoni Moda — a didone oficial da identidade — é a ÚNICA família da página:
- * serve o corpo (400), os labels/eyebrows (600) e os títulos de cartaz (800).
- * Não há mais família sans: os tokens `--font-sans` e `--font-condensed` de
- * globals.css apontam para esta mesma variável.
+ * Duas famílias, dois papéis:
+ *   - CHAMADA (headline de seção, chapa de impacto e número de cartaz):
+ *     Ranima Regular, a fonte da palavra-marca. O arquivo é a versão DEMO
+ *     ("Demo for Personal Use", ifonts.xyz) e tem 155 glifos: NENHUM acento
+ *     nem cedilha. Por isso as chamadas foram escritas sem acento (ver
+ *     data/event.ts) e títulos com nome próprio acentuado ("Parque Tanguá",
+ *     "Intermediário") usam `title-sans`, na Satoshi. Antes de publicar, a
+ *     licença comercial de webfont precisa ser comprada (Creative Market,
+ *     AnnofaType); se o arquivo licenciado trouxer acentos, as chamadas
+ *     podem voltar a ter.
+ *   - TEXTO CORRIDO, labels e títulos menores: Satoshi (Fontshare, ITF Free
+ *     Font License — uso comercial e auto-hospedagem permitidos, ver a
+ *     cláusula 01 da licença). Arquivo variável, eixo wght 300–900.
  *
- * A variável usa o prefixo `--ff-*` de propósito: os tokens de fonte do
+ * As variáveis usam o prefixo `--ff-*` de propósito: os tokens de fonte do
  * Tailwind (`--font-display`, `--font-sans`, `--font-condensed`, em
- * globals.css) apontam para ela. Se as duas camadas usassem o mesmo nome, a
+ * globals.css) apontam para elas. Se as duas camadas usassem o mesmo nome, a
  * declaração do next/font sobrescreveria o token do tema no <html>.
  *
- * Trocar a família exige recalibrar `theme.metrics`: entrelinha e folga de
- * máscara saem das métricas do arquivo de fonte, não do gosto.
+ * Trocar a família de CHAMADA exige recalibrar `theme.metrics`: entrelinha e
+ * folga de máscara saem das métricas do arquivo de fonte, não do gosto.
  */
 
 /**
- * Cartaz, corpo e labels em Bodoni Moda. A família é variável no Google: o
- * next/font serve o arquivo com eixo `wght` (a tabela `fvar` está lá) e o
- * @font-face declara os três pesos usados — 400 (corpo), 600 (labels) e 800
- * (cartaz). A lista restringe o CSS aos pesos que a página de fato usa.
- *
- * O `theme.metrics` foi medido no eixo wght=800 deste mesmo arquivo servido,
- * e o 800 do eixo reproduz os números da instância antes calibrada. Trocar a
- * calibração do eixo (alguém acrescentar `opsz`) exige remedir.
+ * Chamada em Ranima. Um peso só (400): `.headline` e `.poster-number` pedem
+ * 400 e desligam `font-synthesis`, senão o navegador engrossaria o desenho
+ * artificialmente. `theme.metrics` foi medido neste arquivo.
  */
-export const displayFont = Bodoni_Moda({
-  subsets: ["latin"],
-  weight: ["400", "600", "800"],
+export const displayFont = localFont({
+  src: "./fonts/Ranima-Regular.woff2",
+  weight: "400",
+  style: "normal",
   variable: "--ff-display",
   display: "swap",
 });
 
-export const fontVariables = displayFont.variable;
+/**
+ * Corpo e labels em Satoshi. A Satoshi não tem ª/º: o "41ª" cai no fallback
+ * sans da pilha em globals.css, que é o mais próximo do desenho dela.
+ */
+export const bodyFont = localFont({
+  src: "./fonts/Satoshi-Variable.woff2",
+  weight: "300 900",
+  style: "normal",
+  variable: "--ff-body",
+  display: "swap",
+});
+
+export const fontVariables = `${displayFont.variable} ${bodyFont.variable}`;

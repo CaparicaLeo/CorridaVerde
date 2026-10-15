@@ -20,16 +20,15 @@ export function HistoriaSection() {
     fadeUp(scope.querySelectorAll("[data-reveal]"), {
       prefersReducedMotion,
       trigger: scope,
-      stagger: 0.1,
     });
   });
 
   return (
-    <Section id="historia">
+    <Section id="historia" tone="sprout">
       <div ref={root}>
         <SectionHeader intro={historia.intro} />
 
-        <div className="mt-14 grid gap-px border border-white/10 bg-white/10 lg:mt-20 lg:grid-cols-[1.35fr_1fr]">
+        <div className="mt-14 grid gap-px border border-line bg-line lg:mt-20 lg:grid-cols-[1.35fr_1fr]">
           {/* A borda da grade é o próprio gap de 1px: por isso o bloco entra
               sem borda própria, senão a linha fica com 2px em um lado só. */}
           <BigNumberBlock

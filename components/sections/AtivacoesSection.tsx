@@ -19,12 +19,11 @@ export function AtivacoesSection() {
     fadeUp(scope.querySelectorAll("[data-reveal]"), {
       prefersReducedMotion,
       trigger: scope,
-      stagger: 0.1,
     });
   });
 
   return (
-    <Section id="ativacoes" tone="darker">
+    <Section id="ativacoes" tone="mist">
       <div ref={root}>
         <SectionHeader intro={ativacoes.intro} />
 

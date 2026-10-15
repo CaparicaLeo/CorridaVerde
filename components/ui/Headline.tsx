@@ -40,7 +40,7 @@ export function Headline({
                   key={segmentIndex}
                   /* Sobre a chapa amarela o amarelo sumiria: lá o destaque é
                      a chapa invertida, preta. */
-                  className={tone === "dark" ? "text-surface/55" : undefined}
+                  className={tone === "dark" ? "text-forest/55" : undefined}
                 >
                   {segment.text}
                 </Highlight>

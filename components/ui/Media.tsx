@@ -82,5 +82,5 @@ export function Media({
  */
 const atmosphereClass = {
   atmosphere:
-    "bg-[radial-gradient(115%_85%_at_72%_22%,rgba(99,190,63,0.20),transparent_58%),radial-gradient(85%_70%_at_20%_82%,rgba(99,190,63,0.12),transparent_62%)]",
+    "bg-[radial-gradient(115%_85%_at_72%_22%,color-mix(in_srgb,var(--color-accent)_20%,transparent),transparent_58%),radial-gradient(85%_70%_at_20%_82%,color-mix(in_srgb,var(--color-accent)_12%,transparent),transparent_62%)]",
 } as const;

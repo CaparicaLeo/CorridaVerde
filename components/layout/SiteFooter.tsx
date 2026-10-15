@@ -16,12 +16,12 @@ const navHref = (href: string) => (href.startsWith("/") ? href : `/${href}`);
  */
 export function SiteFooter() {
   return (
-    <footer className="border-t border-white/10 bg-surface-alt">
+    <footer className="tone-dark border-t border-line bg-surface text-ink">
       <div className="container-page grid gap-10 py-14 lg:grid-cols-3 lg:py-16">
         <div>
           {/*
             A palavra-marca branca só vale em chapa escura — é o caso aqui
-            (surface-alt). Enquanto o dado estiver null, o nome volta em
+            (tone-dark). Enquanto o dado estiver null, o nome volta em
             texto: o estado vazio do header, invertido de lugar. O alt traz
             o nome do evento porque a arte é o nome.
           */}
@@ -31,13 +31,12 @@ export function SiteFooter() {
               alt={event.wordmark.alt}
               width={event.wordmark.width}
               height={event.wordmark.height}
-              sizes="(min-width: 1024px) 20rem, 100vw"
-              className="h-auto w-full max-w-[20rem]"
+              className="h-auto w-full max-w-[14rem]"
             />
           ) : (
             <p className="headline text-2xl text-ink">{event.name}</p>
           )}
-          <p className="label-condensed mt-4 text-[0.7rem] text-accent">
+          <p className="label-condensed mt-4 text-[0.7rem] text-accent-ink">
             {eventDate.label}
           </p>
           {/* O local não é endereço: a prova ocupa um trajeto entre dois
@@ -50,7 +49,7 @@ export function SiteFooter() {
           </p>
         </div>
 
-        <p className="label-condensed self-center text-[0.7rem] text-accent lg:text-center">
+        <p className="label-condensed self-center text-[0.7rem] text-accent-ink lg:text-center">
           {event.series.name} · {event.series.season}
         </p>
 
@@ -60,7 +59,7 @@ export function SiteFooter() {
               <li key={item.href}>
                 <Link
                   href={navHref(item.href)}
-                  className="text-sm text-ink/85 transition-colors hover:text-accent"
+                  className="text-sm text-ink/85 transition-colors hover:text-accent-ink"
                 >
                   {item.label}
                 </Link>
@@ -70,7 +69,7 @@ export function SiteFooter() {
         </nav>
       </div>
 
-      <div className="border-t border-white/10">
+      <div className="border-t border-line">
         <div className="container-page flex flex-col gap-3 py-6 text-xs text-ink-muted sm:flex-row sm:items-center sm:justify-between">
           {/* Ano corrente, não o do evento: o aviso de copyright vale para a
               data de publicação. Congela no build — rebuild anual resolve. */}

@@ -14,12 +14,11 @@ export function RacesSection() {
     fadeUp(scope.querySelectorAll("[data-reveal]"), {
       prefersReducedMotion,
       trigger: scope,
-      stagger: 0.1,
     });
   });
 
   return (
-    <Section id="percursos">
+    <Section id="percursos" tone="sprout">
       <div ref={root}>
         <SectionHeader intro={races.intro} />
 
@@ -34,7 +33,7 @@ export function RacesSection() {
           data-reveal
           className="mt-8 flex max-w-2xl items-start gap-3 text-sm leading-relaxed text-ink-muted"
         >
-          <Icon name="pin" className="mt-0.5 size-4 shrink-0 text-accent" />
+          <Icon name="pin" className="mt-0.5 size-4 shrink-0 text-accent-ink" />
           {races.venueNote}
         </p>
 

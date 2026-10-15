@@ -51,8 +51,6 @@ export function Accordion({
     fadeUp(scope.querySelectorAll("[data-accordion-item]"), {
       prefersReducedMotion: reduced,
       trigger: scope,
-      stagger: 0.07,
-      y: 18,
     });
   });
 
@@ -114,7 +112,7 @@ export function Accordion({
   }
 
   return (
-    <div ref={root} className={cn("divide-y divide-white/10 border-y border-white/10", className)}>
+    <div ref={root} className={cn("divide-y divide-line border-y border-line", className)}>
       {items.map((item) => {
         const isOpen = openIds.includes(item.id);
         const panelId = `${baseId}-panel-${item.id}`;
@@ -145,8 +143,8 @@ export function Accordion({
                   className={cn(
                     "mt-1 grid size-7 shrink-0 place-items-center border transition-colors duration-300",
                     isOpen
-                      ? "border-accent bg-accent text-surface"
-                      : "border-white/25 text-ink-muted group-hover:border-accent",
+                      ? "border-accent bg-accent text-forest"
+                      : "border-line-strong text-ink-muted group-hover:border-accent",
                   )}
                 >
                   <span

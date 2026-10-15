@@ -6,9 +6,9 @@ type HighlightVariant = "text" | "mark";
 
 const variantClasses: Record<HighlightVariant, string> = {
   /** Palavra ou número em amarelo — destaque pontual, nunca frase inteira. */
-  text: "text-accent",
+  text: "text-accent-ink",
   /** Chapa amarela atrás do texto, com o preto do fundo por cima. */
-  mark: "bg-accent text-surface px-2 -mx-1",
+  mark: "bg-accent text-forest px-2 -mx-1",
 };
 
 export function Highlight({
