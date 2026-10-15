@@ -46,7 +46,9 @@ export function IconGridBlock({
         <li
           key={item.id}
           data-icon-item
-          className="group flex flex-col gap-5 bg-surface p-7 transition-colors duration-300 hover:bg-surface-alt"
+          /* Chapa levemente translúcida: sobre uma marca d'água de fundo
+             (BrandWatermark), a forma ainda aparece atrás da grade. */
+          className="group flex flex-col gap-5 bg-surface/80 p-7 backdrop-blur-[2px] transition-colors duration-300 hover:bg-surface-alt"
         >
           <Icon name={item.icon} className="size-8 text-accent-ink" />
           <span className="label-condensed text-[0.75rem] leading-snug text-ink">

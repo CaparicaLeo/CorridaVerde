@@ -98,7 +98,7 @@ export function SiteHeader() {
             onClick={() => setIsMenuOpen((open) => !open)}
             aria-expanded={isMenuOpen}
             aria-controls="menu-mobile"
-            className="label-condensed cursor-pointer border border-line-strong px-4 py-2.5 text-[0.7rem] lg:hidden"
+            className="label-condensed min-h-11 cursor-pointer border border-line-strong px-4 py-2.5 text-[0.7rem] lg:hidden"
           >
             {isMenuOpen ? "Fechar" : "Menu"}
           </button>

@@ -33,7 +33,12 @@ export default function HomePage() {
       <TrajetoSection />
       <RacesSection />
       <AtivacoesSection />
-      <ImpactSlide id="conceito" lines={impact.lines} support={impact.support} />
+      <ImpactSlide
+        id="conceito"
+        lines={impact.lines}
+        support={impact.support}
+        media={impact.media}
+      />
       <PropositoSection />
       <HistoriaSection />
       <FaqSection />

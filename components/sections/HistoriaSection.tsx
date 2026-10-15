@@ -1,9 +1,9 @@
 "use client";
 
 import { BigNumberBlock } from "@/components/blocks/BigNumberBlock";
-import { Media } from "@/components/ui/Media";
 import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { SideMedia } from "@/components/ui/SideMedia";
 import { event, historia } from "@/data/event";
 import { fadeUp } from "@/lib/animations/presets";
 import { useGsapScroll } from "@/lib/hooks/useGsapScroll";
@@ -26,25 +26,18 @@ export function HistoriaSection() {
   return (
     <Section id="historia" tone="sprout">
       <div ref={root}>
-        <SectionHeader intro={historia.intro} />
+        {/* Layout do deck: texto e número à esquerda, foto à direita com a
+            cor da seção dissolvendo sobre ela. Sem caixa: o número fica solto
+            na chapa, como no slide "Escala". */}
+        <SideMedia media={event.photo} objectPosition="object-[50%_40%]" />
 
-        <div className="mt-14 grid gap-px border border-line bg-line lg:mt-20 lg:grid-cols-[1.35fr_1fr]">
-          {/* A borda da grade é o próprio gap de 1px: por isso o bloco entra
-              sem borda própria, senão a linha fica com 2px em um lado só. */}
+        <div className="relative lg:w-[46%]">
+          <SectionHeader intro={historia.intro} />
+
           <BigNumberBlock
             number={historia.number}
             kpis={historia.kpis}
-            className="border-0"
-          />
-
-          {/* O slot ocupa a mesma altura da coluna do bloco de número, para a
-              grade fechar sem sobra. Sem foto, o Media desenha a atmosfera. */}
-          <Media
-            media={event.photo}
-            sizes="(min-width: 1024px) 34vw, 100vw"
-            className="min-h-[20rem] lg:h-full"
-            imageClassName="object-[center_35%]"
-            stretch
+            className="mt-12 bg-transparent p-0 lg:mt-16 lg:p-0"
           />
         </div>
       </div>

@@ -64,14 +64,12 @@ import type {
  *    paleta de app/theme.ts foi sincronizada com os verdes medidos do logo.
  *    PENDÊNCIA restante: confirmar se esta arte é a versão final.
  *
- * 5b. FOTOGRAFIA — quatro fotos da prova chegaram e DUAS estão no ar
- *    (`hero` e `photo`). Os originais (74 MB) ficam em `midias-originais/`,
- *    fora do git e fora de `public/`; em `public/images/` vão só os derivados
- *    de web, redimensionados. As outras duas fotos continuam em
- *    `midias-originais/` esperando lugar na página.
- *    PENDÊNCIA 8: os `alt` não foram conferidos — as imagens não puderam ser
- *    inspecionadas visualmente na integração, e as fotos são de 8 de fevereiro
- *    de 2026 (edição anterior, pelo EXIF), então nada as identifica como tal.
+ * 5b. FOTOGRAFIA — três fotos no ar (`hero`, `photo` e `impact.media`),
+ *    extraídas dos PSDs do deck comercial 2027. Os originais ficam em
+ *    `midias-originais/` (fora do git e de `public/`); em `public/images/` vão
+ *    só os derivados de web. PENDÊNCIA 8 resolvida para as três: o `alt` foi
+ *    escrito olhando a foto. São de edição anterior (EXIF de 08/02/2026), e
+ *    nada na página as apresenta como da 41ª.
  *
  * 6. REGULAMENTO — em aberto. Não há documento publicado para a 41ª. A rota
  *    /regulamento fica no ar em estado vazio, apontando para a ficha oficial,
@@ -193,41 +191,43 @@ export const event = {
   } as Media,
 
   /**
-   * Foto de abertura do hero.
+   * Foto de abertura do hero — a mesma da tela "Escala" do deck comercial
+   * 2027: atleta sorrindo de braços abertos na trilha, com a camisa da prova,
+   * e outras duas corredoras atrás. Original `DSC01135.jpg` (Sony A7C,
+   * 08/02/2026 07h08 — o dia da edição de 2026), extraído do PSD do deck
+   * (objeto inteligente embutido) para `midias-originais/psd/fotos/`;
+   * derivado de web 1600×2127, q78.
    *
-   * Vertical 2:3 (2200×3300), a mais forte das quatro fotos recebidas: a ação
-   * está na faixa 30–65% da altura, que é exatamente a faixa que o hero mostra
-   * (ver `imageClassName` em HeroSection — a camada é 116% da tela e o cover
-   * corta a largura, então o enquadramento útil é uma faixa central). O topo
-   * quase preto e o rodapé escuro da foto também fazem o trabalho de fundo: a
-   * headline branca do hero assenta no escuro da própria imagem, sem depender
-   * só do gradiente.
-   *
-   * PENDÊNCIA 8: o `alt` NÃO foi conferido — as imagens não puderam ser
-   * inspecionadas visualmente na hora da integração, e alt inventado é pior
-   * que alt genérico. Confirmar o que a foto mostra e reescrever.
+   * O layout é o do deck: texto à esquerda, foto na coluna direita, e a cor
+   * do fundo dissolvendo sobre ela (ver HeroSection). A atleta está no terço
+   * central-esquerdo da foto, que é o que fica em quadro no recorte da
+   * coluna.
    */
   hero: {
-    src: "/images/hero-corrida-verde.jpg",
-    alt: "Atletas da Corrida Verde",
-    width: 2200,
-    height: 3300,
+    src: "/images/hero-atleta-trilha.jpg",
+    alt: "Atleta da Corrida Verde sorrindo de braços abertos numa trilha arborizada, com outras corredoras atrás",
+    width: 1600,
+    height: 2127,
   } as Media,
 
   /**
-   * Fotografia da prova para a seção de história.
+   * Fotografia da prova para a seção de história ("Sempre em fevereiro").
    *
-   * A seção fala de tradição e de 2.000 vagas, então a foto entra como
-   * registro da prova — não como foto da 41ª edição. PENDÊNCIA 8: as fotos
-   * recebidas são de 8 de fevereiro de 2026 (data da edição anterior, lida no
-   * EXIF), e nada na interface as identifica como tal: se a organização quiser
-   * o crédito da edição, ele vai em `historia`, como texto.
+   * Pelotão de camisa verde da prova correndo no asfalto, com o pórtico ao
+   * fundo — a comunidade que volta edição após edição, que é o assunto da
+   * seção. Original `7S7A1987.jpg`, extraído do PSD da tela "Live Marketing"
+   * do deck comercial 2027 (`midias-originais/psd/fotos/`); derivado de web
+   * 1600×2363, q78. Entra no layout do deck: foto à direita com a cor da
+   * seção dissolvendo sobre ela (SideMedia).
+   *
+   * A foto é de uma edição anterior, e nada na interface a apresenta como da
+   * 41ª: se a organização quiser o crédito da edição, ele vai em `historia`.
    */
   photo: {
-    src: "/images/corrida-verde-pelotao.jpg",
-    alt: "Atletas da Corrida Verde",
-    width: 1200,
-    height: 1722,
+    src: "/images/historia-pelotao.jpg",
+    alt: "Pelotão da Corrida Verde correndo no asfalto, com camisas verdes da prova e o pórtico ao fundo",
+    width: 1600,
+    height: 2363,
   } as Media,
 
   /**
@@ -419,6 +419,21 @@ export const hero = {
  * ------------------------------------------------------------------------- */
 
 export const trajeto = {
+  /**
+   * Fundo da seção: a vista aérea de drone da mata, sob névoa — a tela "Seis
+   * ideias para esta prova" do deck comercial 2027. Original
+   * `DJI_20260208065238_0010_D.jpg` (08/02/2026 06h52), extraído do PSD
+   * (`midias-originais/psd/fotos/`); derivado 1280×2045, q62 — entra a 45% e
+   * quase some no meio, então o detalhe fino não aparece.
+   *
+   * `alt` vazio: é textura de fundo, o conteúdo da seção é o esquema.
+   */
+  backdrop: {
+    src: "/images/trajeto-mata-drone.jpg",
+    alt: "",
+    width: 1280,
+    height: 2045,
+  } as Media,
   intro: {
     eyebrow: "O trajeto",
     title: "De parque a parque",
@@ -606,6 +621,17 @@ export const impact = {
   ] satisfies HeadlineLine[],
   support:
     "O percurso atravessa dois parques e a cidade entre eles, cada inscrição vira uma muda plantada em Curitiba e a medalha é feita de material sustentável. Verde é o assunto da prova, não a decoração da página.",
+  /**
+   * Corredor sozinho numa trilha de mata fechada — a tela "Onde a marca
+   * aparece" do deck comercial 2027. Original `7S7A2308-Editar.jpg`
+   * (`midias-originais/psd/fotos/`); derivado de web 1600×2343, q78.
+   */
+  media: {
+    src: "/images/conceito-corredor-mata.jpg",
+    alt: "Corredor com a camisa da Corrida Verde numa trilha de mata fechada",
+    width: 1600,
+    height: 2343,
+  } as Media,
 };
 
 /* ---------------------------------------------------------------------------

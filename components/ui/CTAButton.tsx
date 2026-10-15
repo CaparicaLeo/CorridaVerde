@@ -18,7 +18,13 @@ const variantClasses: Record<Variant, string> = {
 
 const sizeClasses: Record<Size, string> = {
   md: "px-6 py-3.5 text-xs",
-  lg: "px-8 py-4.5 text-sm",
+  /**
+   * Abaixo de 400px o tracking do label cai de 0.16em para 0.08em e o padding
+   * lateral encolhe: em 320px, "VER ONDE SE INSCREVER" quebrava em duas
+   * linhas no hero e no CTA final. Prefixo de variante para vencer o
+   * `letter-spacing` do `label-condensed` na ordem do Tailwind.
+   */
+  lg: "px-8 py-4.5 text-sm max-[399px]:px-5 max-[399px]:tracking-[0.08em]",
   /**
    * Botão-destino de uma seção inteira (ex.: mapa do percurso). No celular
    * volta ao corpo do `lg`: em 390px, text-base com o tracking do label

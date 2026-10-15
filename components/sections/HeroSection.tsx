@@ -45,46 +45,51 @@ export function HeroSection() {
     <section
       ref={root}
       id="hero"
-      className="tone-dark grain relative isolate flex min-h-[100svh] flex-col bg-surface text-ink justify-end overflow-hidden pt-24 pb-0"
+      className="tone-dark grain relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden bg-surface pt-[min(92vw,26rem)] pb-0 text-ink lg:pt-24"
     >
       {/*
-        A foto é quadrada e o hero é largo: o `object-cover` mostra só a faixa
-        central. `object-position` no topo da faixa inferior mantém o assunto em
-        quadro em vez de cortar no meio. `sizes` declara mais que 100vw porque a
-        camada tem 116% da altura e o cover amplia a imagem além da largura do
-        viewport.
+        Layout do deck comercial (tela "Escala"): texto à esquerda, foto à
+        direita, e a cor do fundo DISSOLVENDO sobre a foto — sem borda seca
+        entre as duas. No desktop a foto ocupa os 62% da direita; no celular
+        ela é o topo do hero e o texto senta abaixo, no escuro: o `pt` do
+        celular empurra o texto para a faixa onde a cor já cobriu a foto
+        (≈76% da altura dela), e o rosto da atleta fica livre.
 
-        Sem foto, o próprio Media entra no estado vazio e desenha a atmosfera
-        da identidade — verde quase preto com dois focos de verde vivo
-        diluídos, mais o grão da página. Fica mais escuro à esquerda, que
-        é onde a headline se apoia. Nada de retângulo cinza nem blur genérico.
+        A dissolução são duas camadas sobre a borda da foto que encosta no
+        texto: um desfoque progressivo (backdrop-blur com máscara em degradê,
+        o "blur da cor") e o verde mata indo de cheio a transparente. A
+        parallax mexe só na foto, então as camadas de cor ficam paradas e a
+        imagem desliza por baixo delas.
       */}
-      <div aria-hidden className="absolute inset-0 -z-20">
+      <div
+        aria-hidden
+        className="absolute inset-x-0 top-0 -z-20 h-[min(125vw,34rem)] overflow-hidden lg:inset-y-0 lg:right-0 lg:left-auto lg:h-auto lg:w-[62%]"
+      >
         <div data-hero-media className="absolute inset-x-0 -top-[8%] h-[116%]">
           <Media
             media={event.hero}
             preload
-            sizes="(min-width: 1024px) 170vw, 130vw"
+            sizes="(min-width: 1024px) 65vw, 100vw"
             className="h-full w-full bg-transparent"
-            imageClassName="opacity-70 object-[center_38%]"
+            imageClassName="object-[42%_30%]"
+            stretch
           />
         </div>
+
+        {/* Desfoque progressivo: cheio na borda do texto, some no meio da foto. */}
+        <div className="absolute inset-x-0 bottom-0 h-1/2 backdrop-blur-xl [mask-image:linear-gradient(to_top,black_25%,transparent)] lg:inset-y-0 lg:right-auto lg:left-0 lg:h-auto lg:w-1/2 lg:[mask-image:linear-gradient(to_right,black_25%,transparent)]" />
+
+        {/* A cor do fundo dissolvendo sobre a foto. */}
+        <div className="absolute inset-0 bg-linear-to-t from-surface from-5% via-surface/55 via-35% to-transparent to-65% lg:bg-linear-to-r lg:from-surface lg:from-0% lg:via-surface/60 lg:via-25% lg:to-transparent lg:to-60%" />
+
+        {/* Topo e pé da coluna: o header e o marquee encostam sem degrau. */}
+        <div className="absolute inset-x-0 top-0 h-28 bg-linear-to-b from-surface/70 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 hidden h-40 bg-linear-to-t from-surface/80 to-transparent lg:block" />
       </div>
 
-      {/*
-        Gradiente de apoio, não de assinatura: a foto é escura nas pontas e
-        clara no meio (ver `event.hero`), então o topo recebe 70% e não 85% —
-        a 85% a faixa clara da fotografia virava um borrão escuro e a imagem
-        sumia justamente onde ela tem o que mostrar. O pé vai a 100% porque é
-        onde a headline e os CTAs sentam, e ali a foto já é escura: o preto
-        entra como reforço, não como véu.
-      */}
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 bg-linear-to-b from-surface/70 via-surface/45 to-surface"
-      />
-
-      <div className="container-page flex flex-1 flex-col justify-end pb-10">
+      {/* Coluna de texto: no desktop fica à esquerda da foto (até ~45% da
+          largura); no celular desce para baixo dela. */}
+      <div className="container-page flex flex-1 flex-col justify-end pb-10 lg:[&>*]:max-w-[min(100%,40rem)]">
         <Eyebrow data-hero-eyebrow className="w-fit">
           {hero.eyebrow}
         </Eyebrow>
@@ -147,7 +152,7 @@ export function HeroSection() {
 
         <div
           data-hero-fade
-          className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center"
+          className="mt-8 flex flex-col items-start gap-4 md:flex-row md:items-center"
         >
           <CTAButton href={registrationCta.href} pulse animateIn={false}>
             {registrationCta.label}

@@ -1,6 +1,7 @@
 "use client";
 
 import { RouteDiagram } from "@/components/blocks/RouteDiagram";
+import { Media } from "@/components/ui/Media";
 import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { trajeto } from "@/data/event";
@@ -23,7 +24,30 @@ export function TrajetoSection() {
   });
 
   return (
-    <Section id="trajeto" tone="mist">
+    <Section id="trajeto" tone="mist" className="isolate overflow-hidden">
+      {/*
+        Fundo da tela "Seis ideias para esta prova" do deck, refeito com os
+        números do PSD: sobre a névoa, a foto aérea da mata a 45% (opacidade
+        115/255 da camada) com uma máscara que a apaga no meio — a "névoa"
+        onde o conteúdo senta. Medida na máscara: ~0.9 no topo, ~0.05 no
+        centro, ~0.5 no pé e um pouco mais forte nas laterais. Aqui a mesma
+        forma vira um degradê vertical somado a um radial.
+      */}
+      {trajeto.backdrop ? (
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 -z-10 opacity-45 [mask-image:linear-gradient(to_bottom,black,rgb(0_0_0/0.35)_22%,rgb(0_0_0/0.04)_50%,rgb(0_0_0/0.12)_75%,rgb(0_0_0/0.55)),radial-gradient(ellipse_70%_60%_at_50%_52%,transparent_55%,rgb(0_0_0/0.3))] [mask-composite:add]"
+        >
+          <Media
+            media={trajeto.backdrop}
+            sizes="100vw"
+            className="h-full w-full bg-transparent"
+            imageClassName="object-[50%_60%]"
+            stretch
+          />
+        </div>
+      ) : null}
+
       <div ref={root}>
         <SectionHeader intro={trajeto.intro} className="max-w-4xl" />
 

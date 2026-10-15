@@ -90,7 +90,7 @@ export function RouteDiagram({
 
             <span
               className={cn(
-                "label-condensed col-start-2 self-center text-[0.6rem]",
+                "label-condensed col-start-2 self-center text-[0.6rem] sm:self-auto",
                 stop.role === "start" || stop.role === "finish"
                   ? "text-accent-ink"
                   : "text-ink-muted",

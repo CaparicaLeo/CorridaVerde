@@ -87,7 +87,7 @@ Estão documentadas no topo de `data/event.ts`. Resumo:
 | 5 | **Logo e imagem social** | Resolvida: `event.logo` (badge) no header, `event.wordmark` no rodapé e `event.ogImage` (1200×630) para compartilhamento. |
 | 6 | **Regulamento** | `regulamentoSource.docId` é `null`; `/regulamento` entra em estado vazio. |
 | 7 | **Preço** | Nenhum valor publicado. Sem bloco `offers` no JSON-LD. |
-| 8 | **`alt` das fotos** | Não conferidos: as imagens não puderam ser inspecionadas na integração. As fotos são de 08/02/2026. |
+| 8 | **`alt` das fotos** | Resolvida: escritos olhando cada foto. As fotos são de edição anterior (08/02/2026). |
 
 Regra que atravessa todas elas: **nada de placeholder com cara de real**.
 Número, data ou foto que a organização não confirmou não entra na página.
@@ -100,22 +100,25 @@ porque `public/` é servido publicamente e sobe inteiro no deploy. Em
 
 | Uso | Arquivo | Origem | Derivado |
 | --- | --- | --- | --- |
-| Hero | `public/images/hero-corrida-verde.jpg` | `DSC09167.jpg` (4672×7008) | 2200×3300, q72, 388 KB |
-| História | `public/images/corrida-verde-pelotao.jpg` | `DSC08905.jpg` (3981×5711) | 1200×1722, q78, 492 KB |
-| Badge (header) | `public/images/corrida-verde-logo.png` | `corrida-verde-logo-1920x1080.png` | 1080×1035, corte do canvas, 101 KB |
-| Palavra-marca (rodapé) | `public/images/corrida-verde-escrita.png` | `corrida-verde-escrita-1920x1080.png` | 1920×233, corte do canvas, 33 KB |
-| Imagem social | `public/images/corrida-verde-og.png` | composta da palavra-marca | 1200×630 sobre `theme.colors.forest`, 39 KB |
+| Hero | `public/images/hero-atleta-trilha.jpg` | `DSC01135.jpg` (2624×3488), do PSD do deck | 1600×2127, q78, 430 KB |
+| Conceito | `public/images/conceito-corredor-mata.jpg` | `7S7A2308-Editar.jpg` (4051×5933), do PSD do deck | 1600×2343, q78, 553 KB |
+| História | `public/images/historia-pelotao.jpg` | `7S7A1987.jpg` (3906×5769), do PSD do deck | 1600×2363, q78, 491 KB |
+| Logo (header) | `public/images/cv-horizontal-reverse.svg` | kit de marca, vetor | SVG como veio |
+| Palavra-marca (rodapé) | `public/images/cv-wordmark-branco.svg` | kit de marca, vetor | SVG como veio |
+| Imagem social | `public/images/corrida-verde-og.png` | composta do lockup horizontal | 1200×630 sobre `theme.colors.forest`, 63 KB |
 
-O favicon (`app/icon.png`) é o badge reduzido a 512 px — mesma regra: o
-arquivo estático não lê custom property, e por isso a arte oficial entrou no
-lugar do SVG provisório. A ogImage foi composta com o hex do tema no momento
-da composição: trocou a paleta em `app/theme.ts`, recompor o PNG.
+As fotos vieram embutidas (objeto inteligente) nos PSDs do deck comercial
+2027 e foram extraídas para `midias-originais/psd/fotos/` com um
+`inventario.json` de qual tela usa cada uma. As do hero, do conceito e da
+história usam o layout do deck: texto à esquerda, foto à direita e a cor da
+seção dissolvendo sobre ela (`components/ui/SideMedia.tsx`; o hero tem a
+versão própria, com parallax). Trocou a foto, troque também o NOME do
+arquivo: o otimizador de imagem e a CDN guardam o derivado pela URL.
 
-A escolha do hero é técnica: a camada é 116% da tela e o `cover` corta a
-largura, então só uma faixa central da foto aparece. `DSC09167` tem a ação na
-faixa 30–65% da altura, que é a que fica visível, e o rodapé escuro da foto é
-justamente onde a headline branca senta. As outras duas fotos
-(`DSC08870.jpg`, `MAN_3868.jpg`) continuam só em `midias-originais/`.
+O favicon (`app/icon.png`) é o símbolo (`cv-simbolo.svg`) rasterizado a 512
+px — o arquivo estático não lê custom property. A ogImage foi composta com o
+hex do tema no momento da composição: trocou a paleta em `app/theme.ts`,
+recompor o PNG.
 
 
 ## Deploy
