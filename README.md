@@ -123,5 +123,8 @@ recompor o PNG.
 
 ## Deploy
 
-Defina `NEXT_PUBLIC_SITE_URL` no ambiente (ver `.env.example`) antes de publicar
-em domínio próprio ou preview.
+Domínio de produção: **https://www.corridaverde.com.br** (o sem-www redireciona
+para ele na Vercel). É o padrão do código: canonical, sitemap, robots, Open
+Graph e JSON-LD saem dele. `NEXT_PUBLIC_SITE_URL` só precisa ser definida para
+preview ou outro domínio (ver `.env.example`) — e, se definida em produção,
+tem de ser exatamente esse endereço, senão tudo aponta para outro lugar.

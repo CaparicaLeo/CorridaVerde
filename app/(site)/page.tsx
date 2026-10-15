@@ -7,7 +7,7 @@ import { HistoriaSection } from "@/components/sections/HistoriaSection";
 import { PropositoSection } from "@/components/sections/PropositoSection";
 import { RacesSection } from "@/components/sections/RacesSection";
 import { TrajetoSection } from "@/components/sections/TrajetoSection";
-import { EventJsonLd } from "@/components/seo/EventJsonLd";
+import { EventJsonLd, FaqJsonLd } from "@/components/seo/EventJsonLd";
 import { impact } from "@/data/event";
 
 /**
@@ -28,6 +28,7 @@ export default function HomePage() {
     <>
       {/* Dados estruturados só aqui: descrevem o evento, não cada rota. */}
       <EventJsonLd />
+      <FaqJsonLd />
 
       <HeroSection />
       <TrajetoSection />

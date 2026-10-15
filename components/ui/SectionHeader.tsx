@@ -17,6 +17,7 @@ export function SectionHeader({
   titleClassName,
   inverted = false,
   onLight = false,
+  as: Heading = "h2",
   children,
 }: {
   intro: SectionIntro;
@@ -31,6 +32,8 @@ export function SectionHeader({
    * branco, e o quase preto a 70% sobre branco é um cinza sem destaque.
    */
   onLight?: boolean;
+  /** Nível do título: `h1` quando o cabeçalho é o da página (regulamento). */
+  as?: "h1" | "h2";
   children?: ReactNode;
 }) {
   // `inverted` e `onLight` compartilham a cor do texto e só divergem no
@@ -55,7 +58,7 @@ export function SectionHeader({
         </Eyebrow>
       ) : null}
 
-      <h2
+      <Heading
         data-reveal
         className={cn(
           "headline text-4xl sm:text-5xl lg:text-6xl",
@@ -64,7 +67,7 @@ export function SectionHeader({
         )}
       >
         {intro.title}
-      </h2>
+      </Heading>
 
       {intro.description ? (
         <p

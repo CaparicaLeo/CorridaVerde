@@ -2,19 +2,24 @@ import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 
 import { AnimationProvider } from "@/components/animation/AnimationProvider";
-import { event, seoDescription, siteUrl } from "@/data/event";
+import { event, seoDescription, seoTitle, siteUrl } from "@/data/event";
 
 import { fontVariables } from "./fonts";
 import { theme, themeCss } from "./theme";
 import "./globals.css";
 
-const title = event.name;
+/*
+  O título leva cidade e ano: "Corrida Verde" sozinho colide com outros
+  eventos do mesmo nome (ver `seoAlternateNames`). O <h1> continua sendo o
+  nome oficial do evento (`event.name`).
+*/
+const title = seoTitle;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
     default: title,
-    template: `%s · ${event.shortName}`,
+    template: `%s · ${event.shortName} Curitiba`,
   },
   description: seoDescription,
   /** Canonical explícito da home — a LP tem uma rota só. */

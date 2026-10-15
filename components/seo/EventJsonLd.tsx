@@ -1,4 +1,4 @@
-import { event, races, seoDescription, siteUrl } from "@/data/event";
+import { event, faq, races, seoAlternateNames, seoDescription, siteUrl } from "@/data/event";
 
 /**
  * Dados estruturados do evento (schema.org/SportsEvent).
@@ -24,8 +24,13 @@ export function EventJsonLd() {
     "@context": "https://schema.org",
     "@type": "SportsEvent",
     name: event.name,
+    alternateName: seoAlternateNames,
     description: seoDescription,
     url: siteUrl,
+    // A ficha oficial do evento no site da organizadora: é a mesma prova, e
+    // ligar as duas páginas ajuda buscador e IA a não confundi-la com outras
+    // "Corrida Verde" do país.
+    sameAs: [event.registrationUrl],
     // Absoluta: o JSON-LD é lido fora do contexto da página, então caminho
     // relativo não resolve. Condicional porque a imagem de compartilhamento
     // ainda não chegou — `image` com URL quebrada derruba a validação inteira.
@@ -49,10 +54,14 @@ export function EventJsonLd() {
       "@type": "Organization",
       name: event.organizer.name,
       url: event.organizer.url,
+      // @thomeesantos é o perfil impresso no rodapé do deck comercial 2027.
+      sameAs: ["https://www.instagram.com/thomeesantos/"],
     },
     subEvent: races.items.map((race) => ({
       "@type": "SportsEvent",
-      name: `${event.name} · ${race.badge}`,
+      // Nome da prova + distância oficial em km ("Desafio 10 Milhas (16 km)"):
+      // o badge em milhas sozinho ("10 MI") não diz nada fora do card.
+      name: `${event.shortName} · ${race.title}${race.badgeNote ? ` (${race.badgeNote})` : ""}`,
       description: race.description,
       sport: "Corrida de rua",
     })),
@@ -64,6 +73,32 @@ export function EventJsonLd() {
       dangerouslySetInnerHTML={{
         // O conteúdo é nosso, não entrada de usuário, mas escapar "<" impede
         // que um texto futuro com "</script>" encerre a tag antes da hora.
+        __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+      }}
+    />
+  );
+}
+/**
+ * As perguntas do FAQ como `FAQPage`: é o conteúdo que buscador ("as pessoas
+ * também perguntam") e IA mais citam, e as respostas já estão no HTML — o
+ * acordeão só as esconde com `hidden`. Mesma fonte do FAQ visível
+ * (`faq.items`), então o que o robô lê é o que a pessoa lê.
+ */
+export function FaqJsonLd() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer", text: item.answer },
+    })),
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
         __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
       }}
     />

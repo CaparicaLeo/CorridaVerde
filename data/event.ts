@@ -270,7 +270,7 @@ export const eventDate = {
 };
 
 /** Domínio de produção, usado quando o ambiente não declara um. */
-const fallbackSiteUrl = "https://corridaverde.thomeesantos.com.br";
+const fallbackSiteUrl = "https://www.corridaverde.com.br";
 
 /**
  * Normaliza o que vier de NEXT_PUBLIC_SITE_URL.
@@ -313,6 +313,22 @@ export const siteUrl = resolveSiteUrl(process.env.NEXT_PUBLIC_SITE_URL);
  * Descrição canônica: alimenta metadata, Open Graph e JSON-LD. Sem data, pelo
  * motivo do topo do arquivo. Abaixo de 155 caracteres para não ser truncada.
  */
+export const seoTitle = "Corrida Verde 2027 · Curitiba — Desafio 10 Milhas";
+
+/**
+ * Nomes com que o evento pode ser buscado. Há outras "Corrida Verde" no país
+ * (um circuito em Santa Catarina, uma prova em Brasília): para buscador e IA,
+ * o nome sozinho é ambíguo, e é a cidade + o desafio que o separam delas.
+ * Vai em `alternateName` no JSON-LD; o título da página (`seoTitle`) leva
+ * cidade e ano pelo mesmo motivo.
+ */
+export const seoAlternateNames = [
+  "Corrida Verde Curitiba",
+  "Corrida Verde 2027",
+  "Desafio 10 Milhas Curitiba",
+  "Corrida Verde Desafio 10 Milhas",
+];
+
 export const seoDescription =
   "Corrida Verde · Desafio 10 Milhas: 16 km, 10,8 km e 5,8 km entre o Parque Tanguá e o Parque Barigui, em Curitiba. 41ª edição, fevereiro de 2027.";
 

@@ -6,6 +6,7 @@ import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import type { RegulamentoDocument, RegulamentoItem } from "@/data/types";
 import {
+  event,
   regulamentoPage,
   regulamentoSource,
   registrationCta,
@@ -23,12 +24,35 @@ import { getRegulamento } from "@/lib/regulamento";
  */
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Regulamento",
-  description:
-    "Regulamento oficial da 41ª Corrida Verde, na íntegra e direto do Google Docs — o documento que vale no dia da prova.",
-  alternates: { canonical: `${siteUrl}/regulamento` },
-};
+const description =
+  "Regulamento oficial da 41ª Corrida Verde, na íntegra e direto do Google Docs — o documento que vale no dia da prova.";
+
+/**
+ * Enquanto o documento não existe, a página é só o estado vazio — conteúdo
+ * raso que não deve ir para o índice. `noindex, follow`: o buscador não lista
+ * a página, mas segue o link de volta para a LP. Quando o documento entra, a
+ * mesma chamada (deduplicada pelo fetch) libera a indexação sozinha.
+ */
+export async function generateMetadata(): Promise<Metadata> {
+  const regulamento = await getRegulamento();
+  const url = `${siteUrl}/regulamento`;
+
+  return {
+    title: "Regulamento",
+    description,
+    alternates: { canonical: url },
+    robots: regulamento ? undefined : { index: false, follow: true },
+    // O `openGraph` da página substitui o da raiz inteiro (o Next não mescla
+    // o objeto): sem repetir `images`, o link do regulamento sairia sem foto.
+    openGraph: {
+      url,
+      title: "Regulamento · Corrida Verde Curitiba",
+      description,
+      ...(event.ogImage ? { images: [{ url: event.ogImage.src, width: event.ogImage.width, height: event.ogImage.height, alt: event.ogImage.alt }] } : {}),
+    },
+    twitter: { title: "Regulamento · Corrida Verde Curitiba", description },
+  };
+}
 
 export default async function RegulamentoPage() {
   const regulamento = await getRegulamento();
@@ -38,9 +62,9 @@ export default async function RegulamentoPage() {
   return (
     <Section tone="mist" className="pt-28 sm:pt-32 lg:pt-40">
       <div className="mx-auto max-w-3xl">
-        <h1 className="sr-only">{intro.title}</h1>
-
-        <SectionHeader intro={intro} />
+        {/* O título visível É o <h1> da página — antes havia um <h1>
+            sr-only com o mesmo texto e um <h2> repetindo-o. */}
+        <SectionHeader intro={intro} as="h1" />
 
         {/*
           A fonte é parte da honestidade da página: o texto não é uma cópia

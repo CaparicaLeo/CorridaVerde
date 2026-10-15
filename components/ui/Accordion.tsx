@@ -147,14 +147,18 @@ export function Accordion({
                       : "border-line-strong text-ink-muted group-hover:border-accent",
                   )}
                 >
-                  <span
+                  {/* SVG, e não o caractere "+": o ícone mora dentro do <h3>, e
+                      como texto ele entrava na pergunta lida por buscador e
+                      IA ("Qual é a idade mínima?+"). */}
+                  <svg
+                    viewBox="0 0 12 12"
                     className={cn(
-                      "block text-base leading-none transition-transform duration-300",
+                      "block size-3 transition-transform duration-300",
                       isOpen && "rotate-45",
                     )}
                   >
-                    +
-                  </span>
+                    <path d="M6 1v10M1 6h10" stroke="currentColor" strokeWidth="1.5" />
+                  </svg>
                 </span>
               </button>
             </h3>

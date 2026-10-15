@@ -1,4 +1,4 @@
-import type { ElementType, HTMLAttributes } from "react";
+import { Fragment, type ElementType, type HTMLAttributes } from "react";
 
 import { Highlight } from "@/components/ui/Highlight";
 import { cn } from "@/lib/cn";
@@ -32,24 +32,30 @@ export function Headline({
   return (
     <Component className={cn("headline", className)}>
       {lines.map((line, lineIndex) => (
-        <span key={lineIndex} className="headline-mask">
-          <span data-headline-line className="block will-change-transform">
-            {line.map((segment, segmentIndex) =>
-              segment.accent ? (
-                <Highlight
-                  key={segmentIndex}
-                  /* Sobre a chapa amarela o amarelo sumiria: lá o destaque é
-                     a chapa invertida, preta. */
-                  className={tone === "dark" ? "text-forest/55" : undefined}
-                >
-                  {segment.text}
-                </Highlight>
-              ) : (
-                <span key={segmentIndex}>{segment.text}</span>
-              ),
-            )}
+        <Fragment key={lineIndex}>
+          {/* Espaço entre as linhas: elas são blocos, então ele não aparece
+              na tela — mas sem ele o texto lido por buscador, IA e leitor de
+              tela gruda "De parque" com "a parque." em "De parquea parque." */}
+          {lineIndex > 0 ? " " : null}
+          <span className="headline-mask">
+            <span data-headline-line className="block will-change-transform">
+              {line.map((segment, segmentIndex) =>
+                segment.accent ? (
+                  <Highlight
+                    key={segmentIndex}
+                    /* Sobre a chapa amarela o amarelo sumiria: lá o destaque é
+                       a chapa invertida, preta. */
+                    className={tone === "dark" ? "text-forest/55" : undefined}
+                  >
+                    {segment.text}
+                  </Highlight>
+                ) : (
+                  <span key={segmentIndex}>{segment.text}</span>
+                ),
+              )}
+            </span>
           </span>
-        </span>
+        </Fragment>
       ))}
     </Component>
   );
