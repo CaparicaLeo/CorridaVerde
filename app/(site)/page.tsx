@@ -1,5 +1,6 @@
 import { ImpactSlide } from "@/components/blocks/ImpactSlide";
 import { AtivacoesSection } from "@/components/sections/AtivacoesSection";
+import { ConceitoSection } from "@/components/sections/ConceitoSection";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { FinalCtaSection } from "@/components/sections/FinalCtaSection";
 import { HeroSection } from "@/components/sections/HeroSection";
@@ -14,7 +15,8 @@ import { impact } from "@/data/event";
  * Landing page da 41ª Corrida Verde.
  *
  * A ordem conta a história do conceito antes de falar de produto: o hero já
- * diz "de parque a parque", a seção do trajeto mostra o que isso significa
+ * diz "de parque a parque", logo abaixo o símbolo se apresenta (a araucária
+ * refletida numa gota — a marca antes da prova), a seção do trajeto mostra o que isso significa
  * (dois parques, a cidade no meio), e só depois vêm as provas, a chegada, a
  * sustainability e o posicionamento. Provas antes de propósito porque o
  * percurso é a informação que decide inscrição; propósito antes da história
@@ -31,6 +33,7 @@ export default function HomePage() {
       <FaqJsonLd />
 
       <HeroSection />
+      <ConceitoSection />
       <TrajetoSection />
       <RacesSection />
       <AtivacoesSection />

@@ -15,6 +15,20 @@ export type Media = {
 };
 
 /**
+ * Vídeo servido do próprio site (public/videos/). As fontes vão em ordem de
+ * preferência; o navegador toca a primeira que entende. O pôster é o quadro que aparece antes de tocar e no lugar do vídeo
+ * quando o usuário pede menos movimento; a proporção reserva o espaço.
+ */
+export type Video = {
+  sources: { src: string; type: "video/webm" | "video/mp4" }[];
+  poster: string;
+  width: number;
+  height: number;
+  /** Descrição do que o vídeo mostra — vira o `aria-label` do player. */
+  label: string;
+};
+
+/**
  * Um pedaço de headline. `accent: true` pinta o trecho de verde — é o
  * destaque de palavra-chave do deck.
  */

@@ -13,6 +13,7 @@ import type {
   Pillar,
   RouteStop,
   SectionIntro,
+  Video,
 } from "./types";
 
 /**
@@ -651,6 +652,149 @@ export const impact = {
 };
 
 /* ---------------------------------------------------------------------------
+ * Conceito da marca — seção da home e página /conceito
+ * ------------------------------------------------------------------------- */
+
+/**
+ * O símbolo explicado pelo próprio designer.
+ *
+ * Fonte única: o vídeo `Logo_main_v3.mp4` (59 s, 1920×1080, sem áudio),
+ * enviado pela Thomé & Santos em 16/10/2026 e assinado por Davis von Randow.
+ * O texto abaixo é o que aparece na tela do vídeo, sem acréscimo — só a
+ * quebra em título e lista é nossa. O original fica em `midias-originais/`;
+ * em `public/videos/` vão os derivados de web (ver `film` e `loop`).
+ *
+ * TÍTULO SEM ACENTO de propósito: a Ranima (fonte da chamada) é o arquivo
+ * demo e não tem Á/Ã/Ç (ver theme.metrics). "A araucária refletida numa gota"
+ * vira eyebrow "A araucária" (Satoshi, que tem acento) + título "Refletida
+ * numa gota" — a frase do vídeo, lida em dois tempos.
+ */
+export const conceito = {
+  intro: {
+    eyebrow: "A araucária",
+    title: "Refletida numa gota",
+    description:
+      "O símbolo é o reflexo de uma araucária na superfície de uma gota d'água. Por isso o contorno não é um círculo.",
+  } satisfies SectionIntro,
+  /** O segundo parágrafo do vídeo: por que o círculo é torto. */
+  shape: {
+    title: "Um círculo falseforme",
+    text: "A tensão superficial da gota deforma a geometria perfeita, e a árvore aparece de ponta-cabeça, como todo reflexo.",
+  },
+  /**
+   * "Conceito + forma": a frase-guia e os cinco traços do desenho, na ordem
+   * do vídeo. `label` é a coisa que o traço representa (o que vem entre
+   * parênteses no original); `detail`, o traço em si.
+   */
+  form: {
+    title: "Conceito + forma",
+    lead: "Natureza vista com cuidado: organicidade contida por geometria quase perfeita.",
+    traits: [
+      { id: "gota", label: "A gota", detail: "Contorno circular irregular." },
+      { id: "tronco", label: "O tronco", detail: "Eixo vertical dominante." },
+      { id: "araucaria", label: "A araucária", detail: "Ramos assimétricos em espinha." },
+      { id: "luz", label: "A luz", detail: "Ilhas de luz entre os ramos." },
+      { id: "traco", label: "O traço", detail: "Traço de tinta, não de régua." },
+    ] satisfies Pillar[],
+  },
+  principle:
+    "Tudo que a marca produz obedece ao mesmo princípio: natureza sem rusticidade, precisão sem frieza.",
+  /** A assinatura que fecha o vídeo. */
+  credit: "Identidade visual por Davis von Randow",
+
+  /**
+   * O vídeo inteiro, para a página /conceito: a gota que vira símbolo, o
+   * painel com o texto acima e a revelação do logo completo. Entra como
+   * animação (LoopVideo), sem player e sem caixa: começa e termina na tela
+   * vazia, então o loop fecha sem emenda. 1920×1080 para o texto do painel
+   * continuar legível; sem legenda porque não há áudio — e o que está
+   * escrito na tela está, em texto, na própria página.
+   *
+   * SEM CAIXA = FUNDO NA COR DA SEÇÃO. O fundo do original é #F1F2ED com
+   * grão; na encodagem o grão sai (hqdn3d) e esse fundo é trocado por
+   * `theme.colors.mist` (colorkey 0.07/0.10 sobre uma chapa da cor). Como os
+   * PNGs de public/images/, é arquivo estático e não lê custom property:
+   * se a névoa mudar em app/theme.ts, reencode. Comando, a partir da raiz:
+   *
+   *   ffmpeg -i midias-originais/Logo_main_v3.mp4 \
+   *     -f lavfi -i "color=c=0x<MIST>:s=1920x1080:r=25" -an -filter_complex \
+   *     "[0:v]hqdn3d=6:4:8:6,format=yuva444p,colorkey=0xF1F2ED:0.07:0.10[k];[1:v][k]overlay=shortest=1,format=yuv420p" \
+   *     -c:v libx264 -preset slow -crf 26 -maxrate 1200k -bufsize 2400k \
+   *     -movflags +faststart public/videos/conceito-simbolo.mp4
+   *
+   * Só MP4 (H.264): com a redução de ruído e teto de 1,2 Mbps deu 1,7 MB; o
+   * VP9 na mesma qualidade deu 2,7 MB — o WebM saiu por ser maior, não
+   * menor. Original de 119 MB → derivado de web 1,7 MB.
+   */
+  film: {
+    sources: [
+      { src: "/videos/conceito-simbolo.mp4", type: "video/mp4" },
+    ],
+    poster: "/videos/conceito-simbolo-poster.jpg",
+    width: 1920,
+    height: 1080,
+    label:
+      "Vídeo de apresentação do símbolo da Corrida Verde: uma gota cai, vira a araucária dentro do círculo, o conceito é explicado em texto e o logotipo completo aparece.",
+  } as Video,
+
+  /**
+   * O `film` para celular (abaixo do `sm`). Em 16:9 numa tela de 390px o
+   * painel de texto do vídeo vira miniatura ilegível — e esse texto já está
+   * na página, em HTML. Aqui fica só o símbolo: recorte 580×580 em
+   * (670, 220), ampliado a 720×720, o vídeo inteiro sem corte (o símbolo
+   * pulsa e desfoca ao longo dos 59 s, não há trecho parado para tirar).
+   * Medido: o texto do painel termina em x=662 à esquerda e começa em
+   * x=1268 à direita, e o lockup final ocupa (720, 240)–(1200, 776) — tudo
+   * dentro do quadro, nada do texto entra. Mesmo processo do `film`, com
+   * `crop=580:580:670:220,scale=720:720:flags=lanczos` antes do hqdn3d,
+   * chapa 720x720 e `-maxrate 700k`.
+   */
+  filmMobile: {
+    sources: [
+      { src: "/videos/conceito-simbolo-mobile.mp4", type: "video/mp4" },
+    ],
+    poster: "/videos/conceito-simbolo-mobile-poster.jpg",
+    width: 720,
+    height: 720,
+    label:
+      "Animação do símbolo da Corrida Verde: uma gota cai e vira a araucária dentro do círculo, que depois ganha a palavra-marca.",
+  } as Video,
+
+  /**
+   * Recorte para a seção da home: a revelação do logo, de 38 s ao fim do
+   * original (inclui o desfoque de saída — cortar em 52,6 s fazia o loop
+   * saltar do logo inteiro para a tela vazia). O painel de texto não cabe
+   * numa coluna e já está ao lado, em HTML.
+   *
+   * Recorte 720×720 em (600, 148), sem escala: o logo ocupa 480×536 px
+   * centrado em (960, 508) do original — medido quadro a quadro — e fica com
+   * ~70% da largura do quadro. Fundo trocado por `theme.colors.sprout`, o
+   * tom da seção, pelo mesmo processo do `film` (mesmo filtro, com
+   * `-ss 38`, `crop=720:720:600:148` antes do hqdn3d, chapa 720x720 e
+   * `-maxrate 700k`). Trocou o broto ou o tom da seção, reencode.
+   */
+  loop: {
+    sources: [
+      { src: "/videos/conceito-logo-loop.mp4", type: "video/mp4" },
+    ],
+    poster: "/videos/conceito-logo-poster.jpg",
+    width: 720,
+    height: 720,
+    label: "Animação do logotipo da Corrida Verde: o símbolo da araucária na gota e a palavra-marca aparecem e se desfazem.",
+  } as Video,
+
+  sectionCta: { label: "Conhecer o conceito", href: "/conceito" } satisfies Cta,
+
+  page: {
+    eyebrow: "Identidade visual · A araucária",
+    /** <meta description> da rota; abaixo de 155 caracteres. */
+    description:
+      "O conceito do símbolo da Corrida Verde: uma araucária refletida numa gota d'água. Natureza sem rusticidade, precisão sem frieza.",
+    backCta: { label: "Voltar para a prova", href: "/" } satisfies Cta,
+  },
+};
+
+/* ---------------------------------------------------------------------------
  * Propósito (chapa clara)
  * ------------------------------------------------------------------------- */
 
@@ -837,6 +981,7 @@ export const mainNav: NavItem[] = [
   { label: "O trajeto", href: "#trajeto" },
   { label: "Os percursos", href: "#percursos" },
   { label: "Ativações", href: "#ativacoes" },
+  { label: "O conceito", href: "/conceito" },
   { label: "A tradição", href: "#historia" },
   { label: "Dúvidas", href: "#faq" },
   { label: "Regulamento", href: "/regulamento" },

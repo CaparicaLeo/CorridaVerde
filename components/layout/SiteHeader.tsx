@@ -42,7 +42,7 @@ export function SiteHeader() {
       <div className="container-page flex h-16 items-center justify-between gap-6 lg:h-20">
         <Link
           href="/"
-          className="flex items-center gap-3 leading-none"
+          className="flex shrink-0 items-center gap-3 leading-none"
           aria-label={event.name}
         >
           {/*
@@ -68,13 +68,17 @@ export function SiteHeader() {
           )}
         </Link>
 
-        <nav aria-label="Navegação principal" className="hidden lg:block">
+        {/* Menu horizontal só a partir do xl: com sete itens, em 1024px os
+            rótulos quebravam em duas linhas e, sem quebra, o CTA saía da
+            tela (medido: 63px além da borda). Abaixo do xl vale o botão
+            "Menu". Rótulo sem quebra e logo que não cede espaço. */}
+        <nav aria-label="Navegação principal" className="hidden xl:block">
           <ul className="flex items-center gap-7">
             {mainNav.map((item) => (
               <li key={item.href}>
                 <Link
                   href={navHref(item.href)}
-                  className="label-condensed text-[0.7rem] text-ink-muted transition-colors hover:text-accent-ink"
+                  className="label-condensed text-[0.7rem] whitespace-nowrap text-ink-muted transition-colors hover:text-accent-ink"
                 >
                   {item.label}
                 </Link>
@@ -98,7 +102,7 @@ export function SiteHeader() {
             onClick={() => setIsMenuOpen((open) => !open)}
             aria-expanded={isMenuOpen}
             aria-controls="menu-mobile"
-            className="label-condensed min-h-11 cursor-pointer border border-line-strong px-4 py-2.5 text-[0.7rem] lg:hidden"
+            className="label-condensed min-h-11 cursor-pointer border border-line-strong px-4 py-2.5 text-[0.7rem] xl:hidden"
           >
             {isMenuOpen ? "Fechar" : "Menu"}
           </button>
@@ -108,7 +112,7 @@ export function SiteHeader() {
       <div
         id="menu-mobile"
         hidden={!isMenuOpen}
-        className="border-t border-line bg-surface lg:hidden"
+        className="border-t border-line bg-surface xl:hidden"
       >
         <nav aria-label="Navegação principal (mobile)" className="container-page py-6">
           <ul className="flex flex-col gap-1">
