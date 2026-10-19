@@ -8,6 +8,7 @@ import type {
   HeadlineLine,
   IconItem,
   Media,
+  MenuExperience,
   MiniKpi,
   NavItem,
   Pillar,
@@ -795,6 +796,149 @@ export const conceito = {
 };
 
 /* ---------------------------------------------------------------------------
+ * Cardápio pós-corrida — seção da home e página /cardapio
+ * ------------------------------------------------------------------------- */
+
+/**
+ * O brunch da chegada, transcrito do PDF `Cardapio-Corrida-Verde_final.pdf`
+ * enviado pela Thomé & Santos em 19/10/2026 (em `midias-originais/`). O texto
+ * é o do PDF, sem acréscimo; só a quebra em campos é nossa.
+ *
+ * O QUE O PDF NÃO DIZ, e por isso o site também não diz: se o brunch está
+ * incluso na inscrição ou é vendido à parte, quanto custa, onde e em que
+ * horário é servido e como o atleta escolhe a experiência. Nenhuma linha
+ * abaixo insinua nada disso. Chegando a informação, entra em `intro` ou numa
+ * nota própria — não em texto solto no componente.
+ *
+ * FOTOS: as quatro do zip `IMAGEM-20261019T162250Z-1-001.zip` (mesma pasta),
+ * as mesmas do PDF. Derivados de web em `public/images/cardapio-*.jpg`, no
+ * tamanho original e q78 (~250 KB cada, contra ~2,5 MB do PNG):
+ *
+ *   convert <original>.png -strip -interlace JPEG -sampling-factor 4:2:0 \
+ *     -quality 78 public/images/cardapio-<prato>.jpg
+ *
+ * TÍTULOS: o título da seção e os das experiências não têm acento e vão na
+ * Ranima; o nome dos pratos vai em Satoshi (`title-sans`), porque "Duas
+ * versões de Avocado Toast" tem õ e a Ranima disponível não (ver
+ * theme.metrics).
+ */
+export const cardapio = {
+  intro: {
+    eyebrow: "Cardápio pós-corrida",
+    title: "O sabor de uma boa conquista.",
+    description: "Depois de cada quilômetro, uma experiência para saborear.",
+  } satisfies SectionIntro,
+  lead: "A Corrida Verde preparou duas opções de cardápio que combinam ingredientes frescos, sabores marcantes e preparações artesanais. Uma experiência pensada para transformar o pós-corrida em mais um momento especial do seu dia.",
+  closing: "Escolha o seu favorito. O próximo sabor da sua conquista começa aqui.",
+
+  /**
+   * Duas experiências, dois pratos cada. A home mostra a primeira foto de
+   * cada uma; a página mostra todas.
+   */
+  experiences: [
+    {
+      id: "roast-beef-chocolate",
+      number: "01",
+      title: "Roast Beef & Chocolate",
+      tagline: "Intenso, artesanal e irresistível.",
+      dishes: [
+        {
+          id: "ciabatta",
+          name: "Ciabatta de Roast Beef",
+          tagline: "A combinação perfeita entre textura, frescor e sabor.",
+          description:
+            "Ciabatta artesanal de casca delicadamente crocante e interior macio, recheada com suculentas fatias de roast beef, queijo muçarela, alface americana fresca e um irresistível aioli artesanal. Cada mordida reúne intensidade, cremosidade e equilíbrio.",
+          media: {
+            src: "/images/cardapio-ciabatta-roast-beef.jpg",
+            alt: "Dois sanduíches de ciabatta recheados com fatias de roast beef, alface e aioli, sobre uma bandeja dourada",
+            width: 1122,
+            height: 1402,
+          },
+        },
+        {
+          id: "cookie",
+          name: "Cookie de Chocolate 70%",
+          tagline: "Para finalizar, um toque de indulgência.",
+          description:
+            "Cookie amanteigado, levemente crocante por fora, macio por dentro e recheado com generosos pedaços de chocolate 70% cacau. A intensidade do chocolate na medida certa.",
+          media: {
+            src: "/images/cardapio-cookie-chocolate.jpg",
+            alt: "Cookies com pedaços grandes de chocolate amargo sobre uma bandeja dourada",
+            width: 1122,
+            height: 1402,
+          },
+        },
+      ],
+    },
+    {
+      id: "avocado-cinnamon",
+      number: "02",
+      title: "Avocado & Cinnamon",
+      tagline: "Frescor, criatividade e um toque de doçura.",
+      dishes: [
+        {
+          id: "avocado-toast",
+          name: "Duas versões de Avocado Toast",
+          tagline:
+            "O frescor do avocado encontra combinações surpreendentes, equilibrando texturas, aromas e ingredientes cuidadosamente selecionados.",
+          variations: [
+            {
+              id: "ovo-hot-honey",
+              name: "Ovo, hot honey & laranja",
+              text: "Uma combinação surpreendente de sabores. Toast com pasta cremosa de avocado, creme de ricota com cream cheese, delicadas lascas de ovo ralado, gomos de laranja fresca e brotos selecionados. O toque final fica por conta do hot honey, um mel suavemente apimentado que cria um contraste irresistível entre o doce, o cítrico e o picante.",
+            },
+            {
+              id: "tomates-balsamico",
+              name: "Tomates assados & balsâmico",
+              text: "Uma combinação leve, aromática e cheia de personalidade. Toast com avocado cremoso, creme de ricota com cream cheese, tomates-cereja lentamente assados, redução de balsâmico e microverdes frescos. Uma experiência que harmoniza o dulçor natural dos tomates com a acidez delicada do balsâmico.",
+            },
+          ],
+          media: {
+            src: "/images/cardapio-avocado-toast.jpg",
+            alt: "Duas torradas de pão rústico com pasta de avocado e creme de ricota: uma com tomates-cereja assados, outra com ovo ralado, gomos de laranja e brotos",
+            width: 1167,
+            height: 1347,
+          },
+        },
+        {
+          id: "cinnamon-roll",
+          name: "Cinnamon Roll",
+          subtitle: "Creme de laranja",
+          tagline: "Uma doce surpresa para completar a experiência.",
+          description:
+            "Pão de canela de massa delicadamente macia e aromática, coberto com um aveludado creme de laranja. Finalizado com raspas cítricas e um toque de laranja fresca, unindo aconchego, doçura e frescor em perfeita harmonia.",
+          media: {
+            src: "/images/cardapio-cinnamon-roll.jpg",
+            alt: "Pães de canela cobertos com creme de laranja, raspas cítricas e um gomo de laranja, numa bandeja dourada",
+            width: 1086,
+            height: 1448,
+          },
+        },
+      ],
+    },
+  ] satisfies MenuExperience[],
+
+  /**
+   * No PDF, as duas páginas fecham com a mesma faixa "A experiência
+   * acompanha". Aqui ela aparece uma vez, depois das duas — por isso o rótulo
+   * diz "as duas", que é o que o PDF mostra.
+   */
+  included: {
+    label: "As duas experiências acompanham",
+    items: ["Café coado", "Suco de laranja", "Salada de frutas frescas"],
+  },
+
+  sectionCta: { label: "Ver o cardápio completo", href: "/cardapio" } satisfies Cta,
+
+  page: {
+    /** <meta description> da rota; abaixo de 155 caracteres. */
+    description:
+      "O cardápio pós-corrida da Corrida Verde: duas experiências, Roast Beef & Chocolate e Avocado & Cinnamon, com café coado, suco e frutas.",
+    backCta: { label: "Voltar para a prova", href: "/" } satisfies Cta,
+  },
+};
+
+/* ---------------------------------------------------------------------------
  * Propósito (chapa clara)
  * ------------------------------------------------------------------------- */
 
@@ -982,6 +1126,7 @@ export const mainNav: NavItem[] = [
   { label: "Os percursos", href: "#percursos" },
   { label: "Ativações", href: "#ativacoes" },
   { label: "O conceito", href: "/conceito" },
+  { label: "Cardápio", href: "/cardapio" },
   { label: "A tradição", href: "#historia" },
   { label: "Dúvidas", href: "#faq" },
   { label: "Regulamento", href: "/regulamento" },

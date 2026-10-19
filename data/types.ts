@@ -182,3 +182,37 @@ export type RegulamentoDocument = {
   issuedAt: string | null;
   chapters: RegulamentoChapter[];
 };
+/**
+ * Cardápio pós-corrida: duas "experiências" fechadas, cada uma com os pratos
+ * dela. A estrutura segue o PDF da organização — experiência → prato → (às
+ * vezes) versões do mesmo prato — para que atualizar o cardápio seja copiar
+ * texto, e não redesenhar a página.
+ */
+export type MenuVariation = {
+  id: string;
+  /** Nome da versão, como no PDF ("Ovo, hot honey & laranja"). */
+  name: string;
+  text: string;
+};
+
+export type MenuDish = {
+  id: string;
+  name: string;
+  /** Linha curta em caixa alta sob o nome ("Creme de laranja"). */
+  subtitle?: string;
+  /** A frase de chamada, em tinta cheia. */
+  tagline: string;
+  /** A descrição em tom de apoio. Prato com `variations` não tem. */
+  description?: string;
+  variations?: MenuVariation[];
+  media: Media | null;
+};
+
+export type MenuExperience = {
+  id: string;
+  /** Número de ordem do PDF ("01"), mostrado no eyebrow. */
+  number: string;
+  title: string;
+  tagline: string;
+  dishes: MenuDish[];
+};

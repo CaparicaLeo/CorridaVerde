@@ -1,5 +1,6 @@
 import { ImpactSlide } from "@/components/blocks/ImpactSlide";
 import { AtivacoesSection } from "@/components/sections/AtivacoesSection";
+import { CardapioSection } from "@/components/sections/CardapioSection";
 import { ConceitoSection } from "@/components/sections/ConceitoSection";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { FinalCtaSection } from "@/components/sections/FinalCtaSection";
@@ -17,8 +18,8 @@ import { impact } from "@/data/event";
  * A ordem conta a história do conceito antes de falar de produto: o hero já
  * diz "de parque a parque", logo abaixo o símbolo se apresenta (a araucária
  * refletida numa gota — a marca antes da prova), a seção do trajeto mostra o que isso significa
- * (dois parques, a cidade no meio), e só depois vêm as provas, a chegada, a
- * sustainability e o posicionamento. Provas antes de propósito porque o
+ * (dois parques, a cidade no meio), e só depois vêm as provas, a chegada (as
+ * ativações e o cardápio pós-corrida), a sustentabilidade e o posicionamento. Provas antes de propósito porque o
  * percurso é a informação que decide inscrição; propósito antes da história
  * porque a tradição é argumento, não oferta.
  *
@@ -37,6 +38,7 @@ export default function HomePage() {
       <TrajetoSection />
       <RacesSection />
       <AtivacoesSection />
+      <CardapioSection />
       <ImpactSlide
         id="conceito"
         lines={impact.lines}

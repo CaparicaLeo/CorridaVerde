@@ -71,9 +71,14 @@ export function SiteHeader() {
         {/* Menu horizontal só a partir do xl: com sete itens, em 1024px os
             rótulos quebravam em duas linhas e, sem quebra, o CTA saía da
             tela (medido: 63px além da borda). Abaixo do xl vale o botão
-            "Menu". Rótulo sem quebra e logo que não cede espaço. */}
+            "Menu". Rótulo sem quebra e logo que não cede espaço. Com o
+            oitavo item (Cardápio), o gap cai para 16px. Medido em 1280px:
+            logo 145 + menu 818 + CTA 173 + 2×24 = 1184px numa faixa de
+            1200px. Com gap-5 dava 1212px e o CTA comia a margem do
+            container; o container trava em 1232px, então não há tela larga
+            em que um gap maior volte a caber com folga. */}
         <nav aria-label="Navegação principal" className="hidden xl:block">
-          <ul className="flex items-center gap-7">
+          <ul className="flex items-center gap-4">
             {mainNav.map((item) => (
               <li key={item.href}>
                 <Link
