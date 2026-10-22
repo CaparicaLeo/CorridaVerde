@@ -53,7 +53,7 @@ const rules: Record<Exclude<FieldId, "distance" | "notice">, (v: string) => bool
 };
 
 const inputClasses =
-  "w-full min-w-0 border border-line-strong bg-surface px-4 py-3.5 text-base text-ink transition-colors placeholder:text-ink-muted/70 hover:border-ink-muted aria-invalid:border-danger";
+  "w-full min-w-0 rounded-control border border-line-strong bg-surface px-4 py-3.5 text-base text-ink transition-colors placeholder:text-ink-muted/70 hover:border-ink-muted aria-invalid:border-danger";
 
 /**
  * Cadastro da lista de espera. Não é inscrição: só registra quem quer o aviso
@@ -159,9 +159,9 @@ export function WaitlistForm({ className }: { className?: string }) {
         ref={successRef}
         tabIndex={-1}
         role="status"
-        className={cn("flex flex-col gap-4 border border-line bg-surface-alt p-6 outline-none sm:p-10", className)}
+        className={cn("flex flex-col gap-4 rounded-card border border-line bg-surface-alt p-6 outline-none sm:p-10", className)}
       >
-        <span aria-hidden className="grid size-12 place-items-center rounded-full bg-accent text-xl text-forest">
+        <span aria-hidden className="grid size-12 place-items-center rounded-control bg-accent text-xl text-forest">
           ✓
         </span>
         <h3 className="headline text-3xl sm:text-4xl">{waitlist.success.title}</h3>
@@ -212,7 +212,7 @@ export function WaitlistForm({ className }: { className?: string }) {
       ref={formRef}
       noValidate
       onSubmit={onSubmit}
-      className={cn("relative flex flex-col gap-6 border border-line bg-surface-alt p-6 sm:p-10", className)}
+      className={cn("relative flex flex-col gap-6 rounded-card border border-line bg-surface-alt p-6 sm:p-10", className)}
     >
       {textField("name", { type: "text", autoComplete: "name" })}
       {textField("email", { type: "email", autoComplete: "email", inputMode: "email" })}
@@ -242,7 +242,7 @@ export function WaitlistForm({ className }: { className?: string }) {
           <label
             key={option.id}
             className={cn(
-              "flex cursor-pointer items-center gap-3 border bg-surface px-4 py-3.5 text-sm transition-colors sm:text-base",
+              "flex cursor-pointer items-center gap-3 rounded-control border bg-surface px-4 py-3.5 text-sm transition-colors sm:text-base",
               distance === option.value
                 ? "border-accent-ink"
                 : "border-line-strong hover:border-ink-muted",

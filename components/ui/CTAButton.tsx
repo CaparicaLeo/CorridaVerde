@@ -37,16 +37,16 @@ const sizeClasses: Record<Size, string> = {
  * Corpo do botão, compartilhado com quem precisa de um `<button>` de verdade
  * (o envio do formulário da lista de espera) em vez de um link.
  *
- * Pílula em todo botão do site: o `rounded-full` acompanha o halo do
- * `primary` e o contorno de foco do link, senão o anel sai quadrado em volta
- * de uma forma redonda.
+ * Canto `control` em todo botão do site (ver `radiusControl` em
+ * app/theme.ts). O mesmo raio vai no halo do `primary` e no link, senão o
+ * anel de foco sai com quina em volta de uma forma arredondada.
  */
 export function ctaClasses({
   variant = "primary",
   size = "lg",
 }: { variant?: Variant; size?: Size } = {}) {
   return cn(
-    "label-condensed inline-flex items-center justify-center gap-3 rounded-full",
+    "label-condensed inline-flex items-center justify-center gap-3 rounded-control",
     sizeClasses[size],
     variantClasses[variant],
     variant === "outline" && "transition-colors hover:border-accent",
@@ -159,13 +159,13 @@ export function CTAButton({
         aria-label={ariaLabel}
         target={isExternal ? "_blank" : undefined}
         rel={isExternal ? "noopener noreferrer" : undefined}
-        className="relative inline-flex w-full rounded-full focus-visible:outline-offset-4"
+        className="relative inline-flex w-full rounded-control focus-visible:outline-offset-4"
       >
         {variant === "primary" ? (
           <span
             aria-hidden
             data-cta-glow
-            className="pointer-events-none absolute -inset-3 -z-10 rounded-full bg-accent/40 opacity-0 blur-2xl"
+            className="pointer-events-none absolute -inset-3 -z-10 rounded-control bg-accent/40 opacity-0 blur-2xl"
             style={{ opacity: pulse ? 0.32 : 0 }}
           />
         ) : null}

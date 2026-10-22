@@ -41,7 +41,7 @@ export function CardapioSection() {
                     key={dish.id}
                     media={dish.media}
                     stretch
-                    className="aspect-[4/5]"
+                    className="aspect-[4/5] rounded-card"
                     sizes="(min-width: 1024px) 25vw, 50vw"
                   />
                 ))}

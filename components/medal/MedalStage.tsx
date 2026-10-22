@@ -132,7 +132,7 @@ export function MedalStage({
         aria-label={medalConfig.alt}
         tabIndex={0}
         {...handlers}
-        className="relative aspect-[4/5] w-full max-w-sm lg:max-w-none cursor-grab touch-pan-y select-none outline-none focus-visible:ring-2 focus-visible:ring-forest/50 active:cursor-grabbing"
+        className="relative aspect-[4/5] w-full rounded-card max-w-sm lg:max-w-none cursor-grab touch-pan-y select-none outline-none focus-visible:ring-2 focus-visible:ring-forest/50 active:cursor-grabbing"
       >
         {near && !probingModel ? (
           <MedalErrorBoundary fallback={null} onError={handleFailure}>

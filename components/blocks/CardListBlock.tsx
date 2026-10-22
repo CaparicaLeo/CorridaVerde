@@ -40,7 +40,7 @@ export function CardListBlock({
     <div
       ref={root}
       className={cn(
-        "grid gap-px border border-line bg-line",
+        "grid gap-px overflow-hidden rounded-card border border-line bg-line",
         columns === 3 ? "lg:grid-cols-3" : "lg:grid-cols-2",
         className,
       )}
@@ -102,7 +102,7 @@ export function CardListBlock({
             <ul className="mt-auto flex flex-col gap-3 border-t border-line pt-6">
               {item.meta.map((line) => (
                 <li key={line} className="flex items-start gap-3 text-sm text-ink/85">
-                  <span aria-hidden className="mt-2 size-1.5 shrink-0 bg-accent" />
+                  <span aria-hidden className="mt-2 size-1.5 shrink-0 rounded-full bg-accent" />
                   {line}
                 </li>
               ))}

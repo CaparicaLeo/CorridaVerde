@@ -126,14 +126,14 @@ export function HeroSection() {
             Ficam lado a lado no desktop e empilham no mobile — a folga do hero
             comporta a segunda linha. */}
         <div data-hero-fade className="mt-7 flex flex-wrap items-center gap-3">
-          <p className="flex items-center gap-3 border border-line-strong px-5 py-3">
+          <p className="flex items-center gap-3 rounded-control border border-line-strong px-5 py-3">
             <Icon name="calendar" className="size-5 shrink-0 text-accent-ink" />
             <span className="label-condensed text-sm text-ink">
               {eventDate.label}
             </span>
           </p>
 
-          <p className="flex items-center gap-3 border border-line-strong px-5 py-3">
+          <p className="flex items-center gap-3 rounded-control border border-line-strong px-5 py-3">
             <Icon name="clock" className="size-5 shrink-0 text-accent-ink" />
             <span className="label-condensed text-sm text-ink">
               {event.startTime
@@ -142,7 +142,7 @@ export function HeroSection() {
             </span>
           </p>
 
-          <p className="flex items-center gap-3 border border-line-strong px-5 py-3">
+          <p className="flex items-center gap-3 rounded-control border border-line-strong px-5 py-3">
             <Icon name="route" className="size-5 shrink-0 text-accent-ink" />
             <span className="label-condensed text-sm text-ink">
               {event.location.label}

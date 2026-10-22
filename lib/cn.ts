@@ -21,6 +21,7 @@ const twMerge = extendTailwindMerge({
         "light-alt",
       ],
       font: ["display", "condensed"],
+      radius: ["control", "card"],
     },
   },
 });

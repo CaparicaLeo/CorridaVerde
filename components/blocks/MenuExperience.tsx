@@ -62,7 +62,7 @@ function Dish({ dish }: { dish: MenuDish }) {
       <Media
         media={dish.media}
         stretch
-        className="aspect-[4/5]"
+        className="aspect-[4/5] rounded-card"
         sizes="(min-width: 1280px) 600px, (min-width: 640px) 50vw, 100vw"
       />
 
@@ -106,7 +106,7 @@ export function MenuIncluded({
   className?: string;
 }) {
   return (
-    <div className={cn("bg-surface-alt px-6 py-6 sm:px-8", className)}>
+    <div className={cn("rounded-card bg-surface-alt px-6 py-6 sm:px-8", className)}>
       <p className="label-condensed text-[0.7rem] text-ink-muted">{label}</p>
       <ul className="mt-4 flex flex-wrap gap-x-8 gap-y-2">
         {items.map((item) => (

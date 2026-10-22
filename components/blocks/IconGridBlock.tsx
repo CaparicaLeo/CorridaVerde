@@ -38,7 +38,7 @@ export function IconGridBlock({
     <ul
       ref={root}
       className={cn(
-        "grid gap-px border border-line bg-line sm:grid-cols-3",
+        "grid gap-px overflow-hidden rounded-card border border-line bg-line sm:grid-cols-3",
         className,
       )}
     >

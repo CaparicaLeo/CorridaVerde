@@ -144,6 +144,17 @@ export const theme = {
     headlineTracking: "0em",
     /** Eyebrow/label: caixa alta pede tracking positivo para respirar. */
     labelTracking: "0.16em",
+    /**
+     * Cantos. Nada de quina viva nem de pílula: o site é editorial, e a
+     * pílula lia como app; a quina, como planilha. Dois degraus só —
+     *   control (8px) .. botão, campo, selo, chip do hero: peças de 44–56px
+     *                    de altura, em que 8px arredonda sem virar cápsula;
+     *   card (14px) .... cartão, foto emoldurada, grade de cards, formulário.
+     * Foto de fundo que sangra até a borda da tela (hero, SideMedia,
+     * backdrop do trajeto) continua reta: o canto ali seria da viewport.
+     */
+    radiusControl: "0.5rem",
+    radiusCard: "0.875rem",
   },
 } as const;
 
@@ -168,4 +179,6 @@ export const themeCss = `:root{
   --cv-headline-mask-pad-bottom:${theme.metrics.headlineMaskPadBottom};
   --cv-headline-tracking:${theme.metrics.headlineTracking};
   --cv-label-tracking:${theme.metrics.labelTracking};
+  --cv-radius-control:${theme.metrics.radiusControl};
+  --cv-radius-card:${theme.metrics.radiusCard};
 }`;

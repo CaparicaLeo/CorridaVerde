@@ -141,7 +141,7 @@ export function Accordion({
                 <span
                   aria-hidden
                   className={cn(
-                    "mt-1 grid size-7 shrink-0 place-items-center border transition-colors duration-300",
+                    "mt-1 grid size-7 shrink-0 place-items-center rounded-control border transition-colors duration-300",
                     isOpen
                       ? "border-accent bg-accent text-forest"
                       : "border-line-strong text-ink-muted group-hover:border-accent",
