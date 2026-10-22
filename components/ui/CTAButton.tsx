@@ -33,6 +33,26 @@ const sizeClasses: Record<Size, string> = {
   xl: "px-8 py-5 text-sm sm:px-12 sm:py-6 sm:text-base",
 };
 
+/**
+ * Corpo do botão, compartilhado com quem precisa de um `<button>` de verdade
+ * (o envio do formulário da lista de espera) em vez de um link.
+ *
+ * Pílula em todo botão do site: o `rounded-full` acompanha o halo do
+ * `primary` e o contorno de foco do link, senão o anel sai quadrado em volta
+ * de uma forma redonda.
+ */
+export function ctaClasses({
+  variant = "primary",
+  size = "lg",
+}: { variant?: Variant; size?: Size } = {}) {
+  return cn(
+    "label-condensed inline-flex items-center justify-center gap-3 rounded-full",
+    sizeClasses[size],
+    variantClasses[variant],
+    variant === "outline" && "transition-colors hover:border-accent",
+  );
+}
+
 export type CTAButtonProps = {
   children: ReactNode;
   /** Destino. Externo (a página de inscrição) abre em nova aba. */
@@ -139,13 +159,13 @@ export function CTAButton({
         aria-label={ariaLabel}
         target={isExternal ? "_blank" : undefined}
         rel={isExternal ? "noopener noreferrer" : undefined}
-        className="relative inline-flex w-full focus-visible:outline-offset-4"
+        className="relative inline-flex w-full rounded-full focus-visible:outline-offset-4"
       >
         {variant === "primary" ? (
           <span
             aria-hidden
             data-cta-glow
-            className="pointer-events-none absolute -inset-3 -z-10 bg-accent/40 opacity-0 blur-2xl"
+            className="pointer-events-none absolute -inset-3 -z-10 rounded-full bg-accent/40 opacity-0 blur-2xl"
             style={{ opacity: pulse ? 0.32 : 0 }}
           />
         ) : null}
@@ -153,10 +173,8 @@ export function CTAButton({
         <span
           data-cta-target
           className={cn(
-            "label-condensed relative inline-flex w-full items-center justify-center gap-3 will-change-transform",
-            sizeClasses[size],
-            variantClasses[variant],
-            variant === "outline" && "transition-colors hover:border-accent",
+            ctaClasses({ variant, size }),
+            "relative w-full will-change-transform",
           )}
         >
           {children}
