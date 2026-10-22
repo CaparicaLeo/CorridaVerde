@@ -91,8 +91,17 @@ export async function POST(request: Request) {
       }),
       signal: AbortSignal.timeout(10_000),
     });
-    if (!resp.ok) return Response.json({ ok: false }, { status: 502 });
-  } catch {
+    if (!resp.ok) {
+      // O visitante vê só o erro genérico; o motivo (404 evento, 401 token,
+      // 429 limite, 422 campo) fica no log da Vercel para quem for consertar.
+      console.error(
+        `[lista-de-espera] CRM respondeu ${resp.status}:`,
+        (await resp.text().catch(() => "")).slice(0, 300),
+      );
+      return Response.json({ ok: false }, { status: 502 });
+    }
+  } catch (error) {
+    console.error("[lista-de-espera] CRM inalcançável:", error);
     return Response.json({ ok: false }, { status: 502 });
   }
 
