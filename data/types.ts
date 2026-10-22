@@ -131,6 +131,8 @@ export type RouteStop = {
   id: string;
   /** Nome do lugar, como o atleta o conhece. */
   name: string;
+  /** Nome curto, para o trajeto em miniatura (ex.: "Tanguá"). */
+  shortName: string;
   /** Papel na prova: onde entra, onde sai, o que atravessa. */
   role: "start" | "through" | "finish";
   /** O que acontece ali. Uma linha, sem número. */

@@ -129,7 +129,7 @@ export function RouteDiagram({
  * se atravessa e chegada — e o que faz o esquema ser um percurso e não três
  * lugares enfileirados.
  */
-const roleLabel: Record<RouteStop["role"], string> = {
+export const roleLabel: Record<RouteStop["role"], string> = {
   start: "Largada",
   through: "Através de",
   finish: "Chegada",

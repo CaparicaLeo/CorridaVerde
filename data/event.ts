@@ -479,6 +479,7 @@ export const trajeto = {
     {
       id: "tanguea",
       name: "Parque Tanguá",
+      shortName: "Tanguá",
       role: "start",
       icon: "flag",
       caption: "Largada das provas de 16 km e 10,8 km, às 06h00",
@@ -486,6 +487,7 @@ export const trajeto = {
     {
       id: "tingui",
       name: "Parque Tingui",
+      shortName: "Tingui",
       role: "through",
       icon: "tree",
       caption: "Passagem no meio do percurso, entre a largada e a chegada",
@@ -493,6 +495,7 @@ export const trajeto = {
     {
       id: "barigui",
       name: "Parque Barigui",
+      shortName: "Barigui",
       role: "finish",
       icon: "finish",
       caption: "Chegada, arena, ativações e medalha",

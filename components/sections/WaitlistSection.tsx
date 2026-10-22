@@ -1,5 +1,6 @@
 "use client";
 
+import { RouteMini } from "@/components/blocks/RouteMini";
 import { WaitlistForm } from "@/components/blocks/WaitlistForm";
 import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -37,6 +38,12 @@ export function WaitlistSection({
         className="grid items-start gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16"
       >
         <SectionHeader intro={waitlist.intro} as={as}>
+          {/* O trajeto logo sob a promessa: quem entra na lista sabe para
+              qual prova está entrando. */}
+          <div data-reveal>
+            <RouteMini className="mt-2" />
+          </div>
+
           <ul data-reveal className="mt-2 flex flex-col gap-3.5 border-t border-line pt-6">
             {waitlist.benefits.map((benefit) => (
               <li key={benefit} className="flex items-baseline gap-3 text-base">
