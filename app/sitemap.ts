@@ -6,7 +6,7 @@ import { getRegulamento } from "@/lib/regulamento";
 /** Refeito de hora em hora: o regulamento pode ser publicado sem deploy. */
 export const revalidate = 3600;
 
-/** Rotas: a LP, o conceito da marca, o cardápio e, quando houver documento, o regulamento. */
+/** Rotas: a LP, o conceito da marca, o cardápio, a lista de espera e, quando houver documento, o regulamento. */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const regulamento = await getRegulamento();
 
@@ -19,6 +19,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: siteUrl, changeFrequency: "weekly", priority: 1 },
     { url: `${siteUrl}/conceito`, changeFrequency: "monthly", priority: 0.5 },
     { url: `${siteUrl}/cardapio`, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${siteUrl}/lista-de-espera`, changeFrequency: "monthly", priority: 0.6 },
     ...(regulamento
       ? [{ url: `${siteUrl}/regulamento`, changeFrequency: "weekly" as const, priority: 0.7 }]
       : []),

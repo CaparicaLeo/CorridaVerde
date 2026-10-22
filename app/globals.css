@@ -39,6 +39,8 @@
   --color-line: color-mix(in srgb, var(--cv-forest, black) 14%, transparent);
   --color-line-strong: color-mix(in srgb, var(--cv-forest, black) 28%, transparent);
   --color-accent-ink: var(--cv-lime-ink, darkgreen);
+  /* Erro de formulário: só nas chapas claras, onde o formulário mora. */
+  --color-danger: var(--cv-danger, firebrick);
 
   /* Famílias carregadas via next/font em app/fonts.ts. Chamada (headline,
      número de cartaz) em `--ff-display`; corpo e labels em `--ff-body`

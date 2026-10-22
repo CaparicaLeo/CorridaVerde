@@ -9,6 +9,7 @@ import { HistoriaSection } from "@/components/sections/HistoriaSection";
 import { PropositoSection } from "@/components/sections/PropositoSection";
 import { RacesSection } from "@/components/sections/RacesSection";
 import { TrajetoSection } from "@/components/sections/TrajetoSection";
+import { WaitlistSection } from "@/components/sections/WaitlistSection";
 import { EventJsonLd, FaqJsonLd } from "@/components/seo/EventJsonLd";
 import { impact } from "@/data/event";
 
@@ -19,7 +20,9 @@ import { impact } from "@/data/event";
  * diz "de parque a parque", logo abaixo o símbolo se apresenta (a araucária
  * refletida numa gota — a marca antes da prova), a seção do trajeto mostra o que isso significa
  * (dois parques, a cidade no meio), e só depois vêm as provas, a chegada (as
- * ativações e o cardápio pós-corrida), a sustentabilidade e o posicionamento. Provas antes de propósito porque o
+ * ativações e o cardápio pós-corrida), a lista de espera — o pedido de
+ * contato depois de a pessoa já saber o que vai encontrar —, a
+ * sustentabilidade e o posicionamento. Provas antes de propósito porque o
  * percurso é a informação que decide inscrição; propósito antes da história
  * porque a tradição é argumento, não oferta.
  *
@@ -39,6 +42,7 @@ export default function HomePage() {
       <RacesSection />
       <AtivacoesSection />
       <CardapioSection />
+      <WaitlistSection />
       <ImpactSlide
         id="conceito"
         lines={impact.lines}

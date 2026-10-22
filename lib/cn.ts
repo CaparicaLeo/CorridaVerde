@@ -16,6 +16,7 @@ const twMerge = extendTailwindMerge({
         "accent",
         "ink",
         "ink-muted",
+        "danger",
         "light",
         "light-alt",
       ],

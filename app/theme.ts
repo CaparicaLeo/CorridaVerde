@@ -58,6 +58,13 @@ export const theme = {
     lime: "#84C927",
     /** Derivada: o lima que pode ser texto sobre névoa e broto. */
     limeInk: "#497024",
+    /**
+     * Erro de formulário (lista de espera). Não é cor da identidade: é o
+     * vermelho funcional, escuro o bastante para texto pequeno — 6.49:1 na
+     * névoa e 5.76:1 no broto. Só aparece junto da mensagem escrita; a cor
+     * nunca é o único sinal do erro.
+     */
+    danger: "#A8261F",
   },
 
   /**
@@ -155,6 +162,7 @@ export const themeCss = `:root{
   --cv-forest-deep:${theme.colors.forestDeep};
   --cv-lime:${theme.colors.lime};
   --cv-lime-ink:${theme.colors.limeInk};
+  --cv-danger:${theme.colors.danger};
   --cv-headline-leading:${theme.metrics.headlineLeading};
   --cv-headline-mask-pad-top:${theme.metrics.headlineMaskPadTop};
   --cv-headline-mask-pad-bottom:${theme.metrics.headlineMaskPadBottom};

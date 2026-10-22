@@ -37,6 +37,7 @@ Barigui, e a cidade no meio. "De parque a parque".
 | Ordem das seções | `app/(site)/page.tsx` |
 | Paradas do percurso (ordem, nome, papel) | `data/event.ts` → `trajeto.stops` |
 | Ligar a medalha 3D | `components/medal/config.ts` |
+| Lista de espera (copy, opções) | `data/event.ts` → `waitlist`; envio em `app/api/lista-de-espera/route.ts` |
 
 ## Regras que não se quebram
 
@@ -57,7 +58,9 @@ Barigui, e a cidade no meio. "De parque a parque".
    altura de acento (Á/É/Í/Ã/Ô) e profundidade de cedilha (Ç). A conta está
    comentada em `app/theme.ts`.
 5. **Todo CTA de inscrição aponta para a página oficial** (`event.registrationUrl`).
-   Não existe checkout nem formulário próprio aqui.
+   Não existe checkout aqui. O único formulário é a lista de espera, que só
+   registra quem quer o aviso de abertura e grava na lista do evento no CRM
+   da organização (`crm_ts`, via API com token).
 6. **Um `data-*` de reveal por dono.** Bloco que anima os próprios elementos usa
    marcador próprio (ex.: `data-number-reveal`); `data-reveal` é da seção. Dois
    `gsap.from` sobre o mesmo alvo deixam o conteúdo invisível.

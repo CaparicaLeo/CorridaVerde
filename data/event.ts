@@ -337,16 +337,20 @@ export const seoDescription =
 /**
  * CTA de inscrição.
  *
- * O rótulo não promete o que não se pode garantir daqui: manda para a página
- * da organização, que é quem diz se o lote está aberto, em espera ou
- * esgotado. PENDÊNCIA 2 — quando a Thomé & Santos confirmar que as inscrições
- * estão abertas, este rótulo pode virar "Inscreva-se" e o `href` apontar para
- * a ticketeria. São as duas únicas linhas do projeto que mudam.
+ * POR ENQUANTO aponta para a lista de espera: a venda ainda não abriu, e o
+ * botão de inscrição recolhe o contato de quem quer o aviso em vez de levar
+ * a uma página sem venda. PENDÊNCIA 2 — quando a Thomé & Santos abrir as
+ * inscrições, o `href` volta para `event.registrationUrl` (ou a ticketeria),
+ * o rótulo vira "Inscreva-se" e a nota volta a dizer onde se compra. São as
+ * únicas linhas do projeto que mudam.
+ *
+ * "Quero ser avisado" é o mesmo verbo do envio do formulário, e cabe numa
+ * linha em 320px (17 caracteres contra os 21 do rótulo anterior).
  */
 export const registrationCta = {
-  label: "Ver onde se inscrever",
-  href: event.registrationUrl,
-  note: "Você será levado à página oficial da Corrida Verde, da Thomé & Santos, onde as inscrições são vendidas.",
+  label: "Quero ser avisado",
+  href: "/lista-de-espera",
+  note: "As inscrições ainda não abriram. Entre na lista de espera e receba o aviso de abertura por e-mail e WhatsApp.",
 } satisfies Cta;
 
 /* ---------------------------------------------------------------------------
@@ -934,6 +938,101 @@ export const cardapio = {
     /** <meta description> da rota; abaixo de 155 caracteres. */
     description:
       "O cardápio pós-corrida da Corrida Verde: duas experiências, Roast Beef & Chocolate e Avocado & Cinnamon, com café coado, suco e frutas.",
+    backCta: { label: "Voltar para a prova", href: "/" } satisfies Cta,
+  },
+};
+
+/* ---------------------------------------------------------------------------
+ * Lista de espera
+ * ------------------------------------------------------------------------- */
+
+/**
+ * Cadastro de quem quer o aviso de abertura das inscrições. NÃO é inscrição:
+ * a venda continua só na página oficial (`registrationCta`). O formulário
+ * posta em /api/lista-de-espera, que grava na lista do evento no CRM da
+ * Thomé & Santos (URL, token e slug nas envs `CRM_*`, nunca no bundle).
+ *
+ * Copy vinda da LP de lista de espera da organização. A promessa de aviso
+ * "antes da divulgação geral" é dela; o número de vagas é o mesmo 2.000 do
+ * deck que o resto do site usa.
+ */
+export const waitlist = {
+  intro: {
+    eyebrow: "Lista de espera",
+    title: "Saiba primeiro quando a venda abrir",
+    description:
+      "A 41ª edição tem 2.000 vagas. Quem está na lista recebe o aviso de abertura antes da divulgação geral.",
+  } satisfies SectionIntro,
+  benefits: [
+    "Aviso por e-mail e WhatsApp no dia da abertura",
+    "Novidades sobre percurso, kit e programação",
+    "Cadastro gratuito, sem compromisso de inscrição",
+  ],
+  /**
+   * As opções saem de `races.items`: milhas e km já estão conferidos lá (a
+   * LP da organização dizia "3,7 milhas" para os 5,8 km — são 3,6). O
+   * `value` é o texto que chega na planilha.
+   */
+  distances: races.items.map((race) => {
+    const miles = (race.badge ?? "").replace(/\s*MI$/, " milhas");
+    return {
+      id: race.id,
+      miles,
+      km: race.badgeNote ?? "",
+      detail: race.meta?.[0] ?? "",
+      value: `${miles} (${race.badgeNote})`,
+    };
+  }),
+  fields: {
+    name: "Nome completo",
+    email: "E-mail",
+    whatsapp: "WhatsApp",
+    whatsappPlaceholder: "(41) 99999-9999",
+    city: "Cidade",
+    distance: "Qual distância você pretende fazer?",
+  },
+  /** Sugestões do campo de cidade: Curitiba e a região metropolitana primeiro. */
+  cities: [
+    "Curitiba",
+    "São José dos Pinhais",
+    "Colombo",
+    "Pinhais",
+    "Araucária",
+    "Campo Largo",
+    "Almirante Tamandaré",
+    "Fazenda Rio Grande",
+    "Ponta Grossa",
+    "Paranaguá",
+  ],
+  consent: {
+    notice:
+      "Quero receber o aviso de abertura e novidades da Thomé & Santos por e-mail e WhatsApp.",
+    partners: "Aceito receber ofertas de parceiros da prova. Opcional.",
+  },
+  privacy: {
+    text: "Usamos seus dados só para avisar sobre a Corrida Verde e, se você autorizar, para ofertas de parceiros. Veja a",
+    linkLabel: "política de cookies e privacidade",
+    href: "https://www.thomeesantos.com.br/politica-de-cookies",
+  },
+  errors: {
+    name: "Escreva nome e sobrenome.",
+    email: "Confira o e-mail. Ele precisa ter @ e um domínio, como nome@email.com.",
+    whatsapp: "Informe o WhatsApp com DDD, por exemplo (41) 99999-9999.",
+    city: "Informe sua cidade.",
+    distance: "Escolha uma distância.",
+    notice: "Marque esta opção para receber o aviso de abertura.",
+    submit: "Não conseguimos registrar seu cadastro agora. Confira sua conexão e tente de novo.",
+  },
+  submitLabel: "Quero ser avisado",
+  sendingLabel: "Enviando…",
+  success: {
+    title: "Você está na lista.",
+    text: "Vamos avisar por e-mail e WhatsApp assim que as inscrições da Corrida Verde abrirem. Confira sua caixa de entrada e salve nosso contato.",
+  },
+  page: {
+    /** <meta description> da rota; abaixo de 155 caracteres. */
+    description:
+      "Entre na lista de espera da 41ª Corrida Verde e receba por e-mail e WhatsApp o aviso de abertura das inscrições. São 2.000 vagas.",
     backCta: { label: "Voltar para a prova", href: "/" } satisfies Cta,
   },
 };
