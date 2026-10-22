@@ -98,11 +98,13 @@ export async function POST(request: Request) {
         `[lista-de-espera] CRM respondeu ${resp.status}:`,
         (await resp.text().catch(() => "")).slice(0, 300),
       );
-      return Response.json({ ok: false }, { status: 502 });
+      // Só o código vai para o navegador — basta para quem abre a aba Rede
+      // saber de que lado consertar, e não diz nada sobre a lista.
+      return Response.json({ ok: false, crm: resp.status }, { status: 502 });
     }
   } catch (error) {
     console.error("[lista-de-espera] CRM inalcançável:", error);
-    return Response.json({ ok: false }, { status: 502 });
+    return Response.json({ ok: false, crm: "inalcançável" }, { status: 502 });
   }
 
   // Cópia para a planilha do n8n, quando configurada. Falha aqui não desfaz
