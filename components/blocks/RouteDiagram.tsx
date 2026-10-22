@@ -7,7 +7,7 @@ import { useGsapScroll } from "@/lib/hooks/useGsapScroll";
 import type { RouteStop } from "@/data/types";
 
 /**
- * Esquema do trajeto: Parque Tanguá → Curitiba → Parque Barigui.
+ * Esquema do trajeto: Parque Tanguá → Parque Tingui → Parque Barigui.
  *
  * É o conceito do evento desenhado — "a marca não ocupa um ponto, ocupa um
  * trajeto" — então ele é um ESQUEMA, não um mapa. Um mapa exigiria o traçado

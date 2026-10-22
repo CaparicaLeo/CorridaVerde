@@ -36,9 +36,9 @@ const paths: Record<string, ReactElement> = {
   ),
 
   /* ------------------------------------------------------------------------
-   * Território da marca: largada, cidade e chegada. Os três rótulos do
-   * percurso — Parque Tanguá, Curitiba e Parque Barigui — compartilham a
-   * mesma silhueta de parque; muda o que está dentro dela.
+   * Território da marca: largada, passagem e chegada. Os três rótulos do
+   * percurso — Parque Tanguá, Parque Tingui e Parque Barigui — compartilham
+   * a mesma silhueta de parque; muda o que está dentro dela.
    * ------------------------------------------------------------------------ */
 
   /** Parque: copas de árvore sobre o tronco, o marco da largada e da chegada. */

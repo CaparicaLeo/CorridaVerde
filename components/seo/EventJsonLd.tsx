@@ -11,7 +11,7 @@ import { event, faq, races, seoAlternateNames, seoDescription, siteUrl } from "@
  * de evento.
  *
  * O local também não é endereço: a prova ocupa um trajeto do Parque Tanguá ao
- * Parque Barigui, e não cabe em `streetAddress`. O que o schema descreve é a
+ * Parque Barigui, passando pelo Tingui, e não cabe em `streetAddress`. O que o schema descreve é a
  * arena de chegada (`venue`), que é onde o evento acontece — e a largada entra
  * como `eventAttendanceMode` do percurso, não como endereço. Um CEP de parque
  * aqui seria um dado inventado.

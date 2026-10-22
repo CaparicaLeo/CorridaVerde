@@ -41,7 +41,7 @@ export const displayFont = localFont({
 });
 
 /**
- * Corpo e labels em Satoshi. A Satoshi não tem ª/º: o "41ª" cai no fallback
+ * Corpo e labels em Satoshi. A Satoshi não tem ª/º: o "11ª" cai no fallback
  * sans da pilha em globals.css, que é o mais próximo do desenho dela.
  */
 export const bodyFont = localFont({

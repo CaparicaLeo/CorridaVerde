@@ -1,5 +1,5 @@
 /**
- * Tema da 41ª Corrida Verde — ÚNICA fonte dos hexes de marca do projeto.
+ * Tema da 11ª Corrida Verde — ÚNICA fonte dos hexes de marca do projeto.
  *
  * Regra do projeto: nenhum hex de marca fora daqui. Os tokens abaixo são
  * emitidos como custom properties `--cv-*` no <html> (ver `themeCss`), e o

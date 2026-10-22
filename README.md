@@ -1,10 +1,10 @@
-# 41ª Corrida Verde — Desafio 10 Milhas
+# 11ª Corrida Verde — Desafio 10 Milhas
 
-Landing page da 41ª edição da **Corrida Verde**, organizada pela
+Landing page da 11ª edição da **Corrida Verde**, organizada pela
 **Thomé & Santos — Eventos Esportivos**.
 
-O percurso é o conceito do evento: largada no **Parque Tanguá**, chegada no
-**Parque Barigui**, e a cidade de Curitiba no meio — *"de parque a parque"*.
+O percurso é o conceito do evento: largada no **Parque Tanguá**, passagem pelo
+**Parque Tingui** e chegada no **Parque Barigui** — *"de parque a parque"*.
 
 Projeto próprio e independente: Next.js 16 (App Router), React 19, TypeScript,
 Tailwind CSS v4 e GSAP. Não compartilha código nem deploy com nenhuma outra
@@ -53,12 +53,12 @@ docs/medalha-3d.md  # como ligar a medalha 3D quando a arte chegar
 | # | Seção | Papel |
 | --- | --- | --- |
 | 1 | Hero | A frase de conceito, data/período, horário e os CTAs |
-| 2 | O trajeto | Esquema Parque Tanguá → Curitiba → Parque Barigui |
+| 2 | O trajeto | Esquema Parque Tanguá → Parque Tingui → Parque Barigui |
 | 3 | Os percursos | 16 km, 10,8 km e 5,8 km com largada e chegada |
 | 4 | Ativações | O que o atleta encontra na chegada |
 | 5 | Conceito | Chapa verde: "Verde não é a cor. É o discurso." |
 | 6 | Propósito | Chapa clara: os eixos do posicionamento |
-| 7 | História | 41ª edição e 2.000 vagas |
+| 7 | História | 11ª edição e 2.000 vagas |
 | 8 | FAQ | As dez dúvidas que antecedem a inscrição |
 | 9 | Inscrição | CTA final e link para a página oficial |
 

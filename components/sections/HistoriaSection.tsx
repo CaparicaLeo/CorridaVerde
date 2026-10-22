@@ -9,7 +9,7 @@ import { fadeUp } from "@/lib/animations/presets";
 import { useGsapScroll } from "@/lib/hooks/useGsapScroll";
 
 /**
- * História e escala — 41ª edição, 2.000 vagas.
+ * História e escala — 11ª edição, 2.000 vagas.
  *
  * Substitui a antiga seção de "números da etapa", que contava dados de
  * operação do KM1. Aqui o número é o da própria prova e a foto (quando chegar)

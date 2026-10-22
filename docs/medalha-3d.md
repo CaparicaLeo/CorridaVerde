@@ -1,6 +1,6 @@
 # Medalha 3D — especificação do arquivo `.glb`
 
-Documento para quem vai modelar a medalha da 41ª Corrida Verde.
+Documento para quem vai modelar a medalha da 11ª Corrida Verde.
 O site já está pronto para receber o arquivo: seguindo esta especificação, a
 medalha entra no lugar do placeholder sem mexer em código.
 
@@ -64,7 +64,7 @@ medalha entra no lugar do placeholder sem mexer em código.
 - **Alvo: até 30 mil triângulos no total. Teto: 60 mil.**
 - A borda precisa ser redonda de verdade: **96 a 128 segmentos** na
   circunferência. É ali que o reflexo corre e a facetagem aparece.
-- Relevo grande (logo, "41", número da edição, borda) em **geometria**. Detalhe
+- Relevo grande (logo, "11", número da edição, borda) em **geometria**. Detalhe
   fino (textura de fundo, jateado, gravação rasa) em **normal map**, não em
   polígono.
 - Fita: plano com as duas faces visíveis ou sólido fino (≤ 0,3 mm). Nada de

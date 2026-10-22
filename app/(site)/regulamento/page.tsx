@@ -25,7 +25,7 @@ import { getRegulamento } from "@/lib/regulamento";
 export const dynamic = "force-dynamic";
 
 const description =
-  "Regulamento oficial da 41ª Corrida Verde, na íntegra e direto do Google Docs — o documento que vale no dia da prova.";
+  "Regulamento oficial da 11ª Corrida Verde, na íntegra e direto do Google Docs — o documento que vale no dia da prova.";
 
 /**
  * Enquanto o documento não existe, a página é só o estado vazio — conteúdo

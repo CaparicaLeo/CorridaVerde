@@ -14,12 +14,12 @@ import { EventJsonLd, FaqJsonLd } from "@/components/seo/EventJsonLd";
 import { impact } from "@/data/event";
 
 /**
- * Landing page da 41ª Corrida Verde.
+ * Landing page da 11ª Corrida Verde.
  *
  * A ordem conta a história do conceito antes de falar de produto: o hero já
  * diz "de parque a parque", logo abaixo o símbolo se apresenta (a araucária
  * refletida numa gota — a marca antes da prova), a seção do trajeto mostra o que isso significa
- * (dois parques, a cidade no meio), e só depois vêm as provas, a chegada (as
+ * (três parques — Tanguá, Tingui e Barigui), e só depois vêm as provas, a chegada (as
  * ativações e o cardápio pós-corrida), a lista de espera — o pedido de
  * contato depois de a pessoa já saber o que vai encontrar —, a
  * sustentabilidade e o posicionamento. Provas antes de propósito porque o

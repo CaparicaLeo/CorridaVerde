@@ -8,15 +8,15 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
-# 41ª Corrida Verde — regras do projeto
+# 11ª Corrida Verde — regras do projeto
 
 Site de evento único da Thomé & Santos. **Não depende de nenhuma outra etapa**:
 o motor veio da etapa KM1 como ponto de partida, e a partir daqui os dois
 projetos evoluem separados. Não importe nada de lá e não "sincronize" mudanças
 entre eles — as duas provas têm percurso, data e identidade diferentes.
 
-O conceito da prova é o trajeto: largada no Parque Tanguá, chegada no Parque
-Barigui, e a cidade no meio. "De parque a parque".
+O conceito da prova é o trajeto: largada no Parque Tanguá, passagem pelo
+Parque Tingui, chegada no Parque Barigui. "De parque a parque".
 
 ## Idioma e estilo
 

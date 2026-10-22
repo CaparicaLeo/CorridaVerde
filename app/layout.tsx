@@ -34,6 +34,7 @@ export const metadata: Metadata = {
     "10,8 km",
     "5,8 km",
     "Parque Tanguá",
+    "Parque Tingui",
     "Parque Barigui",
     "Thomé & Santos",
     "corrida Paraná",

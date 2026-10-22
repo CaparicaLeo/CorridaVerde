@@ -19,7 +19,7 @@ import type {
 
 /**
  * ============================================================================
- * 41ª Corrida Verde — Desafio 10 Milhas · configuração única do site.
+ * 11ª Corrida Verde — Desafio 10 Milhas · configuração única do site.
  * ============================================================================
  *
  * Tudo que é conteúdo mora neste arquivo. Componente não guarda copy, número
@@ -33,7 +33,7 @@ import type {
  *
  * PENDÊNCIAS ABERTAS (setembro/2026):
  *
- * 1. DATA — em aberto. A 41ª edição acontece em FEVEREIRO DE 2027 e o dia
+ * 1. DATA — em aberto. A 11ª edição acontece em FEVEREIRO DE 2027 e o dia
  *    ainda não foi divulgado. `date` fica null de propósito: zerar um único
  *    campo devolve a LP inteira ao estado sem data (hero, chip, rodapé, FAQ e
  *    JSON-LD deixam de exibir a data ao mesmo tempo) e a volta é uma linha.
@@ -71,9 +71,9 @@ import type {
  *    `midias-originais/` (fora do git e de `public/`); em `public/images/` vão
  *    só os derivados de web. PENDÊNCIA 8 resolvida para as três: o `alt` foi
  *    escrito olhando a foto. São de edição anterior (EXIF de 08/02/2026), e
- *    nada na página as apresenta como da 41ª.
+ *    nada na página as apresenta como da 11ª.
  *
- * 6. REGULAMENTO — em aberto. Não há documento publicado para a 41ª. A rota
+ * 6. REGULAMENTO — em aberto. Não há documento publicado para a 11ª. A rota
  *    /regulamento fica no ar em estado vazio, apontando para a ficha oficial,
  *    e a página entra no ar pronta: só falta o `docId`, que é uma linha em
  *    `regulamentoSource`.
@@ -89,14 +89,14 @@ import type {
 
 export const event = {
   /** Como o evento se chama na página oficial. */
-  name: "41ª Corrida Verde — Desafio 10 Milhas",
+  name: "11ª Corrida Verde — Desafio 10 Milhas",
   shortName: "Corrida Verde",
   /** Circuito/temporada — usado no rodapé e no header. */
   series: {
     slug: "corrida-verde",
     name: "Corrida Verde",
-    /** "41ª edição" no rodapé e no cabeçalho do CTA final. */
-    season: "41ª edição",
+    /** "11ª edição" no rodapé e no cabeçalho do CTA final. */
+    season: "11ª edição",
     /** "Fevereiro de 2027" — o período confirmado, sem dia. */
     period: "Fevereiro de 2027",
   },
@@ -120,7 +120,7 @@ export const event = {
   startTime: "06:00" as string | null,
 
   /**
-   * Dois parques, uma cidade no meio.
+   * Três parques, um trajeto: largada no Tanguá, passagem pelo Tingui, chegada no Barigui.
    *
    * O percurso é o conceito do evento, então ele NÃO é campo de endereço: não
    * há uma rua, um número e um CEP que sirvam para uma prova que atravessa a
@@ -135,10 +135,14 @@ export const event = {
     city: "Curitiba",
     state: "PR",
     region: "Paraná",
-    /** Etiqueta curta: cabe num chip do hero e numa linha de marquee. */
-    label: "Parque Tanguá → Parque Barigui",
+    /**
+     * Etiqueta curta: cabe num chip do hero e numa linha de marquee. Sem o
+     * "Parque" de cada nome: com três parques, a versão longa quebrava o
+     * chip em duas linhas no celular.
+     */
+    label: "Tanguá → Tingui → Barigui",
     /** Linha única para hero, rodapé e ficha do JSON-LD. */
-    full: "Parque Tanguá e Parque Barigui · Curitiba - PR",
+    full: "Parques Tanguá, Tingui e Barigui · Curitiba - PR",
   },
 
   /**
@@ -223,7 +227,7 @@ export const event = {
    * seção dissolvendo sobre ela (SideMedia).
    *
    * A foto é de uma edição anterior, e nada na interface a apresenta como da
-   * 41ª: se a organização quiser o crédito da edição, ele vai em `historia`.
+   * 11ª: se a organização quiser o crédito da edição, ele vai em `historia`.
    */
   photo: {
     src: "/images/historia-pelotao.jpg",
@@ -332,7 +336,7 @@ export const seoAlternateNames = [
 ];
 
 export const seoDescription =
-  "Corrida Verde · Desafio 10 Milhas: 16 km, 10,8 km e 5,8 km entre o Parque Tanguá e o Parque Barigui, em Curitiba. 41ª edição, fevereiro de 2027.";
+  "Corrida Verde · Desafio 10 Milhas: 16 km, 10,8 km e 5,8 km entre os parques Tanguá, Tingui e Barigui, em Curitiba. 11ª edição, fevereiro de 2027.";
 
 /**
  * CTA de inscrição.
@@ -363,7 +367,7 @@ export const registrationCta = {
  * documento a cada visita e renderiza o que ele disser naquele momento.
  * Quem edita é a organização, uma vez; o site acompanha.
  *
- * PENDÊNCIA 6: não existe documento publicado para a 41ª edição, então os três
+ * PENDÊNCIA 6: não existe documento publicado para a 11ª edição, então os três
  * campos são null e a página entra em estado vazio. Ela já está pronta para o
  * documento — preencher `docId` (e derivar as duas URLs) é o que liga a fonte.
  */
@@ -397,7 +401,7 @@ export const regulamentoPage = {
     eyebrow: "Regulamento oficial",
     title: "Regulamento a publicar",
     description:
-      "A organização ainda não publicou o regulamento da 41ª edição. Quando publicar, o documento aparece aqui na íntegra — sem cópia intermediária. Até lá, a página oficial do evento é a fonte que vale.",
+      "A organização ainda não publicou o regulamento da 11ª edição. Quando publicar, o documento aparece aqui na íntegra — sem cópia intermediária. Até lá, a página oficial do evento é a fonte que vale.",
   } satisfies SectionIntro,
 } as const;
 
@@ -424,7 +428,7 @@ export const hero = {
   /** Versão em uma linha — vira o <h1> e alimenta o SEO. */
   headline: event.name,
   subheadline:
-    "A corrida que atravessa a cidade mais verde do Brasil: largada no Parque Tanguá, chegada no Parque Barigui e uma arena no coração de Curitiba.",
+    "A corrida que atravessa a cidade mais verde do Brasil: largada no Parque Tanguá, passagem pelo Parque Tingui, chegada no Parque Barigui e uma arena no coração de Curitiba.",
   scrollHint: "Role para ver o trajeto",
   marquee: [
     "DE PARQUE A PARQUE",
@@ -437,7 +441,7 @@ export const hero = {
 };
 
 /* ---------------------------------------------------------------------------
- * Trajeto — Parque Tanguá → Curitiba → Parque Barigui
+ * Trajeto — Parque Tanguá → Parque Tingui → Parque Barigui
  * ------------------------------------------------------------------------- */
 
 export const trajeto = {
@@ -460,7 +464,7 @@ export const trajeto = {
     eyebrow: "O trajeto",
     title: "De parque a parque",
     description:
-      "A marca não ocupa um ponto. Ocupa um trajeto: dois parques e a cidade inteira no meio.",
+      "A marca não ocupa um ponto. Ocupa um trajeto: três parques e a cidade entre eles.",
   } satisfies SectionIntro,
   /**
    * O percurso é dado, não geometria: a ordem das paradas e o papel de cada uma
@@ -480,11 +484,11 @@ export const trajeto = {
       caption: "Largada das provas de 16 km e 10,8 km, às 06h00",
     },
     {
-      id: "curitiba",
-      name: "Curitiba",
+      id: "tingui",
+      name: "Parque Tingui",
       role: "through",
-      icon: "city",
-      caption: "A cidade mais verde do Brasil no meio do percurso",
+      icon: "tree",
+      caption: "Passagem no meio do percurso, entre a largada e a chegada",
     },
     {
       id: "barigui",
@@ -499,7 +503,7 @@ export const trajeto = {
     "Os três percursos terminam na mesma arena, no Parque Barigui. O percurso curto sai de lá e volta para lá.",
   /** Legenda do desenho, para quem não enxerga o esquema. */
   diagramLabel:
-    "Esquema do trajeto: largada no Parque Tanguá, percurso pela cidade de Curitiba e chegada no Parque Barigui.",
+    "Esquema do trajeto: largada no Parque Tanguá, passagem pelo Parque Tingui e chegada no Parque Barigui.",
 };
 
 /* ---------------------------------------------------------------------------
@@ -533,7 +537,7 @@ export const races = {
       badge: "10 MI",
       badgeNote: "16 km",
       description:
-        "A prova que dá nome ao desafio: 16 km atravessando a cidade do Parque Tanguá ao Parque Barigui.",
+        "A prova que dá nome ao desafio: 16 km do Parque Tanguá ao Parque Barigui, passando pelo Parque Tingui.",
       from: "Parque Tanguá",
       to: "Parque Barigui",
       meta: ["Corrida", "Largada e chegada em parques diferentes"],
@@ -642,7 +646,7 @@ export const impact = {
     [{ text: "Verde no discurso." }],
   ] satisfies HeadlineLine[],
   support:
-    "O percurso atravessa dois parques e a cidade entre eles, cada inscrição vira uma muda plantada em Curitiba e a medalha é feita de material sustentável. Verde é o assunto da prova, não a decoração da página.",
+    "O percurso liga três parques — Tanguá, Tingui e Barigui —, cada inscrição vira uma muda plantada em Curitiba e a medalha é feita de material sustentável. Verde é o assunto da prova, não a decoração da página.",
   /**
    * Corredor sozinho numa trilha de mata fechada — a tela "Onde a marca
    * aparece" do deck comercial 2027. Original `7S7A2308-Editar.jpg`
@@ -961,7 +965,7 @@ export const waitlist = {
     eyebrow: "Lista de espera",
     title: "Saiba primeiro quando a venda abrir",
     description:
-      "A 41ª edição tem 2.000 vagas. Quem está na lista recebe o aviso de abertura antes da divulgação geral.",
+      "A 11ª edição tem 2.000 vagas. Quem está na lista recebe o aviso de abertura antes da divulgação geral.",
   } satisfies SectionIntro,
   benefits: [
     "Aviso por e-mail e WhatsApp no dia da abertura",
@@ -1032,7 +1036,7 @@ export const waitlist = {
   page: {
     /** <meta description> da rota; abaixo de 155 caracteres. */
     description:
-      "Entre na lista de espera da 41ª Corrida Verde e receba por e-mail e WhatsApp o aviso de abertura das inscrições. São 2.000 vagas.",
+      "Entre na lista de espera da 11ª Corrida Verde e receba por e-mail e WhatsApp o aviso de abertura das inscrições. São 2.000 vagas.",
     backCta: { label: "Voltar para a prova", href: "/" } satisfies Cta,
   },
 };
@@ -1094,7 +1098,7 @@ export const proposito = {
       [{ text: "um trajeto.", accent: true }],
     ] satisfies HeadlineLine[],
     support:
-      "Do Parque Tanguá ao Parque Barigui, atravessando a cidade.",
+      "Do Parque Tanguá ao Parque Barigui, passando pelo Parque Tingui.",
   },
 };
 
@@ -1104,7 +1108,7 @@ export const proposito = {
 
 export const historia = {
   intro: {
-    eyebrow: "A tradição · 41ª edição",
+    eyebrow: "A tradição · 11ª edição",
     title: "Sempre em fevereiro",
     description:
       "Prova tradicionalmente realizada em fevereiro, com uma comunidade que comparece edição após edição.",
@@ -1117,12 +1121,12 @@ export const historia = {
    */
   number: {
     value: 2000,
-    caption: "vagas na 41ª edição",
+    caption: "vagas na 11ª edição",
     note: "Todo atleta que concluir o percurso dentro do tempo recebe medalha. A premiação contempla 1º, 2º e 3º lugares.",
     emptyState: "",
   } satisfies BigNumber,
   kpis: [
-    { id: "edicao", icon: "medal", label: "41ª edição" },
+    { id: "edicao", icon: "medal", label: "11ª edição" },
     { id: "largada", icon: "clock", label: "Largada às 06h00" },
     { id: "arena", icon: "finish", label: "Arena no Parque Barigui" },
     { id: "idade", icon: "shield", label: "A partir de 14 anos" },
@@ -1141,7 +1145,7 @@ export const faq = {
   items: [
     {
       id: "data",
-      question: "Qual é a data da 41ª edição?",
+      question: "Qual é a data da 11ª edição?",
       answer:
         "A Corrida Verde acontece em fevereiro de 2027, e o dia exato ainda não foi divulgado. Assim que a organização confirmar, a data aparece aqui e na página oficial do evento — é de lá que sai a informação que vale.",
     },
@@ -1213,7 +1217,7 @@ export const finalCta = {
     [{ text: "a parque", accent: true }, { text: "." }],
   ] satisfies HeadlineLine[],
   description:
-    "As inscrições da 41ª Corrida Verde são vendidas na página oficial do evento, da Thomé & Santos. Lotes e valores estão lá — e o regulamento completo, publicado na íntegra aqui no site, é o que vale no dia da prova.",
+    "As inscrições da 11ª Corrida Verde são vendidas na página oficial do evento, da Thomé & Santos. Lotes e valores estão lá — e o regulamento completo, publicado na íntegra aqui no site, é o que vale no dia da prova.",
 };
 
 /* ---------------------------------------------------------------------------
