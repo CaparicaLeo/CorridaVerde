@@ -1018,8 +1018,8 @@ export const waitlist = {
   },
   privacy: {
     text: "Usamos seus dados só para avisar sobre a Corrida Verde e, se você autorizar, para ofertas de parceiros. Veja a",
-    linkLabel: "política de cookies e privacidade",
-    href: "https://www.thomeesantos.com.br/politica-de-cookies",
+    linkLabel: "política de privacidade",
+    href: "/politica-de-privacidade",
   },
   errors: {
     name: "Escreva nome e sobrenome.",

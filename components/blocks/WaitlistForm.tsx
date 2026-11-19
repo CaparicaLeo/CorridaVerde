@@ -308,10 +308,10 @@ export function WaitlistForm({ className }: { className?: string }) {
 
       <p className="text-xs leading-relaxed text-ink-muted">
         {waitlist.privacy.text}{" "}
+        {/* Nova aba: quem está no meio do cadastro não perde o que digitou. */}
         <a
           href={waitlist.privacy.href}
           target="_blank"
-          rel="noopener noreferrer"
           className="font-semibold text-accent-ink underline underline-offset-2"
         >
           {waitlist.privacy.linkLabel}

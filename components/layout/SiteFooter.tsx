@@ -77,9 +77,17 @@ export function SiteFooter() {
             © {new Date().getFullYear()} {event.organizer.name}. Todos os
             direitos reservados.
           </p>
-          <p className="label-condensed text-[0.65rem]">
-            {eventDate.short ?? event.dateLabel}
-          </p>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+            <Link
+              href="/politica-de-privacidade"
+              className="transition-colors hover:text-ink"
+            >
+              Política de Privacidade
+            </Link>
+            <p className="label-condensed text-[0.65rem]">
+              {eventDate.short ?? event.dateLabel}
+            </p>
+          </div>
         </div>
       </div>
     </footer>
